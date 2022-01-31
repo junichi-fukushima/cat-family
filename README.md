@@ -14,17 +14,16 @@ cat_family % docker-compose build
 cat_family % docker-compose up
 ```
 
-**③Rails側でデータベースの作成　**
+**③Rails側でデータベースの作成**
 
 ```
 cat_family % docker-compose exec api rails db:create
 ```
 
-**④Railsでアプリケーションの起動をする　**
+**④Railsでアプリケーションの起動をする**
 
 ```
 cat_family % docker-compose up
-
 ```
 
 **※nokogiriでエラーが出た場合**
@@ -36,4 +35,3 @@ api % bundle config set force_ruby_platform true
 cat_family % docker-compose build
 cat_family % docker-compose up
 ```
-
