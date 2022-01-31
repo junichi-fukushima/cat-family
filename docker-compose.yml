@@ -1,0 +1,36 @@
+version: '3.7'
+
+services:
+  db:
+    # M1だとエラー出るので追記
+    platform: linux/x86_64
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: root
+    ports:
+      - "3306:3306"
+    volumes:
+      - db-volume:/var/lib/mysql
+  api:
+    build: ./api/
+    command: rails server -b 0.0.0.0
+    volumes:
+      - ./api:/cat_family/api
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    tty: true
+    stdin_open: true
+  frontend:
+    build:
+      context: ./frontend/
+      dockerfile: Dockerfile
+    volumes:
+      - ./frontend:/usr/src/app
+    command: sh -c 'npm run dev'
+    ports:
+      - "8000:3000"
+volumes:
+  db-volume:
