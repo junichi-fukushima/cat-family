@@ -15,7 +15,7 @@ Ruby on Rails
 
 **フロントエンド**<br>
 Next.js<br>
-TailWind.css
+TailWindCSS
 
 **テスト**<br>
 Rspec<br>
@@ -26,7 +26,6 @@ GithubActions
 
 **開発環境**<br>
 Docker
-
 
 
 ## ローカル環境導入方法
@@ -65,6 +64,12 @@ cat_family % cd api
 api % bundle config set force_ruby_platform true
 cat_family % docker-compose build
 cat_family % docker-compose up
+```
+
+## Reactでのライブラリ追加
+```
+cat_family % cd ../frontend
+frontend % docker-compose run frontend npm install
 ```
 
 ## 設計書周り
