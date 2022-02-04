@@ -1,0 +1,9 @@
+@layer components {
+  /* button */
+  .rounded-button{
+    @apply font-bold py-2 px-4 rounded-full text-sm w-28 text-center;
+  }
+  .btn-green {
+    @apply bg-green text-white hover:bg-opacity-70 ;
+  }
+}

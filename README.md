@@ -66,10 +66,12 @@ cat_family % docker-compose build
 cat_family % docker-compose up
 ```
 
-## Reactでのライブラリ追加
+## TailWindCSSのビルド方法
+本サービスではTailwindCSSを使っている。./styles/globals.cssと./styles/tailwind.cssは直接編集してはならない
+ビルド方法は下記の通り
 ```
 cat_family % cd ../frontend
-frontend % docker-compose run frontend npm install
+frontend % npm run tailwind
 ```
 
 ## 設計書周り
