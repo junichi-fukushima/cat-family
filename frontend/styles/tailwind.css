@@ -1,7 +1,0 @@
-/* import TailWindCSS */
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-/* components */
-@import "../components/atoms/button/**"
