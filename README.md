@@ -15,7 +15,8 @@ Ruby on Rails
 
 **フロントエンド**<br>
 Next.js<br>
-TailWindCSS
+styled-components<br>
+Material UI<br>
 
 **テスト**<br>
 Rspec<br>
