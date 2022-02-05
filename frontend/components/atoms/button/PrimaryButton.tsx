@@ -14,13 +14,15 @@ export const PrimaryButton: VFC<Props> = memo((props) => {
   );
 });
 
-
 // styled-components
 const Button = styled.div`
-  background-color: #3EB370;
-  color:#ffffff;
+  background-color: #3eb370;
+  color: #ffffff;
   border-radius: 30px;
-  max-width: 100px;
-  padding:10px;
+  padding: 10px;
   text-align: center;
+  cursor: pointer;
+  &:hover{
+    opacity:0.7;
+  }
 `;

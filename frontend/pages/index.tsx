@@ -1,6 +1,5 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import Image from "next/image";
 import { HeaderLayout } from "../components/organisms/leyout/HeaderLayout";
 
 const Home: NextPage = () => {
