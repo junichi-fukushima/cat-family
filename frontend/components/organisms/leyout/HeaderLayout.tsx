@@ -20,7 +20,6 @@ export const HeaderLayout: VFC = memo(() => {
   );
 });
 
-// styled-components
 const Header = styled.header`
   padding: 20px 30px;
   display: flex;
