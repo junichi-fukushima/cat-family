@@ -1,8 +1,7 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
-import { PrimaryButton } from "../components/atoms/button/PrimaryButton";
-import { Header } from "../components/organisms/leyout/Header";
+import { HeaderLayout } from "../components/organisms/leyout/HeaderLayout";
 
 const Home: NextPage = () => {
   return (
@@ -13,7 +12,7 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className="container my-0 lg:mx-auto md:w-screen">
-        <Header />
+        <HeaderLayout />
       </div>
     </>
   );
