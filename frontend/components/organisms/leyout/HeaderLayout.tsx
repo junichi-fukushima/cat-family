@@ -3,7 +3,6 @@ import Link from "next/link";
 import { memo, VFC } from "react";
 import { PrimaryButton } from "../../atoms/button/PrimaryButton";
 
-
 export const HeaderLayout: VFC = memo(() => {
   return (
     <>
@@ -13,25 +12,25 @@ export const HeaderLayout: VFC = memo(() => {
             <a>ロゴ</a>
           </h1>
           <HeaderNav>
-            <ul>
-              <li>
+            <HeaderList>
+              <HeaderItem>
                 <Link href="#">
                   <a>里親募集</a>
                 </Link>
-              </li>
-              <li>
+              </HeaderItem>
+              <HeaderItem>
                 <Link href="#">
                   <a>猫ブログ</a>
                 </Link>
-              </li>
-            </ul>
+              </HeaderItem>
+            </HeaderList>
             <p>猫好きのための里親募集コミュニティ</p>
           </HeaderNav>
         </HeaderFixed>
-        <div>
+        <HeaderButtonWrap>
           <PrimaryButton>ログイン</PrimaryButton>
           <PrimaryButton>新規登録</PrimaryButton>
-        </div>
+        </HeaderButtonWrap>
       </Header>
     </>
   );
@@ -46,4 +45,11 @@ const HeaderFixed = styled.div`
 `;
 const HeaderNav = styled.nav`
   display: flex;
+`;
+const HeaderList = styled.ul`
+  display: flex;
+`;
+const HeaderItem = styled.nav``;
+const HeaderButtonWrap = styled.nav`
+  margin-left: auto;
 `;
