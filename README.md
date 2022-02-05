@@ -15,6 +15,7 @@ Ruby on Rails
 
 **フロントエンド**<br>
 Next.js<br>
+TypeScript<br>
 styled-components<br>
 Material UI<br>
 
