@@ -2,7 +2,7 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import styled from "styled-components";
 import { SelectCatSearch } from "../components/atoms/input/SelectCatSearch";
-import { HeaderLayout } from "../components/organisms/leyout/HeaderLayout";
+import { HeaderLayout } from "../components/organisms/layout/HeaderLayout";
 import { color } from "../components/utility/colors";
 
 const prefectures = [{ value: "現在地", label: "現在地" },
