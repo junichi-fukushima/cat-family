@@ -15,7 +15,6 @@ export const PrimaryButton: VFC<Props> = memo((props) => {
   );
 });
 
-// styled-components
 const Button = styled.div`
   background-color: ${color.green};
   color: ${color.white};

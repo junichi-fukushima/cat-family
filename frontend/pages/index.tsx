@@ -1,8 +1,33 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import styled from "styled-components";
+import { SelectCatSearch } from "../components/atoms/input/SelectCatSearch";
 import { HeaderLayout } from "../components/organisms/leyout/HeaderLayout";
 import { color } from "../components/utility/colors";
+
+const prefectures = [{ value: "現在地", label: "現在地" },
+{ value: "神奈川県", label: "神奈川県" }];
+
+const ages = [
+  { value: "", label: "年齢" },
+  { value: "〜1歳", label: "〜1歳" },
+  { value: "〜5歳", label: "〜5歳" },
+  { value: "〜10歳", label: "〜10歳" },
+  { value: "〜11歳以上", label: "〜11歳以上" },
+];
+
+const types = [
+  { value: "", label: "種類" },
+  { value: "雑種(キジ白)", label: "雑種(キジ白)" },
+  { value: "雑種(黒猫)", label: "雑種(黒猫)" },
+  { value: "雑種(茶猫)", label: "雑種(茶猫)" },
+];
+
+const sexs = [
+  { value: "", label: "性別" },
+  { value: "男の子", label: "男の子" },
+  { value: "女の子", label: "女の子" },
+];
 
 const Home: NextPage = () => {
   return (
@@ -14,6 +39,21 @@ const Home: NextPage = () => {
       </Head>
       <Container>
         <HeaderLayout />
+        <div>
+          <h2>猫の里親募集</h2>
+          <aside>
+            <ul>
+              <li>絞り込み</li>
+              <li>クリア</li>
+            </ul>
+            <form action="">
+              <SelectCatSearch options={prefectures} />
+              <SelectCatSearch options={ages} />
+              <SelectCatSearch options={types} />
+              <SelectCatSearch options={sexs} />
+            </form>
+          </aside>
+        </div>
       </Container>
     </>
   );
@@ -22,8 +62,6 @@ const Home: NextPage = () => {
 // styled-components
 const Container = styled.div`
   color: ${color.black};
-
 `;
-
 
 export default Home;
