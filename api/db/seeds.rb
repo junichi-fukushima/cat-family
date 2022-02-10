@@ -8,9 +8,7 @@
 
 10.times do |n|
   cat = Cat.new(
-    name: "testレストラン_#{n}",
-    fee: 100,
-    time_required: 10,
+    # ここに繰り返し処理を記載
   )
 
   restaurant.save!
