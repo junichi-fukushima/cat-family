@@ -52,16 +52,18 @@ const useStyles = makeStyles({
 });
 
 const Home: NextPage = () => {
+  const [checkState, setCheckState] = useState(checkLists);
 
-  const [checkState, setcheckState] = useState(checkLists);
-
+  // Note : 実際のデータはidで比較した方が良い
   const handleChecked = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if(event.target.checked){
-      setcheckState({...checkState,[event.target.checked]:true})
-    } else {
-      setcheckState({...checkState,[event.target.checked]:false})
-    }
-  }
+    setCheckState(
+      checkState.map((x) =>
+        x.value == event.target.value
+          ? { value: x.value, checked: event.target.checked }
+          : x
+      )
+    );
+  };
 
   // SP用検索窓
   const classes = useStyles();
@@ -96,13 +98,14 @@ const Home: NextPage = () => {
           <SelectCatSearch options={sexs} />
         </SelectWrap>
         <CheckBoxWrap>
-          {checkLists.map((item, index) => {
+          {checkState.map((item, index) => {
             index = index + 1;
             return (
               <CheckBoxCatSearch
                 key={index}
                 index={`id_${index}`}
                 item={item.value}
+                onChange={handleChecked}
               >
                 {item.value}
               </CheckBoxCatSearch>
@@ -143,13 +146,14 @@ const Home: NextPage = () => {
                 <SelectCatSearch options={sexs} />
               </SelectWrap>
               <CheckBoxWrap>
-                {checkLists.map((item, index) => {
+                {checkState.map((item, index) => {
                   index = index + 1;
                   return (
                     <CheckBoxCatSearch
                       key={index}
                       index={`id_${index}`}
                       item={item.value}
+                      checked={item.checked}
                       onChange={handleChecked}
                     >
                       {item.value}

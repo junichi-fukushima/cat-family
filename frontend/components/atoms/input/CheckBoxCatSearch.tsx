@@ -14,13 +14,13 @@ export const CheckBoxCatSearch: VFC<Props> = memo((props) => {
   const { children, item, index, checked, onChange } = props;
   return (
     <>
-      <CheckLabel htmlFor={`${index}`}>
+      <CheckLabel htmlFor={`${index}`} checked={checked}>
         <CheckBox
           id={`${index}`}
           value={item}
           checked={checked}
-          type="checkbox"
           onChange={onChange}
+          type="checkbox"
         />
         <span>{children}</span>
       </CheckLabel>
@@ -30,13 +30,14 @@ export const CheckBoxCatSearch: VFC<Props> = memo((props) => {
 
 const CheckBox = styled.input`
   display: none;
-  &:checked {
-    background-color: ${color.green};
-  }
 `;
+
 const CheckLabel = styled.label`
-  border: 1px solid ${color.darkGrey};
   text-align: center;
   padding: 10px;
   border-radius: 30px;
+  border:${props => props.checked == true ? '1px solid #3EB370' : '1px solid #808080'} ;
+  background-color: ${props => props.checked == true ? '#3EB370' : '#ffffff'} ;
+  color: ${props => props.checked == true ? '#ffffff' : '#555555'} ;
+
 `;
