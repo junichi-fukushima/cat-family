@@ -17,8 +17,5 @@
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules"],
-  "paths": {
-    "@variable": "frontend/styles/utility/resposive.scss"
-  },
 
 }

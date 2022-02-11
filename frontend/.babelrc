@@ -1,3 +1,10 @@
 {
-  "presets": ["next/babel"]
+  "presets": ["next/babel"],
+  "plugins": [
+    [
+      // 再レンダリング時クラス名変更の影響でCSSが当たらないので記載
+      "styled-components",
+      { "ssr": true, "preprocess": false }
+    ]
+  ]
 }
