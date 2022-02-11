@@ -2,12 +2,9 @@ import React from "react";
 import type { NextPage } from "next";
 import Head from "next/head";
 import { useState } from "react";
-import Image from "next/image";
 import styled from "styled-components";
-import { CheckBoxCatSearch } from "../components/atoms/input/CheckBoxCatSearch";
-import { SelectCatSearch } from "../components/atoms/input/SelectCatSearch";
 import { H2Text } from "../components/atoms/text/H2Text";
-import { HeaderLayout } from "../components/organisms/layout/HeaderLayout";
+import { HeaderLayout } from "../components/template/layout/HeaderLayout";
 import { color } from "../components/utility/colors";
 import { device } from "../components/utility/responsive";
 
@@ -20,13 +17,11 @@ import Divider from "@material-ui/core/Divider";
 
 // import data
 import {
-  ages,
-  catList,
   checkLists,
-  prefectures,
-  sexs,
-  types,
+  catList,
 } from "../api/cat-data";
+import { CatItems } from "../components/organisms/index/CatItems";
+import { CatSearchArea } from "../components/template/index/CatSearchArea";
 
 const useStyles = makeStyles({
   list: {
@@ -91,27 +86,7 @@ const Home: NextPage = () => {
       onKeyDown={toggleDrawer("right", false)}
     >
       <List>
-        <SelectWrap>
-          <SelectCatSearch options={prefectures} />
-          <SelectCatSearch options={ages} />
-          <SelectCatSearch options={types} />
-          <SelectCatSearch options={sexs} />
-        </SelectWrap>
-        <CheckBoxWrap>
-          {checkState.map((item, index) => {
-            index = index + 1;
-            return (
-              <CheckBoxCatSearch
-                key={index}
-                index={`id_${index}`}
-                item={item.value}
-                onChange={handleChecked}
-              >
-                {item.value}
-              </CheckBoxCatSearch>
-            );
-          })}
-        </CheckBoxWrap>
+        <CatSearchArea checkState={checkState} handleChecked={handleChecked} />
       </List>
       <Divider />
     </div>
@@ -138,30 +113,10 @@ const Home: NextPage = () => {
               <CatSearchHeadingItem>絞り込む</CatSearchHeadingItem>
               <CatSearchHeadingItem>クリア</CatSearchHeadingItem>
             </CatSearchHeading>
-            <Form>
-              <SelectWrap>
-                <SelectCatSearch options={prefectures} />
-                <SelectCatSearch options={ages} />
-                <SelectCatSearch options={types} />
-                <SelectCatSearch options={sexs} />
-              </SelectWrap>
-              <CheckBoxWrap>
-                {checkState.map((item, index) => {
-                  index = index + 1;
-                  return (
-                    <CheckBoxCatSearch
-                      key={index}
-                      index={`id_${index}`}
-                      item={item.value}
-                      checked={item.checked}
-                      onChange={handleChecked}
-                    >
-                      {item.value}
-                    </CheckBoxCatSearch>
-                  );
-                })}
-              </CheckBoxWrap>
-            </Form>
+            <CatSearchArea
+              checkState={checkState}
+              handleChecked={handleChecked}
+            />
           </Aside>
           <Section>
             <CatListHeading>
@@ -191,22 +146,13 @@ const Home: NextPage = () => {
               {catList.map((item, index) => {
                 index = index + 1;
                 return (
-                  <CatItem key={index}>
-                    <CatItemImageWrap>
-                      <Image
-                        src="/top/cat-sample.jpg"
-                        height={350} // 高さ指定
-                        width={350} // 幅指定
-                        alt="cat-sample"
-                      />
-                    </CatItemImageWrap>
-                    <CatItemTextWrap>
-                      <CatItemH3>{item.title}</CatItemH3>
-                      <CatItemText>{item.sex}</CatItemText>
-                      <CatItemText>{item.address}</CatItemText>
-                      <CatItemStatus>{item.status}</CatItemStatus>
-                    </CatItemTextWrap>
-                  </CatItem>
+                  <CatItems
+                    key={index}
+                    title={item.title}
+                    sex={item.sex}
+                    address={item.address}
+                    status={item.status}
+                  />
                 );
               })}
             </CatList>
@@ -245,17 +191,6 @@ const Aside = styled.aside`
     display: none;
   }
 `;
-const Form = styled.form``;
-const SelectWrap = styled.div`
-  display: grid;
-  gap: 20px 0px;
-`;
-const CheckBoxWrap = styled.div`
-  display: grid;
-  gap: 10px;
-  grid-template-columns: 1fr 1fr;
-  margin-top: 20px;
-`;
 
 const CatSearchHeading = styled.ul`
   display: flex;
@@ -288,6 +223,14 @@ const SpButtonWrap = styled.div`
   }
 `;
 
+const CatList = styled.ul`
+  @media ${device.pc} {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+    gap: 50px 70px;
+  }
+`;
+
 const CatListHeadingItem = styled.li`
   @media ${device.pc} {
     font-size: 18px;
@@ -303,49 +246,6 @@ const CatListHeadingNote = styled.li`
   @media ${device.sp} {
     font-size: 12px;
   }
-`;
-
-const CatList = styled.ul`
-  @media ${device.pc} {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
-    gap: 50px 70px;
-  }
-`;
-
-const CatItem = styled.li`
-  @media ${device.sp} {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-  }
-`;
-
-const CatItemImageWrap = styled.div``;
-const CatItemTextWrap = styled.div`
-  @media ${device.pc} {
-    gap: 10px 0px;
-    display: grid;
-  }
-`;
-
-const CatItemH3 = styled.h3`
-  font-size: 14px;
-  font-weight: bold;
-  @media ${device.sp} {
-    padding-bottom: 10px;
-  }
-`;
-
-const CatItemText = styled.p`
-  font-size: 14px;
-  @media ${device.sp} {
-    padding-bottom: 10px;
-  }
-`;
-
-const CatItemStatus = styled.p`
-  font-size: 14px;
 `;
 
 export default Home;
