@@ -6,7 +6,7 @@ type Props = {
   children: ReactNode;
 };
 
-export const PrimaryButton: VFC<Props> = memo((props) => {
+export const SecondaryButton: VFC<Props> = memo((props) => {
   const { children } = props;
   return (
     <>
@@ -16,13 +16,14 @@ export const PrimaryButton: VFC<Props> = memo((props) => {
 });
 
 const Button = styled.div`
-  background-color: ${color.green};
-  color: ${color.white};
-  border-radius: 30px;
+  color: ${color.red};
+  border: 1px solid ${color.red};
+  border-radius: 10px;
   padding: 10px;
   text-align: center;
   cursor: pointer;
   &:hover {
-    opacity: 0.7;
+    background-color: ${color.red};
+    color: ${color.white};
   }
 `;
