@@ -5,3 +5,25 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+# run : rails db:seed
+10.times do |n|
+  cat = Cat.new(
+    name:"チャチャ_#{n}号",
+    cat_sex_id:1,
+    cat_type_id:1,
+    cat_label_id:1,
+    cat_age_id:1,
+    title:"元気なわんぱくチャ猫！人懐き抜群！",
+    terms:"猫可物件にお住まいの方",
+    summary:"これは応募概要のテキストです",
+    price:600,
+    status: true,
+  )
+  # active storage
+  cat.main_img.attach(io: File.open(Rails.root.join('app/assets/img/cat.jpg')), filename: 'cat.jpg')
+  cat.sub_img.attach(io: File.open(Rails.root.join('app/assets/img/cat.jpg')), filename: 'cat.jpg')
+  cat.sub_img.attach(io: File.open(Rails.root.join('app/assets/img/cat.jpg')), filename: 'cat.jpg')
+
+  cat.save!
+end
