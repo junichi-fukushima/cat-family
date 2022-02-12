@@ -36,12 +36,13 @@ ActiveRecord::Schema.define(version: 2022_02_12_042256) do
   create_table "cats", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "name", default: "", null: false
     t.string "sex", default: "", null: false
-    t.string "type", default: "", null: false
+    t.string "cat_type", default: "", null: false
     t.string "title", default: "", null: false
     t.text "terms", null: false
     t.text "summary", null: false
     t.integer "cat_label_id", null: false
     t.integer "price", default: 0, null: false
+    t.boolean "status", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

@@ -6,10 +6,24 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-# 10.times do |n|
-#   cat = Cat.new(
-#     # ここに繰り返し処理を記載
-#   )
+# run : rails db:seed
+10.times do |n|
+  cat = Cat.new(
+    name:"チャチャ_#{n}号",
+    sex:"male",
+    cat_type:"キジ白",
+    title:"male",
+    terms:"male",
+    summary:"male",
+    cat_label_id:1,
+    price:600,
+    status: true,
 
-#   restaurant.save!
-# end
+  )
+  # active storage
+  cat.main_img.attach(io: File.open(Rails.root.join('app/assets/img/cat.jpg')), filename: 'cat.jpg')
+  cat.sub_img.attach(io: File.open(Rails.root.join('app/assets/img/cat.jpg')), filename: 'cat.jpg')
+  cat.sub_img.attach(io: File.open(Rails.root.join('app/assets/img/cat.jpg')), filename: 'cat.jpg')
+
+  cat.save!
+end
