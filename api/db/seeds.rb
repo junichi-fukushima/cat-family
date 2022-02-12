@@ -10,15 +10,15 @@
 10.times do |n|
   cat = Cat.new(
     name:"チャチャ_#{n}号",
-    sex:"male",
-    cat_type:"キジ白",
-    title:"male",
-    terms:"male",
-    summary:"male",
+    cat_sex_id:1,
+    cat_type_id:1,
     cat_label_id:1,
+    cat_age_id:1,
+    title:"元気なわんぱくチャ猫！人懐き抜群！",
+    terms:"猫可物件にお住まいの方",
+    summary:"これは応募概要のテキストです",
     price:600,
     status: true,
-
   )
   # active storage
   cat.main_img.attach(io: File.open(Rails.root.join('app/assets/img/cat.jpg')), filename: 'cat.jpg')
