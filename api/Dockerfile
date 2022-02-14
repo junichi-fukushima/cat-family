@@ -9,7 +9,7 @@ COPY Gemfile.lock /cat_family/api/Gemfile.lock
 # nokogiriとubuntuの競合回避
 RUN bundle config set force_ruby_platform true
 RUN bundle install
-COPY . /cat_family/api
+# COPY . /cat_family/api
 
 # Start the main process.
 CMD ["rails", "server", "-b", "0.0.0.0"]
