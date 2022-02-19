@@ -1,7 +1,8 @@
 import styled from "styled-components";
-import { memo, VFC } from "react";
+import { memo, useEffect, useState, VFC } from "react";
 import { device } from "../../utility/responsive";
 import Image from "next/image";
+import { fetchCatLabel } from "../../../state/model/cats/cat_label";
 
 // import data
 type Props = {
@@ -11,8 +12,19 @@ type Props = {
   status: string;
 };
 
+
 export const CatItems: VFC<Props> = memo((props) => {
   const { title, sex, address, status } = props;
+
+  const [catLabel, setcatLabel] = useState([]);
+
+  useEffect(() => {
+    fetchCatLabel()
+    .then((data) =>
+      setcatLabel(data)
+    )
+  }, [])
+
   return (
     <>
       <CatItem>
