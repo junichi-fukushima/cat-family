@@ -16,7 +16,7 @@ services:
     build: ./api/
     command: /bin/sh -c "rm -f tmp/pids/server.pid && rails server -b 0.0.0.0"
     volumes:
-      - ./api:/cat_family/api
+      - ./api:/cat_family/api:delegated
     ports:
       - "3000:3000"
     depends_on:
@@ -28,8 +28,9 @@ services:
       context: ./frontend/
       dockerfile: Dockerfile
     volumes:
-      - ./frontend:/usr/src/app
+      - ./frontend:/usr/src/app:delegated
     command: sh -c 'npm run dev'
+    tty: true
     ports:
       - "8000:3000"
 volumes:
