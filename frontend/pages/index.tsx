@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import type { NextPage } from "next";
 import Head from "next/head";
 import { useState } from "react";
@@ -22,6 +22,8 @@ import {
 } from "../api/cat-data";
 import { CatItems } from "../components/organisms/index/CatItems";
 import { CatSearchArea } from "../components/template/index/CatSearchArea";
+import { getCatLabel } from "../state/ducks/labels/operation";
+import { useDispatch, useSelector } from "react-redux";
 
 const useStyles = makeStyles({
   list: {
@@ -49,7 +51,6 @@ const useStyles = makeStyles({
 const Home: NextPage = () => {
   const [checkState, setCheckState] = useState(checkLists);
 
-  // Note : 実際のデータはidで比較した方が良い
   const handleChecked = (event: React.ChangeEvent<HTMLInputElement>) => {
     setCheckState(
       checkState.map((x) =>
@@ -79,6 +80,15 @@ const Home: NextPage = () => {
     setSpSearchState({ ...spSearchState, [anchor]: open });
   };
 
+  // ラベルマスタAPIの取得
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getCatLabel());
+
+  }, [])
+  const selector = useSelector(state => state);
+  // const catLabel = getCatLabel(selector);
+
   const list = () => (
     <div
       className={classes.list}
@@ -102,6 +112,7 @@ const Home: NextPage = () => {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      {/* {console.log(catLabel)} */}
       <Container>
         <HeaderLayout />
         <HeadingWrap>
