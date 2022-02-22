@@ -84,10 +84,9 @@ const Home: NextPage = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getCatLabel());
-
   }, [])
   const selector = useSelector(state => state);
-  // const catLabel = getCatLabel(selector);
+  const catLabel = getCatLabel(selector);
 
   const list = () => (
     <div
