@@ -1,25 +1,23 @@
 import { memo, ReactNode, VFC } from "react";
 import styled from "styled-components";
-import { color } from "../../utility/colors";
 
 type Props = {
   children: ReactNode;
-  index: string;
-  item: string;
-  checked?: boolean;
-  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  id: number;
+  checked: boolean;
+  onChange: (id: number) => void;
 };
 
 export const CheckBoxCatSearch: VFC<Props> = memo((props) => {
-  const { children, item, index, checked, onChange } = props;
+  const { children, id, checked, onChange } = props;
   return (
     <>
-      <CheckLabel htmlFor={`${index}`} checked={checked}>
+      <CheckLabel htmlFor={`${id}`} checkedLabel={checked}>
         <CheckBox
-          id={`${index}`}
-          value={item}
+          id={`${id}`}
+          value={id}
           checked={checked}
-          onChange={onChange}
+          onChange={() => onChange(id)}
           type="checkbox"
         />
         <span>{children}</span>
@@ -36,8 +34,8 @@ const CheckLabel = styled.label`
   text-align: center;
   padding: 10px;
   border-radius: 30px;
-  border:${props => props.checked == true ? '1px solid #3EB370' : '1px solid #808080'} ;
-  background-color: ${props => props.checked == true ? '#3EB370' : '#ffffff'} ;
-  color: ${props => props.checked == true ? '#ffffff' : '#555555'} ;
-
+  border: ${(props) =>
+    props.checkedLabel ? "1px solid #3EB370" : "1px solid #808080"};
+  background-color: ${(props) => (props.checkedLabel ? "#3EB370" : "#ffffff")};
+  color: ${(props) => (props.checkedLabel ? "#ffffff" : "#555555")};
 `;
