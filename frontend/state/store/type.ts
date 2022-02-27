@@ -1,8 +1,8 @@
 import { CatsAge, CatsLabel, CatsSex, CatsType } from "../ducks/labels/type";
-import { CatsList } from "../ducks/cats/type";
+import { Cat } from "../ducks/cats/type";
 
 export type State = {
-  cats: CatsList[];
+  cats: Cat[];
   cat_label: CatsLabel[];
   cat_sex: CatsSex[];
   cat_type: CatsType[];

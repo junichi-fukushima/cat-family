@@ -1,20 +1,13 @@
-import { addAbortSignal } from "stream";
+import { catsIndexUrl } from "../../urls";
 import { fetchAllCatsAction } from "./actions";
 
-export const initialCatsData = () => {
-  return async (dispatch, getState) => {
-    const state = getState();
-
-    // マスタAPI(猫情報の取得)
-    const cats = "http://localhost:3000/api/v1/cats/";
-
-    const response = await fetch(cats)
+export const fetchCats = () => {
+  return async (dispatch: any) => {
+    fetch(catsIndexUrl)
       .then((res) => res.json())
+      .then((result) => {
+        dispatch(fetchAllCatsAction(result.map((x: any) => x.attributes)));
+      })
       .catch(() => null);
-
-    dispatch(fetchAllCatsAction(
-
-    ))
-
   };
 };

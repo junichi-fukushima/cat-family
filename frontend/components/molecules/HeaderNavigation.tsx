@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import Link from "next/link";
 import { memo, VFC } from "react";
-import { device } from "../utility/responsive";
+import { device } from "../../utility/responsive";
 
 export const HeaderNavigation: VFC = memo(() => {
   return (

@@ -13,7 +13,8 @@ export type Cat = {
   cat_age_id:number,
   created_at:string,
   updated_at:string,
-
+  main_image_url:string,
+  sub_image_url:Array<string>
 }
 //  Actionの型を定義する
 export const CatsActionTypes = {

@@ -17,8 +17,8 @@ import type { NextPage } from "next";
 // import components
 import { H2Text } from "../components/atoms/text/H2Text";
 import { HeaderLayout } from "../components/template/layout/HeaderLayout";
-import { color } from "../components/utility/colors";
-import { device } from "../components/utility/responsive";
+import { color } from "../utility/colors";
+import { device } from "../utility/responsive";
 import { CatItems } from "../components/organisms/index/CatItems";
 
 

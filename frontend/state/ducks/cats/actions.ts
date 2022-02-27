@@ -1,10 +1,8 @@
-import { CatsActionTypes } from "./type";
+import { Cat, CatsActionTypes } from "./type";
 
-export const fetchAllCatsAction = () => {
+export const fetchAllCatsAction = (state: Cat[]) => {
   return {
     type: CatsActionTypes.FETCH_CAT_LIST,
-    payload: {
-      //  CatsList(猫情報API)の中身を展開する
-    },
+    payload: state,
   };
 };
