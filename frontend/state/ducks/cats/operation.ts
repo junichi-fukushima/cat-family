@@ -6,7 +6,7 @@ export const fetchCats = () => {
     fetch(catsIndexUrl)
       .then((res) => res.json())
       .then((result) => {
-        dispatch(fetchAllCatsAction(result.map((x: any) => x.attributes)));
+        dispatch(fetchAllCatsAction(result.map((x: any) => x)));
       })
       .catch(() => null);
   };

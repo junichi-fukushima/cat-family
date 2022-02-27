@@ -3,7 +3,7 @@ import { State } from "../../store/type";
 
 const catsSelector = (state : State) => state.cats;
 
-export const getCatsDataIndex = createSelector(
+export const getCats = createSelector(
   [catsSelector],
   (state) => state
 );

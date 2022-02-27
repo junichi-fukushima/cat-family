@@ -13,6 +13,7 @@ type Props = {
 
 export const CatItems: VFC<Props> = memo((props) => {
   const { title, sex, address, status } = props;
+
   return (
     <>
       <CatItem>

@@ -19,7 +19,6 @@ export const CatSearchArea: VFC = memo(() => {
   const ages = getCatAge(selector);
   const types = getCatSex(selector);
   const sexs = getCatType(selector);
-
   // catLabelのstatusを変更する
   const dispatch = useDispatch();
   const handleChecked = (id: number) => {

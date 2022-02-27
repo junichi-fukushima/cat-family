@@ -6,7 +6,9 @@ import { CatAgeReducer, CatLabelReducer, CatSexReducer, CatTypeReducer } from ".
 export default function createStore() {
   return reduxCreateStore(
     combineReducers({
+      // 猫情報
       cats:CatsReducer,
+      // ラベルAPI
       cat_label:CatLabelReducer,
       cat_age:CatAgeReducer,
       cat_sex:CatSexReducer,

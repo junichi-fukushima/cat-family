@@ -1,6 +1,6 @@
 // import React && Redux
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { catList } from "../api/cat-data";
 import { CatSearchArea } from "../components/template/pages/index/CatSearchArea";
 import {
@@ -9,6 +9,9 @@ import {
   fetchCatSex,
   fetchCatType,
 } from "../state/ducks/labels/operation";
+import { fetchCats } from "../state/ducks/cats/operation";
+import { getCats } from "../state/ducks/cats/selectors";
+import { State } from "../state/store/type";
 
 // import Next
 import Head from "next/head";
@@ -20,7 +23,6 @@ import { HeaderLayout } from "../components/template/layout/HeaderLayout";
 import { color } from "../utility/colors";
 import { device } from "../utility/responsive";
 import { CatItems } from "../components/organisms/index/CatItems";
-
 
 // import styled-components &&  Material UI
 import styled from "styled-components";
@@ -54,7 +56,7 @@ const useStyles = makeStyles({
 });
 
 const Home: NextPage = () => {
-  // SP用検索窓
+  // materialUI
   const classes = useStyles();
   const [spSearchState, setSpSearchState] = useState({
     right: false,
@@ -73,15 +75,6 @@ const Home: NextPage = () => {
     setSpSearchState({ ...spSearchState, [anchor]: open });
   };
 
-  // APIの取得
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(fetchCatLabel());
-    dispatch(fetchCatAge());
-    dispatch(fetchCatSex());
-    dispatch(fetchCatType());
-  }, []);
-
   const list = () => (
     <div
       className={classes.list}
@@ -95,6 +88,20 @@ const Home: NextPage = () => {
     </div>
   );
 
+  // redux
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchCats());
+    dispatch(fetchCatLabel());
+    dispatch(fetchCatAge());
+    dispatch(fetchCatSex());
+    dispatch(fetchCatType());
+  }, []);
+
+  // selectorの呼び出し(ラベルAPIの呼び出し)
+  const selector = useSelector((state: State) => state);
+  const cats = getCats(selector);
+
   return (
     <>
       <Head>
@@ -105,7 +112,7 @@ const Home: NextPage = () => {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      {/* {console.log(catLabel)} */}
+      {console.log(cats)}
       <Container>
         <HeaderLayout />
         <HeadingWrap>
