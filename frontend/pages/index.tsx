@@ -1,7 +1,6 @@
 // import React && Redux
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { catList } from "../api/cat-data";
 import { CatSearchArea } from "../components/template/pages/index/CatSearchArea";
 import {
   fetchCatAge,
@@ -12,6 +11,7 @@ import {
 import { fetchCats } from "../state/ducks/cats/operation";
 import { getCats } from "../state/ducks/cats/selectors";
 import { State } from "../state/store/type";
+import { getCatAge } from "../state/ducks/labels/selectors";
 
 // import Next
 import Head from "next/head";
@@ -101,6 +101,7 @@ const Home: NextPage = () => {
   // selectorの呼び出し(ラベルAPIの呼び出し)
   const selector = useSelector((state: State) => state);
   const cats = getCats(selector);
+  const catAges = getCatAge(selector);
 
   return (
     <>
@@ -112,7 +113,6 @@ const Home: NextPage = () => {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      {console.log(cats)}
       <Container>
         <HeaderLayout />
         <HeadingWrap>
@@ -151,15 +151,15 @@ const Home: NextPage = () => {
             </SpButtonWrap>
             {/* OnlySP */}
             <CatList>
-              {catList.map((item, index) => {
+              {cats.map((cat, index) => {
                 index = index + 1;
                 return (
                   <CatItems
                     key={index}
-                    title={item.title}
-                    sex={item.sex}
-                    address={item.address}
-                    status={item.status}
+                    title={cat.title}
+                    sex={cat.sex}
+                    address={cat.address}
+                    status={cat.status}
                   />
                 );
               })}
