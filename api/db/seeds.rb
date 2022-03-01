@@ -10,10 +10,10 @@
 10.times do |n|
   cat = Cat.new(
     name:"チャチャ_#{n}号",
-    cat_sex_id:1,
-    cat_type_id:1,
-    cat_label_id:1,
-    cat_age_id:1,
+    cat_sex_id:2,
+    cat_type_id:2,
+    cat_label_id:2,
+    cat_age_id:2,
     title:"元気なわんぱくチャ猫！人懐き抜群！",
     terms:"猫可物件にお住まいの方",
     summary:"これは応募概要のテキストです",
