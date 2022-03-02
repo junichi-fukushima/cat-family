@@ -1,10 +1,10 @@
 import { memo, VFC } from "react";
 import styled from "styled-components";
-import { color } from "../../utility/colors";
+import { color } from "../../../utility/colors";
 
 type CatSearchTypes = {
-  value: string,
-  label: string,
+  id: number,
+  name: string,
 }[];
 
 type Props = {
@@ -19,8 +19,8 @@ export const SelectCatSearch: VFC<Props> = memo((props) => {
       <FormGroup>
         <SearchSelect>
           {options.map((option, index) => (
-            <SearchOption key={index} value={option.value}>
-              {option.label}
+            <SearchOption key={index} value={option.name}>
+              {option.name}
             </SearchOption>
           ))}
         </SearchSelect>

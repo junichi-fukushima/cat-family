@@ -1,6 +1,20 @@
 // APIデータの型を定義する
-export type CatsList = {
-
+export type Cat = {
+  id: number,
+  name: string,
+  title: string,
+  terms:string,
+  summary:string,
+  price:number,
+  status:boolean,
+  cat_label_id:number,
+  cat_sex_id:number,
+  cat_type_id:number,
+  cat_age_id:number,
+  created_at:string,
+  updated_at:string,
+  main_image_url:string,
+  sub_image_url:Array<string>
 }
 //  Actionの型を定義する
 export const CatsActionTypes = {

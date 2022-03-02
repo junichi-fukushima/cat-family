@@ -1,29 +1,35 @@
-import React, { useEffect } from "react";
-import type { NextPage } from "next";
+// import React && Redux
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { CatSearchArea } from "../components/template/pages/index/CatSearchArea";
+import {
+  fetchCatAge,
+  fetchCatLabel,
+  fetchCatSex,
+  fetchCatType,
+} from "../state/ducks/labels/operation";
+import { fetchCats } from "../state/ducks/cats/operation";
+import { getCats } from "../state/ducks/cats/selectors";
+import { State } from "../state/store/type";
+
+// import Next
 import Head from "next/head";
-import { useState } from "react";
-import styled from "styled-components";
+import type { NextPage } from "next";
+
+// import components
 import { H2Text } from "../components/atoms/text/H2Text";
 import { HeaderLayout } from "../components/template/layout/HeaderLayout";
-import { color } from "../components/utility/colors";
-import { device } from "../components/utility/responsive";
+import { color } from "../utility/colors";
+import { device } from "../utility/responsive";
+import { CatItems } from "../components/organisms/index/CatItems";
 
-// import from Material UI
+// import styled-components &&  Material UI
+import styled from "styled-components";
 import { makeStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
 import Button from "@material-ui/core/Button";
 import List from "@material-ui/core/List";
 import Divider from "@material-ui/core/Divider";
-
-// import data
-import {
-  checkLists,
-  catList,
-} from "../api/cat-data";
-import { CatItems } from "../components/organisms/index/CatItems";
-import { CatSearchArea } from "../components/template/index/CatSearchArea";
-import { getCatLabel } from "../state/ducks/labels/operation";
-import { useDispatch, useSelector } from "react-redux";
 
 const useStyles = makeStyles({
   list: {
@@ -49,19 +55,7 @@ const useStyles = makeStyles({
 });
 
 const Home: NextPage = () => {
-  const [checkState, setCheckState] = useState(checkLists);
-
-  const handleChecked = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setCheckState(
-      checkState.map((x) =>
-        x.value == event.target.value
-          ? { value: x.value, checked: event.target.checked }
-          : x
-      )
-    );
-  };
-
-  // SP用検索窓
+  // materialUI
   const classes = useStyles();
   const [spSearchState, setSpSearchState] = useState({
     right: false,
@@ -80,14 +74,6 @@ const Home: NextPage = () => {
     setSpSearchState({ ...spSearchState, [anchor]: open });
   };
 
-  // ラベルマスタAPIの取得
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getCatLabel());
-  }, [])
-  const selector = useSelector(state => state);
-  const catLabel = getCatLabel(selector);
-
   const list = () => (
     <div
       className={classes.list}
@@ -95,11 +81,25 @@ const Home: NextPage = () => {
       onKeyDown={toggleDrawer("right", false)}
     >
       <List>
-        <CatSearchArea checkState={checkState} handleChecked={handleChecked} />
+        <CatSearchArea />
       </List>
       <Divider />
     </div>
   );
+
+  // redux
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchCats());
+    dispatch(fetchCatLabel());
+    dispatch(fetchCatAge());
+    dispatch(fetchCatSex());
+    dispatch(fetchCatType());
+  }, []);
+
+  // selectorの呼び出し(ラベルAPIの呼び出し)
+  const selector = useSelector((state: State) => state);
+  const cats = getCats(selector);
 
   return (
     <>
@@ -111,8 +111,8 @@ const Home: NextPage = () => {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      {/* {console.log(catLabel)} */}
       <Container>
+        {console.log(cats)}
         <HeaderLayout />
         <HeadingWrap>
           <H2Text>猫の里親募集</H2Text>
@@ -123,10 +123,7 @@ const Home: NextPage = () => {
               <CatSearchHeadingItem>絞り込む</CatSearchHeadingItem>
               <CatSearchHeadingItem>クリア</CatSearchHeadingItem>
             </CatSearchHeading>
-            <CatSearchArea
-              checkState={checkState}
-              handleChecked={handleChecked}
-            />
+            <CatSearchArea />
           </Aside>
           <Section>
             <CatListHeading>
@@ -153,15 +150,16 @@ const Home: NextPage = () => {
             </SpButtonWrap>
             {/* OnlySP */}
             <CatList>
-              {catList.map((item, index) => {
+              {cats.map((cat, index) => {
                 index = index + 1;
                 return (
                   <CatItems
                     key={index}
-                    title={item.title}
-                    sex={item.sex}
-                    address={item.address}
-                    status={item.status}
+                    title={cat.title}
+                    sex={cat.cat_sex_id}
+                    main_img={cat.main_image_url}
+                    // address={cat.address}
+                    // status={cat.status}
                   />
                 );
               })}
@@ -173,6 +171,7 @@ const Home: NextPage = () => {
   );
 };
 
+// styled-components
 const Container = styled.div`
   color: ${color.black};
   max-width: 1200px;
@@ -195,7 +194,6 @@ const Main = styled.main`
   }
 `;
 
-// aside
 const Aside = styled.aside`
   @media ${device.sp} {
     display: none;
@@ -209,7 +207,6 @@ const CatSearchHeading = styled.ul`
 `;
 const CatSearchHeadingItem = styled.li``;
 
-// section
 const Section = styled.section``;
 const CatListHeading = styled.ul`
   margin-bottom: 20px;

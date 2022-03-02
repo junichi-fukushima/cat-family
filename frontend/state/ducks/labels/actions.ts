@@ -1,32 +1,34 @@
-import { CatsActionTypes } from "./type";
+import { CatsActionTypes, CatsAge, CatsLabel, CatsSex, CatsType } from "./type";
 
-export const fetchCatLabelAction = (state) => {
+// ラベルAPIを取得するアクション
+export const fetchCatLabelAction = (state: CatsLabel[]) => {
   return {
-    type: CatsActionTypes.FETCH_CAT_LIST,
-    payload: state
+    type: CatsActionTypes.FETCH_CAT_LABEL,
+    payload: state,
   };
 };
-export const fetchCatAgeAction = () => {
+export const fetchCatAgeAction = (state: CatsAge[]) => {
   return {
     type: CatsActionTypes.FETCH_CAT_AGE,
-    payload: {
-
-    },
+    payload: state,
   };
 };
-export const fetchCatSexAction = () => {
+export const fetchCatSexAction = (state: CatsSex[]) => {
   return {
     type: CatsActionTypes.FETCH_CAT_SEX,
-    payload: {
-
-    },
+    payload: state,
   };
 };
-export const fetchCatTypeAction = () => {
+export const fetchCatTypeAction = (state: CatsType[]) => {
   return {
     type: CatsActionTypes.FETCH_CAT_TYPE,
-    payload: {
-
-    },
+    payload: state,
+  };
+};
+// ラベルの状態を変更するアクション
+export const updateCatLabelAction = (id: number) => {
+  return {
+    type: CatsActionTypes.UPDATE_CAT_LABEL,
+    payload: id,
   };
 };

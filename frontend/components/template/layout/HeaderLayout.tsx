@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { memo, VFC } from "react";
 import { PrimaryButton } from "../../atoms/button/PrimaryButton";
-import { device } from "../../utility/responsive";
+import { device } from "../../../utility/responsive";
 import { HeaderNavigation } from "../../molecules/HeaderNavigation";
 import { Avatar } from "../../atoms/Icon/Avatar";
 

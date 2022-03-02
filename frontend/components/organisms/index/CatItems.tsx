@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { memo, VFC } from "react";
-import { device } from "../../utility/responsive";
+import { device } from "../../../utility/responsive";
 import Image from "next/image";
 
 // import data
@@ -9,16 +9,18 @@ type Props = {
   sex: string;
   address: string;
   status: string;
+  main_img: string;
 };
 
 export const CatItems: VFC<Props> = memo((props) => {
-  const { title, sex, address, status } = props;
+  const { title, sex, address, status, main_img } = props;
+
   return (
     <>
       <CatItem>
         <CatItemImageWrap>
           <Image
-            src="/top/cat-sample.jpg"
+            src={main_img}
             height={350} // 高さ指定
             width={350} // 幅指定
             alt="cat-sample"

@@ -1,7 +1,7 @@
 import { memo, VFC } from "react";
 import styled from "styled-components";
 import Image from "next/image";
-import { device } from "../../utility/responsive";
+import { device } from "../../../utility/responsive";
 
 export const Avatar: VFC = memo(() => {
   return (

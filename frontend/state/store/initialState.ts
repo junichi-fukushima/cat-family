@@ -1,8 +1,9 @@
-export const initialState = {
+import { State } from "./type";
+
+export const initialState: State = {
   cats: [],
   cat_label: [],
-  // 配列の中にオブジェクトが入る
   cat_age: [],
   cat_sex: [],
-  cat_type: []
+  cat_type: [],
 };

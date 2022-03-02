@@ -10,10 +10,13 @@ class Cat < ApplicationRecord
   include Rails.application.routes.url_helpers
   has_one_attached :main_img
   has_many_attached :sub_img
-  def image_url
+  def main_image_url
     main_img.attached? ? url_for(main_img) : nil
+  end
+  def sub_image_url
     sub_img.attached? ? sub_img.map{|sub_img| url_for(sub_img)}: nil
   end
+
   # Association
 
   # Validation
