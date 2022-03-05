@@ -1,8 +1,16 @@
-import "../styles/globals.scss";
-import type { AppProps } from "next/app";
+// React && Redux
 import { useEffect } from "react";
 import { Provider } from "react-redux";
 import createStore from "../state/store/store";
+
+// Next.js
+import type { AppProps } from "next/app";
+
+// Auth0
+import { UserProvider } from "@auth0/nextjs-auth0";
+
+// styles
+import "../styles/globals.scss";
 
 // reduxのstoreをメソッドとして呼び出してProviderに挿入する
 // storeの参照 / connect関数を使用出来るようにする
@@ -15,8 +23,10 @@ export default function MyApp({ Component, pageProps }: AppProps) {
   }, []);
 
   return (
-    <Provider store={store}>
-      <Component {...pageProps} />
-    </Provider>
+    <UserProvider>
+      <Provider store={store}>
+        <Component {...pageProps} />
+      </Provider>
+    </UserProvider>
   );
 }

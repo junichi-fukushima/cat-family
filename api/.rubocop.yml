@@ -1,0 +1,13 @@
+# rubocop -aで実行
+AllCops:
+  Exclude:
+    - bin/*
+    - db/schema.rb
+
+# 日本語コメント許可
+AsciiComments:
+  Enabled: false
+
+# ダブルクォーテーションに統一
+StringLiterals:
+  EnforcedStyle: double_quotes

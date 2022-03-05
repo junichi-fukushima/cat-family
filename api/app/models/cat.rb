@@ -13,12 +13,12 @@ class Cat < ApplicationRecord
   def main_image_url
     main_img.attached? ? url_for(main_img) : nil
   end
+
   def sub_image_url
-    sub_img.attached? ? sub_img.map{|sub_img| url_for(sub_img)}: nil
+    sub_img.attached? ? sub_img.map { |sub_img| url_for(sub_img) } : nil
   end
 
   # Association
 
   # Validation
-
 end
