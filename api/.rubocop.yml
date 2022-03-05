@@ -11,17 +11,3 @@ AsciiComments:
 # ダブルクォーテーションに統一
 StringLiterals:
   EnforcedStyle: double_quotes
-
-# メソッドの長さ
-Metrics/MethodLength:
-Exclude:
-    - "db/migrate/**/*"
-
-# AbcSize
-+ Metrics/AbcSize:
-+   Exclude:
-
-# 行の長さ
-+ Layout/LineLength:
-+   Exclude:
-      - "config/initializers/**/*"
