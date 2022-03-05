@@ -1,3 +1,4 @@
+# rubocop -aで実行
 AllCops:
   Exclude:
     - bin/*
