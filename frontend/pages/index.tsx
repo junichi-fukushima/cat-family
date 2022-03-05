@@ -9,7 +9,11 @@ import {
   fetchCatType,
 } from "../state/ducks/labels/operation";
 import { fetchCats } from "../state/ducks/cats/operation";
-import { getCats } from "../state/ducks/cats/selectors";
+import {
+  getCats,
+  getCatStatus,
+  getSexName,
+} from "../state/ducks/cats/selectors";
 import { State } from "../state/store/type";
 
 // import Next
@@ -100,7 +104,6 @@ const Home: NextPage = () => {
   // selectorの呼び出し(ラベルAPIの呼び出し)
   const selector = useSelector((state: State) => state);
   const cats = getCats(selector);
-
   return (
     <>
       <Head>
@@ -112,7 +115,6 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Container>
-        {console.log(cats)}
         <HeaderLayout />
         <HeadingWrap>
           <H2Text>猫の里親募集</H2Text>
@@ -156,10 +158,9 @@ const Home: NextPage = () => {
                   <CatItems
                     key={index}
                     title={cat.title}
-                    sex={cat.cat_sex_id}
                     main_img={cat.main_image_url}
-                    // address={cat.address}
-                    // status={cat.status}
+                    sex={getSexName(selector, cat.cat_sex_id)}
+                    status={getCatStatus(selector, cat.status)}
                   />
                 );
               })}
