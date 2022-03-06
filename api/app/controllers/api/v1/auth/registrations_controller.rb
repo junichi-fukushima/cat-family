@@ -1,8 +1,14 @@
-class Api::V1::Auth::RegistrationsController < ApplicationController
-  private
+module Api
+  module V1
+    class Auth::RegistrationsController < ApplicationController
+      # サインアップ、サインイン、サインアウト
 
-  def sign_up_params
-    # サインアップ時に登録できるカラムを指定
-    params.permit(:email, :password, :password_confirmation)
+      private
+
+      def sign_up_params
+        # サインアップ時に登録できるカラムを指定
+        params.permit(:email, :password, :password_confirmation)
+      end
+    end
   end
 end
