@@ -1,6 +1,6 @@
 module Api
   module V1
-    class Auth::RegistrationsController < ApplicationController
+    class Auth::RegistrationsController < DeviseTokenAuth::RegistrationsController
       # サインアップ、サインイン、サインアウト
 
       private
