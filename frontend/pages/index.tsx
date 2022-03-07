@@ -1,31 +1,30 @@
 // import React && Redux
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { CatSearchArea } from "../components/template/pages/index/CatSearchArea";
+import { CatSearchArea } from "../src/components/template/pages/index/CatSearchArea";
 import {
   fetchCatAge,
   fetchCatLabel,
   fetchCatSex,
   fetchCatType,
-} from "../state/ducks/labels/operation";
-import { fetchCats } from "../state/ducks/cats/operation";
+} from "../src/state/ducks/labels/operation";
+import { fetchCats } from "../src/state/ducks/cats/operation";
 import {
   getCats,
-  getCatStatus,
   getSexName,
-} from "../state/ducks/cats/selectors";
-import { State } from "../state/store/type";
+} from "../src/state/ducks/cats/selectors";
+import { State } from "../src/state/store/type";
 
 // import Next
 import Head from "next/head";
 import type { NextPage } from "next";
 
 // import components
-import { H2Text } from "../components/atoms/text/H2Text";
-import { HeaderLayout } from "../components/template/layout/HeaderLayout";
-import { color } from "../utility/colors";
-import { device } from "../utility/responsive";
-import { CatItems } from "../components/organisms/index/CatItems";
+import { H2Text } from "../src/components/atoms/text/H2Text";
+import { HeaderLayout } from "../src/components/template/layout/HeaderLayout";
+import { color } from "../src/utility/colors";
+import { device } from "../src/utility/responsive";
+import { CatItems } from "../src/components/organisms/index/CatItems";
 
 // import styled-components &&  Material UI
 import styled from "styled-components";
