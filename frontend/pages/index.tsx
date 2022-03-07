@@ -160,7 +160,7 @@ const Home: NextPage = () => {
                     title={cat.title}
                     main_img={cat.main_image_url}
                     sex={getSexName(selector, cat.cat_sex_id)}
-                    status={getCatStatus(selector, cat.status)}
+                    status={cat.status ? "募集中" : "募集締め切り"}
                   />
                 );
               })}
