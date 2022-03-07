@@ -13,13 +13,8 @@ export const HeaderNavigation: VFC = memo(() => {
         <HeaderNav>
           <HeaderList>
             <HeaderItem>
-              <Link href="#">
+              <Link href="/">
                 <LinkInner>里親募集</LinkInner>
-              </Link>
-            </HeaderItem>
-            <HeaderItem>
-              <Link href="#">
-                <LinkInner>猫ブログ</LinkInner>
               </Link>
             </HeaderItem>
           </HeaderList>

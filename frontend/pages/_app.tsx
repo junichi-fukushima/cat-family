@@ -1,7 +1,7 @@
 // React && Redux
 import { useEffect } from "react";
 import { Provider } from "react-redux";
-import createStore from "../state/store/store";
+import createStore from "../src/state/store/store";
 
 // Next.js
 import type { AppProps } from "next/app";
