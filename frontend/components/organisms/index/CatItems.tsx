@@ -3,17 +3,15 @@ import { memo, VFC } from "react";
 import { device } from "../../../utility/responsive";
 import Image from "next/image";
 
-// import data
 type Props = {
   title: string;
   sex: string;
-  address: string;
   status: string;
   main_img: string;
 };
 
 export const CatItems: VFC<Props> = memo((props) => {
-  const { title, sex, address, status, main_img } = props;
+  const { title, sex, status, main_img } = props;
 
   return (
     <>
@@ -21,15 +19,15 @@ export const CatItems: VFC<Props> = memo((props) => {
         <CatItemImageWrap>
           <Image
             src={main_img}
-            height={350} // 高さ指定
-            width={350} // 幅指定
-            alt="cat-sample"
+            height={350}
+            width={350}
+            alt="猫メイン画像"
           />
         </CatItemImageWrap>
         <CatItemTextWrap>
           <CatItemH3>{title}</CatItemH3>
           <CatItemText>{sex}</CatItemText>
-          <CatItemText>{address}</CatItemText>
+          <CatItemText>神奈川県横浜市</CatItemText>
           <CatItemStatus>{status}</CatItemStatus>
         </CatItemTextWrap>
       </CatItem>
