@@ -1,8 +1,6 @@
 module Api
   module V1
     class Auth::RegistrationsController < DeviseTokenAuth::RegistrationsController
-      # サインアップ、サインイン、サインアウト
-
       private
 
       def sign_up_params
