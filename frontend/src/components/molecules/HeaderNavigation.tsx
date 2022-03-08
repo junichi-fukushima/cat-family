@@ -8,13 +8,19 @@ export const HeaderNavigation: VFC = memo(() => {
     <>
       <HeaderFixed>
         <HeaderLogo>
-          <LinkInner>ロゴ</LinkInner>
+          <Link href="/">
+            <a>
+              <LinkInner>ロゴ</LinkInner>
+            </a>
+          </Link>
         </HeaderLogo>
         <HeaderNav>
           <HeaderList>
             <HeaderItem>
               <Link href="/">
-                <LinkInner>里親募集</LinkInner>
+                <a>
+                  <LinkInner>里親募集</LinkInner>
+                </a>
               </Link>
             </HeaderItem>
           </HeaderList>
@@ -33,8 +39,15 @@ const HeaderFixed = styled.div`
 const HeaderLogo = styled.div`
   /* 仮置きしとく */
   font-size: 24px;
-  margin-right: 40px;
   cursor: pointer;
+  @media ${device.pc} {
+    margin-right: 40px;
+
+  }
+  @media ${device.sp} {
+    margin-right: 20px;
+
+  }
 `;
 
 const HeaderNav = styled.nav`
@@ -60,16 +73,6 @@ const HeaderItem = styled.nav`
 
 const HeaderText = styled.nav`
   font-size: 12px;
-  @media ${device.sp} {
-    display: none;
-  }
-`;
-
-const HeaderButtonWrap = styled.div`
-  display: grid;
-  grid-template-columns: repeat(2, 100px);
-  grid-gap: 20px;
-  margin-left: auto;
   @media ${device.sp} {
     display: none;
   }
