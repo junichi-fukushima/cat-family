@@ -3,8 +3,8 @@ import styled from "styled-components";
 import { color } from "../../../../utility/colors";
 
 type CatSearchTypes = {
-  id: number,
-  name: string,
+  id: number;
+  name: string;
 }[];
 
 type Props = {
@@ -18,11 +18,12 @@ export const SelectCatSearch: VFC<Props> = memo((props) => {
     <>
       <FormGroup>
         <SearchSelect>
-          {options.map((option, index) => (
-            <SearchOption key={index} value={option.name}>
-              {option.name}
-            </SearchOption>
-          ))}
+          {options &&
+            options.map((option, index) => (
+              <SearchOption id={`${index + 1}`} key={index} value={option.name}>
+                {option.name}
+              </SearchOption>
+            ))}
         </SearchSelect>
       </FormGroup>
     </>
