@@ -1,7 +1,7 @@
 // import React && Redux
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { CatSearchArea } from "../src/components/template/pages/index/CatSearchArea";
+import { CatSearchArea } from "../src/components/molecules/CatSearchArea";
 import {
   fetchCatAge,
   fetchCatLabel,
@@ -9,10 +9,7 @@ import {
   fetchCatType,
 } from "../src/state/ducks/labels/operation";
 import { fetchCats } from "../src/state/ducks/cats/operation";
-import {
-  getCats,
-  getSexName,
-} from "../src/state/ducks/cats/selectors";
+import { getCats, getSexName } from "../src/state/ducks/cats/selectors";
 import { State } from "../src/state/store/type";
 
 // import Next
@@ -22,9 +19,10 @@ import type { NextPage } from "next";
 // import components
 import { H2Text } from "../src/components/atoms/text/H2Text";
 import { HeaderLayout } from "../src/components/template/layout/HeaderLayout";
-import { color } from "../src/utility/colors";
 import { device } from "../src/utility/responsive";
 import { CatItems } from "../src/components/organisms/index/CatItems";
+import { Container } from "../src/components/template/layout/Container";
+import { HeadTemplate } from "../src/components/template/head/Head";
 
 // import styled-components &&  Material UI
 import styled from "styled-components";
@@ -106,15 +104,10 @@ const Home: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Cat Family 猫好きのための里親コミュニティ</title>
-        <meta
-          name="description"
-          content="Cat Family 猫好きのための里親コミュニティ"
-        />
-        <link rel="icon" href="/favicon.ico" />
+        <HeadTemplate />
       </Head>
+      <HeaderLayout />
       <Container>
-        <HeaderLayout />
         <HeadingWrap>
           <H2Text>猫の里親募集</H2Text>
         </HeadingWrap>
@@ -170,14 +163,9 @@ const Home: NextPage = () => {
     </>
   );
 };
+export default Home;
 
 // styled-components
-const Container = styled.div`
-  color: ${color.black};
-  max-width: 1200px;
-  margin: 0 auto;
-`;
-
 const HeadingWrap = styled.div`
   padding: 0px 30px;
 `;
@@ -254,5 +242,3 @@ const CatListHeadingNote = styled.li`
     font-size: 12px;
   }
 `;
-
-export default Home;

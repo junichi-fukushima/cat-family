@@ -7,23 +7,23 @@ type Props = {
   children: ReactNode;
 };
 
-export const H2Text: VFC<Props> = memo((props) => {
+export const H3Text: VFC<Props> = memo((props) => {
   const { children } = props;
   return (
     <>
-      <H2>{children}</H2>
+      <H3>{children}</H3>
     </>
   );
 });
 
-const H2 = styled.h2`
+const H3 = styled.h3`
   background: linear-gradient(transparent 70%, ${color.yellow} 0%);
   display: inline-block;
   font-weight: 600;
   @media ${device.pc} {
-    font-size: 28px;
+    font-size: 18px;
   }
   @media ${device.sp} {
-    font-size: 20px;
+    font-size: 16px;
   }
 `;
