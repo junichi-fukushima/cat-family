@@ -13,6 +13,7 @@ import { InputText } from "../../src/components/atoms/input/Form/InputText";
 import { SubmitButton } from "../../src/components/atoms/input/Form/SubmitButton";
 import { AuthTemplate } from "../../src/components/template/pages/Auth";
 import { HeadTemplate } from "../../src/components/template/head/Head";
+import { FormItem } from "../../src/components/organisms/Form/FormItem";
 
 const SignIn: NextPage = () => {
   return (
@@ -22,17 +23,11 @@ const SignIn: NextPage = () => {
       </Head>
       <AuthTemplate>
         <H2Text>ログイン</H2Text>
-        <Form>
-          <FormItem>
-            <FormLabel>氏名(フルネーム)</FormLabel>
-            <InputText type="email" placeholder="fukuima1749@gmail.com" />
-          </FormItem>
-          <FormItem>
-            <FormLabel>パスワード</FormLabel>
-            <InputText type="passoword" />
-          </FormItem>
+        <FormItem>
+          <InputText type="email" placeholder="fukuima1749@gmail.com">氏名(フルネーム)</InputText>
+          <InputText type="text">パスワード</InputText>
           <SubmitButton type="submit" value="ログイン" />
-        </Form>
+        </FormItem>
         <AuthButtonWraper>
           <Link href="#">
             <a>
@@ -63,18 +58,4 @@ const AuthButtonWraper = styled.div`
 `;
 const AuthBottom = styled.div`
   margin-top: 30px;
-`;
-
-const Form = styled.form`
-  padding: 15px 0;
-  display: grid;
-  gap: 20px 0;
-`;
-
-const FormItem = styled.div`
-  text-align: left;
-`;
-const FormLabel = styled.div`
-  font-weight: bold;
-  margin-bottom: 5px;
 `;
