@@ -38,6 +38,7 @@ const SearchSelect = styled.select`
   line-height: 60px;
   padding-left: 30px;
   border: 1px solid ${color.darkGrey};
+  background-color: ${color.white};
   border-radius: 10px;
   cursor: pointer;
 `;

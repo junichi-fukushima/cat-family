@@ -31,6 +31,7 @@ import Drawer from "@material-ui/core/Drawer";
 import Button from "@material-ui/core/Button";
 import List from "@material-ui/core/List";
 import Divider from "@material-ui/core/Divider";
+import Link from "next/link";
 
 const useStyles = makeStyles({
   list: {
@@ -147,13 +148,17 @@ const Home: NextPage = () => {
               {cats.map((cat, index) => {
                 index = index + 1;
                 return (
-                  <CatItems
-                    key={index}
-                    title={cat.title}
-                    main_img={cat.main_image_url}
-                    sex={getSexName(selector, cat.cat_sex_id)}
-                    status={cat.status ? "募集中" : "募集締め切り"}
-                  />
+                  <Link href="/">
+                    <a>
+                      <CatItems
+                        key={index}
+                        title={cat.title}
+                        main_img={cat.main_image_url}
+                        sex={getSexName(selector, cat.cat_sex_id)}
+                        status={cat.status ? "募集中" : "募集締め切り"}
+                      />
+                    </a>
+                  </Link>
                 );
               })}
             </CatList>
