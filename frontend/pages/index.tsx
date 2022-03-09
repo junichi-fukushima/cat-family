@@ -122,7 +122,6 @@ const Home: NextPage = () => {
           </Aside>
           <Section>
             <CatListHeading>
-              <CatListHeadingNote>並び替え</CatListHeadingNote>
               <CatListHeadingItem>若い順</CatListHeadingItem>
               <CatListHeadingItem>新着順</CatListHeadingItem>
               <CatListHeadingItem>募集中のみ</CatListHeadingItem>
@@ -206,11 +205,11 @@ const CatListHeading = styled.ul`
   display: grid;
   justify-content: right;
   @media ${device.pc} {
-    grid-template-columns: 100px 100px 100px 100px;
+    grid-template-columns: 100px 100px 100px;
   }
   @media ${device.sp} {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     width: 100%;
   }
 `;
