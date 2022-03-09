@@ -9,10 +9,7 @@ import {
   fetchCatType,
 } from "../src/state/ducks/labels/operation";
 import { fetchCats } from "../src/state/ducks/cats/operation";
-import {
-  getCats,
-  getSexName,
-} from "../src/state/ducks/cats/selectors";
+import { getCats, getSexName } from "../src/state/ducks/cats/selectors";
 import { State } from "../src/state/store/type";
 
 // import Next
@@ -24,6 +21,8 @@ import { H2Text } from "../src/components/atoms/text/H2Text";
 import { HeaderLayout } from "../src/components/template/layout/HeaderLayout";
 import { device } from "../src/utility/responsive";
 import { CatItems } from "../src/components/organisms/index/CatItems";
+import { Container } from "../src/components/template/layout/Container";
+import { HeadTemplate } from "../src/components/template/head/Head";
 
 // import styled-components &&  Material UI
 import styled from "styled-components";
@@ -32,7 +31,6 @@ import Drawer from "@material-ui/core/Drawer";
 import Button from "@material-ui/core/Button";
 import List from "@material-ui/core/List";
 import Divider from "@material-ui/core/Divider";
-import { Container } from "../src/components/template/layout/Container";
 
 const useStyles = makeStyles({
   list: {
@@ -106,12 +104,7 @@ const Home: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Cat Family 猫好きのための里親コミュニティ</title>
-        <meta
-          name="description"
-          content="Cat Family 猫好きのための里親コミュニティ"
-        />
-        <link rel="icon" href="/favicon.ico" />
+        <HeadTemplate />
       </Head>
       <HeaderLayout />
       <Container>

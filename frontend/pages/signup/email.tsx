@@ -2,17 +2,13 @@
 // import Next
 import Head from "next/head";
 import type { NextPage } from "next";
+import { HeadTemplate } from "../../src/components/template/head/Head";
 
 const EmailSignUp: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Cat Family 猫好きのための里親コミュニティ</title>
-        <meta
-          name="description"
-          content="Cat Family 猫好きのための里親コミュニティ"
-        />
-        <link rel="icon" href="/favicon.ico" />
+        <HeadTemplate />
       </Head>
       <div>aaa</div>
     </>

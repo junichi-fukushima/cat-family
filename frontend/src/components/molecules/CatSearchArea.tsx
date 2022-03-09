@@ -9,8 +9,8 @@ import { updateCatLabel } from "../../state/ducks/labels/operation";
 import styled from "styled-components";
 
 // import components
-import { SelectCatSearch } from "../atoms/input/SelectCatSearch";
-import { CheckBoxCatSearch } from "../atoms/input/CheckBoxCatSearch";
+import { SelectCatSearch } from "../atoms/input/Search/SelectSearch";
+import { CheckBoxCatSearch } from "../atoms/input/Search/CheckBoxSearch";
 
 export const CatSearchArea: VFC = memo(() => {
   // selectorの呼び出し(ラベルAPIの呼び出し)
