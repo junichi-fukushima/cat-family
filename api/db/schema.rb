@@ -60,15 +60,15 @@ ActiveRecord::Schema.define(version: 2022_03_05_064530) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string "unconfirmed_email"
-    t.string "user_name"
-    t.string "nickname"
-    t.string "email"
-    t.string "phone"
-    t.string "post_code"
-    t.string "prefecture"
-    t.string "city"
-    t.string "building"
-    t.string "favorite_cat"
+    t.string "user_name", default: "", null: false
+    t.string "nickname", default: "", null: false
+    t.string "email", default: "", null: false
+    t.string "phone", default: "", null: false
+    t.string "post_code", default: "", null: false
+    t.integer "prefecture_id", default: 0, null: false
+    t.string "city", default: "", null: false
+    t.string "building", default: "", null: false
+    t.integer "cat_type_id", default: 0, null: false
     t.text "tokens"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

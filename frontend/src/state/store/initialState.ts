@@ -6,4 +6,5 @@ export const initialState: State = {
   cat_age: [],
   cat_sex: [],
   cat_type: [],
+  user: null,
 };

@@ -2,6 +2,7 @@ import { createStore as reduxCreateStore, combineReducers, applyMiddleware } fro
 import thunk from "redux-thunk";
 import { CatsReducer } from "../ducks/cats/reducers";
 import { CatAgeReducer, CatLabelReducer, CatSexReducer, CatTypeReducer } from "../ducks/labels/reducers";
+import { UserReducer } from "../ducks/user/reducers";
 
 export default function createStore() {
   return reduxCreateStore(
@@ -12,7 +13,9 @@ export default function createStore() {
       cat_label:CatLabelReducer,
       cat_age:CatAgeReducer,
       cat_sex:CatSexReducer,
-      cat_type:CatTypeReducer
+      cat_type:CatTypeReducer,
+      // ユーザー情報
+      user:UserReducer
     }),
     applyMiddleware(
       // operation.jsに記載されるような関数をdispatchする時や、非同期での処理をする際はapplayMiddlewareの中でthunkを呼び出す必要がある

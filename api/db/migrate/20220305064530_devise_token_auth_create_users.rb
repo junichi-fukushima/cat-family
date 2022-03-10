@@ -28,15 +28,17 @@ class DeviseTokenAuthCreateUsers < ActiveRecord::Migration[6.0]
       # t.datetime :locked_at
 
       ## User Info
-      t.string :user_name
-      t.string :nickname
-      t.string :email
-      t.string :phone
-      t.string :post_code
-      t.string :prefecture
-      t.string :city
-      t.string :building
-      t.string :favorite_cat
+      t.string :user_name, null: false, default: ""
+      t.string :nickname, null: false, default: ""
+      t.string :email, null: false, default: ''
+      t.string :phone, null: false, default: ''
+      t.string :post_code, null: false, default: ''
+      # 都道府県のデータはフロント側で管理する
+      t.integer :prefecture_id, null: false, default: 0
+      t.string :city, null: false, default: ''
+      t.string :building, null: false, default: ''
+      # activehash
+      t.integer :cat_type_id, null: false, default: 0
 
       ## Tokens
       t.text :tokens

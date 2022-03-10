@@ -15,6 +15,7 @@ export type Cat = {
   updated_at:string,
   main_image_url:string,
   sub_image_url:Array<string>
+  // NOTE : いずれここにユーザーの情報を取得する
 }
 //  Actionの型を定義する
 export const CatsActionTypes = {
