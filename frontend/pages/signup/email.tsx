@@ -1,4 +1,4 @@
-// import React && Redux
+// import React && Redux && react-hook-form
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { State } from "../../src/state/store/type";
@@ -11,6 +11,9 @@ import Head from "next/head";
 import type { NextPage } from "next";
 
 // import styled-components
+import styled from "styled-components";
+
+// import components
 import { H2Text } from "../../src/components/atoms/text/H2Text";
 import { InputText } from "../../src/components/atoms/input/Form/InputText";
 import { SubmitButton } from "../../src/components/atoms/input/Form/SubmitButton";
@@ -19,8 +22,8 @@ import { HeadTemplate } from "../../src/components/template/head/Head";
 import { FormWrapper } from "../../src/components/organisms/Form/FormWrapper";
 import { InputSelect } from "../../src/components/atoms/input/Form/InputSelect";
 import { prefecture } from "../../src/data/prefecture";
-import styled from "styled-components";
 
+// 新規登録でpostするデータ
 export interface FormValues {
   user_name: string;
   nickname: string;
@@ -36,7 +39,7 @@ export interface FormValues {
 }
 
 const EmailSignUp: NextPage = () => {
-  // redux
+  // redux -- catTypeを使用するので使用
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchCatType());

@@ -1,4 +1,6 @@
-// import React && Redux
+// import React && Redux && react-hook-form
+import { SubmitHandler, useForm } from "react-hook-form";
+
 // import Next
 import Head from "next/head";
 import type { NextPage } from "next";
@@ -6,6 +8,8 @@ import Link from "next/link";
 
 // import styled-components
 import styled from "styled-components";
+
+// import components
 import { AuthButton } from "../../src/components/atoms/button/AuthButton";
 import { H2Text } from "../../src/components/atoms/text/H2Text";
 import { H3Text } from "../../src/components/atoms/text/H3Text";
@@ -14,8 +18,8 @@ import { SubmitButton } from "../../src/components/atoms/input/Form/SubmitButton
 import { AuthTemplate } from "../../src/components/template/pages/Auth";
 import { HeadTemplate } from "../../src/components/template/head/Head";
 import { FormWrapper } from "../../src/components/organisms/Form/FormWrapper";
-import { SubmitHandler, useForm } from "react-hook-form";
 
+// ログインの際に使用する値
 export interface FormValues {
   email: string;
   password: string;

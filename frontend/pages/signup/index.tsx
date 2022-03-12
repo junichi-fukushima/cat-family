@@ -4,15 +4,16 @@ import Head from "next/head";
 import type { NextPage } from "next";
 import Link from "next/link";
 
-// import components
-import { H2Text } from "../../src/components/atoms/text/H2Text";
-import { H3Text } from "../../src/components/atoms/text/H3Text";
-
 // import styled-components
 import styled from "styled-components";
+
+// import components
 import { AuthButton } from "../../src/components/atoms/button/AuthButton";
 import { HeadTemplate } from "../../src/components/template/head/Head";
 import { AuthTemplate } from "../../src/components/template/pages/Auth";
+import { H2Text } from "../../src/components/atoms/text/H2Text";
+import { H3Text } from "../../src/components/atoms/text/H3Text";
+
 
 const SignUp: NextPage = () => {
   return (
