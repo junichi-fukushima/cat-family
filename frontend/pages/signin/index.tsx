@@ -13,7 +13,7 @@ import { InputText } from "../../src/components/atoms/input/Form/InputText";
 import { SubmitButton } from "../../src/components/atoms/input/Form/SubmitButton";
 import { AuthTemplate } from "../../src/components/template/pages/Auth";
 import { HeadTemplate } from "../../src/components/template/head/Head";
-import { FormItem } from "../../src/components/organisms/Form/FormItem";
+import { FormWrapper } from "../../src/components/organisms/Form/FormWrapper";
 
 const SignIn: NextPage = () => {
   return (
@@ -23,11 +23,25 @@ const SignIn: NextPage = () => {
       </Head>
       <AuthTemplate>
         <H2Text>ログイン</H2Text>
-        <FormItem>
-          <InputText type="email" placeholder="fukuima1749@gmail.com">氏名(フルネーム)</InputText>
-          <InputText type="text">パスワード</InputText>
+        <FormWrapper>
+          <InputText
+            type="email"
+            placeholder="(例) nekochan@gmail.com"
+            name="email"
+            required={true}
+          >
+            メールアドレス
+          </InputText>
+          <InputText
+            type="password"
+            notice="※半角英数字8文字以上で入力してください。"
+            name="password"
+            required={true}
+          >
+            パスワード
+          </InputText>
           <SubmitButton type="submit" value="ログイン" />
-        </FormItem>
+        </FormWrapper>
         <AuthButtonWraper>
           <Link href="#">
             <a>

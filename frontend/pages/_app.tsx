@@ -6,9 +6,6 @@ import createStore from "../src/state/store/store";
 // Next.js
 import type { AppProps } from "next/app";
 
-// Auth0
-import { UserProvider } from "@auth0/nextjs-auth0";
-
 // styles
 import "../styles/globals.scss";
 
@@ -23,10 +20,8 @@ export default function MyApp({ Component, pageProps }: AppProps) {
   }, []);
 
   return (
-    <UserProvider>
-      <Provider store={store}>
-        <Component {...pageProps} />
-      </Provider>
-    </UserProvider>
+    <Provider store={store}>
+      <Component {...pageProps} />
+    </Provider>
   );
 }

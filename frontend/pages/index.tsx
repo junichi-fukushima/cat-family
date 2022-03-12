@@ -1,5 +1,5 @@
 // import React && Redux
-import React, { useEffect, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { CatSearchArea } from "../src/components/molecules/CatSearchArea";
 import {
@@ -56,13 +56,12 @@ const useStyles = makeStyles({
   },
 });
 
-const Home: NextPage = () => {
+const Home: NextPage = memo(() => {
   // materialUI
   const classes = useStyles();
   const [spSearchState, setSpSearchState] = useState({
     right: false,
   });
-
   const toggleDrawer = (anchor: string, open: boolean) => (
     event: React.KeyboardEvent | React.MouseEvent
   ) => {
@@ -147,10 +146,9 @@ const Home: NextPage = () => {
               {cats.map((cat, index) => {
                 index = index + 1;
                 return (
-                  <Link href="/">
+                  <Link href="/" key={index}>
                     <a>
                       <CatItems
-                        key={index}
                         title={cat.title}
                         main_img={cat.main_image_url}
                         sex={getSexName(selector, cat.cat_sex_id)}
@@ -166,7 +164,7 @@ const Home: NextPage = () => {
       </Container>
     </>
   );
-};
+});
 export default Home;
 
 // styled-components
@@ -197,13 +195,16 @@ const CatSearchHeading = styled.ul`
   justify-content: space-between;
   margin-bottom: 20px;
 `;
-const CatSearchHeadingItem = styled.li``;
+const CatSearchHeadingItem = styled.li`
+  cursor: pointer;
+`;
 
 const Section = styled.section``;
 const CatListHeading = styled.ul`
   margin-bottom: 20px;
   display: grid;
   justify-content: right;
+  cursor: pointer;
   @media ${device.pc} {
     grid-template-columns: 100px 100px 100px;
   }
@@ -236,13 +237,6 @@ const CatListHeadingItem = styled.li`
   }
   @media ${device.sp} {
     font-size: 16px;
-  }
-`;
-const CatListHeadingNote = styled.li`
-  @media ${device.pc} {
-    font-size: 14px;
-  }
-  @media ${device.sp} {
-    font-size: 12px;
+    text-align: center;
   }
 `;
