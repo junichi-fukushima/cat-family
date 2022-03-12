@@ -8,6 +8,7 @@ type Props = {
   onChange: (id: number) => void;
 };
 
+// チェックボックス
 export const CheckBoxCatSearch: VFC<Props> = memo((props) => {
   const { children, id, checked, onChange } = props;
   return (
