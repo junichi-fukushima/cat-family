@@ -14,8 +14,21 @@ import { SubmitButton } from "../../src/components/atoms/input/Form/SubmitButton
 import { AuthTemplate } from "../../src/components/template/pages/Auth";
 import { HeadTemplate } from "../../src/components/template/head/Head";
 import { FormWrapper } from "../../src/components/organisms/Form/FormWrapper";
+import { SubmitHandler, useForm } from "react-hook-form";
 
+export interface FormValues {
+  email: string;
+  password: string;
+}
 const SignIn: NextPage = () => {
+  // react-hook-form
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormValues>();
+  const onSubmit: SubmitHandler<FormValues> = (data) => console.log(data);
+
   return (
     <>
       <Head>
@@ -23,25 +36,45 @@ const SignIn: NextPage = () => {
       </Head>
       <AuthTemplate>
         <H2Text>ログイン</H2Text>
-        <FormWrapper>
-          <InputText
-            type="email"
-            placeholder="(例) nekochan@gmail.com"
-            name="email"
-            required={true}
-          >
-            メールアドレス
-          </InputText>
-          <InputText
-            type="password"
-            notice="※半角英数字8文字以上で入力してください。"
-            name="password"
-            required={true}
-          >
-            パスワード
-          </InputText>
-          <SubmitButton type="submit" value="ログイン" />
-        </FormWrapper>
+        <LoginForm onSubmit={handleSubmit(onSubmit)}>
+          <FormWrapper>
+            <InputText
+              type="email"
+              placeholder="(例) nekochan@gmail.com"
+              register={register("email", {
+                required: {
+                  value: true,
+                  message: "メールアドレスを入力してください",
+                },
+                pattern: {
+                  value: /^[a-zA-Z0-9_.+-]+@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*\.)+[a-zA-Z]{2,}$/,
+                  message: "正しい形式でメールアドレスを入力してください。",
+                },
+              })}
+              errors={errors}
+            >
+              メールアドレス
+            </InputText>
+            <InputText
+              type="password"
+              register={register("password", {
+                required: {
+                  value: true,
+                  message: "パスワードを入力してください",
+                },
+                pattern: {
+                  value: /^(?=.*?[a-z])(?=.*?\d)[a-z\d]{8,100}$/i,
+                  message: "半角英数字8文字以上で入力してください",
+                },
+              })}
+              errors={errors}
+            >
+              パスワード
+            </InputText>
+            <SubmitButton type="submit" value="ログイン" />
+          </FormWrapper>
+        </LoginForm>
+
         <AuthButtonWraper>
           <Link href="#">
             <a>
@@ -73,3 +106,5 @@ const AuthButtonWraper = styled.div`
 const AuthBottom = styled.div`
   margin-top: 30px;
 `;
+
+const LoginForm = styled.form``;

@@ -1,20 +1,31 @@
 import { memo, ReactNode, VFC } from "react";
+import { useForm } from "react-hook-form";
 import styled from "styled-components";
 import { color } from "../../../../utility/colors";
+import { device } from "../../../../utility/responsive";
 
 type Props = {
   children?: ReactNode;
   notice?: string;
   options: { id: number; name: string }[];
+  // 一旦anyで黙らせる
+  register: any;
+  errors?: any;
+  required?: boolean;
 };
 
 export const InputSelect: VFC<Props> = memo((props) => {
-  const { children, notice, options } = props;
+  const { children, notice, options, errors, required } = props;
+  // react-hook-form
+  const { register } = useForm();
   return (
     <>
       <FormItem>
-        <FormLabel>{children}</FormLabel>
-        <Select>
+        <FormLabel>
+          {children}
+          {required ? <Required>必須</Required> : ""}
+        </FormLabel>
+        <Select {...register}>
           {options &&
             options.map((option, index) => (
               <Option id={`${index + 1}`} key={index} value={option.name}>
@@ -23,6 +34,14 @@ export const InputSelect: VFC<Props> = memo((props) => {
             ))}
         </Select>
         <Notice>{notice}</Notice>
+        <ErrorText>
+          {errors[register.name]?.type === "required"
+            ? errors[register.name]?.message
+            : ""}
+          {errors[register.name]?.type === "pattern"
+            ? errors[register.name]?.message
+            : ""}
+        </ErrorText>
       </FormItem>
     </>
   );
@@ -34,16 +53,17 @@ const FormItem = styled.div`
 const FormLabel = styled.div`
   font-weight: bold;
   margin-bottom: 5px;
-  &::after {
-    content: "必須";
-    font-size: 12px;
-    color: ${color.white};
-    background-color: ${color.green};
-    padding: 3px 5px;
-    border-radius: 4px;
-    margin-left: 5px;
-    margin-bottom: 5px;
-  }
+`;
+const Required = styled.span`
+  color: ${color.white};
+  background-color: ${color.green};
+  padding: 2px 4px;
+  border-radius: 4px;
+  margin-left: 5px;
+  margin-bottom: 7px;
+  font-size: 12px;
+  position: relative;
+  top: -2px;
 `;
 const Notice = styled.p`
   font-size: 14px;
@@ -64,3 +84,14 @@ const Select = styled.select`
   }
 `;
 const Option = styled.option``;
+
+const ErrorText = styled.p`
+  color: ${color.red};
+  font-weight: 600;
+  @media ${device.pc} {
+    font-size: 14px;
+  }
+  @media ${device.sp} {
+    font-size: 12px;
+  }
+`;
