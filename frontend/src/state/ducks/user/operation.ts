@@ -1,7 +1,7 @@
 import { postUserUrl } from "../../urls";
 import { postUserAction } from "./actions";
 
-export const fetchCats = () => {
+export const postCats = () => {
   return async (dispatch: any) => {
     fetch(postUserUrl)
       .then((res) => res.json())

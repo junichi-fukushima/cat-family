@@ -15,9 +15,8 @@ type Props = {
 };
 
 export const InputSelect: VFC<Props> = memo((props) => {
-  const { children, notice, options, errors, required } = props;
+  const { children, notice, options, errors, required, register } = props;
   // react-hook-form
-  const { register } = useForm();
   return (
     <>
       <FormItem>
@@ -35,10 +34,7 @@ export const InputSelect: VFC<Props> = memo((props) => {
         </Select>
         <Notice>{notice}</Notice>
         <ErrorText>
-          {errors[register.name]?.type === "required"
-            ? errors[register.name]?.message
-            : ""}
-          {errors[register.name]?.type === "pattern"
+          {errors[register.name]?.type === "value"
             ? errors[register.name]?.message
             : ""}
         </ErrorText>

@@ -30,10 +30,10 @@ export interface FormValues {
   phone: number;
   email: string;
   post_code: number;
-  prefecture_id: number;
+  prefecture: string;
   city: string;
   building: string;
-  cat_type_id: number;
+  cat_type: string;
   password: string;
   password_confirmation: string;
 }
@@ -151,10 +151,11 @@ const EmailSignUp: NextPage = () => {
             </InputText>
             <InputSelect
               options={prefecture}
-              register={register("prefecture_id", {
-                required: {
-                  value: true,
-                  message: "都道府県を選択してください",
+              register={register("prefecture", {
+                validate: {
+                  value: (value) =>
+                  value === "選択してください" ||
+                    "都道府県を選択してください",
                 },
               })}
               errors={errors}
@@ -187,10 +188,11 @@ const EmailSignUp: NextPage = () => {
             </InputText>
             <InputSelect
               options={catType}
-              register={register("cat_type_id", {
-                required: {
-                  value: true,
-                  message: "好みの猫ちゃんを選択してください",
+              register={register("cat_type", {
+                validate: {
+                  value: (value) =>
+                    value === "種類を選択してください" ||
+                    "好みの猫ちゃんを選択してください",
                 },
               })}
               errors={errors}
@@ -198,6 +200,7 @@ const EmailSignUp: NextPage = () => {
             >
               好みの猫ちゃん
             </InputSelect>
+            {console.log(errors)}
             <InputText
               type="password"
               notice="※半角英数字8文字以上で入力してください。"
