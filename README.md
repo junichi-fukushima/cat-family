@@ -75,7 +75,7 @@ https://docs.google.com/spreadsheets/d/1Qab86QrrpRR65b_HsGJErkKvyUKox1-Y3RDhfonU
 **概要**<br>
 https://docs.google.com/document/d/1Z0ejCJiPY80YIVYPK44y6p0kzzTplLe7dd_SCarImYM/edit#
 
-**ER図形**<br>
+**ER図**<br>
 https://app.diagrams.net/#G1Gf39q1gEgHnCLqaiJOJd0EHKF9GyUxEM
 
 **画面遷移**<br>
