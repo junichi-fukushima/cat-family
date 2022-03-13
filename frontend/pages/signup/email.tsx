@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { State } from "../../src/state/store/type";
 import { getCatType } from "../../src/state/ducks/labels/selectors";
 import { fetchCatType } from "../../src/state/ducks/labels/operation";
+import { postUser } from "../../src/state/ducks/user/operation";
 import { useForm, SubmitHandler } from "react-hook-form";
 
 // import Next
@@ -44,6 +45,7 @@ const EmailSignUp: NextPage = () => {
   useEffect(() => {
     dispatch(fetchCatType());
   }, []);
+  // 猫種のデータ
   const selector = useSelector((state: State) => state);
   const catType = getCatType(selector);
 
@@ -54,6 +56,7 @@ const EmailSignUp: NextPage = () => {
     formState: { errors },
     getValues,
   } = useForm<FormValues>();
+  // ユーザー情報をuser/operationsに渡す
   const onSubmit: SubmitHandler<FormValues> = (data) => console.log(data);
 
   return (
@@ -140,7 +143,7 @@ const EmailSignUp: NextPage = () => {
                   message: "郵便番号を入力してください",
                 },
                 pattern: {
-                  value: /^0\d{9,10}$/,
+                  value: /^\d{7}$/,
                   message: "正しい形式で郵便番号を入力してください。",
                 },
               })}
@@ -154,7 +157,7 @@ const EmailSignUp: NextPage = () => {
               register={register("prefecture", {
                 validate: {
                   value: (value) =>
-                  value === "選択してください" ||
+                    value !== "選択してください" ||
                     "都道府県を選択してください",
                 },
               })}
@@ -191,7 +194,7 @@ const EmailSignUp: NextPage = () => {
               register={register("cat_type", {
                 validate: {
                   value: (value) =>
-                    value === "種類を選択してください" ||
+                    value !== "種類を選択してください" ||
                     "好みの猫ちゃんを選択してください",
                 },
               })}
@@ -200,7 +203,6 @@ const EmailSignUp: NextPage = () => {
             >
               好みの猫ちゃん
             </InputSelect>
-            {console.log(errors)}
             <InputText
               type="password"
               notice="※半角英数字8文字以上で入力してください。"
