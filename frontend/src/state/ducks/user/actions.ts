@@ -1,8 +1,14 @@
 import { User, UserActionTypes } from "./type";
 
-export const postUserAction = (state: User) => {
+export const signUpAction = (state: User) => {
   return {
-    type: UserActionTypes.POST_USER,
+    type: UserActionTypes.SIGN_UP,
+    payload: state,
+  };
+};
+export const signInAction = (state: User) => {
+  return {
+    type: UserActionTypes.SIGN_IN,
     payload: state,
   };
 };

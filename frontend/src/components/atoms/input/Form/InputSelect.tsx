@@ -27,7 +27,7 @@ export const InputSelect: VFC<Props> = memo((props) => {
         <Select {...register}>
           {options &&
             options.map((option, index) => (
-              <Option id={`${index + 1}`} key={index} value={option.name}>
+              <Option id={`${index + 1}`} key={index} value={option.id}>
                 {option.name}
               </Option>
             ))}

@@ -15,5 +15,6 @@ export type User = {
 };
 //  Actionの型を定義する
 export const UserActionTypes = {
-  POST_USER: "POST_USER",
+  SIGN_IN: "SIGN_IN",
+  SIGN_UP: "SIGN_UP",
 };

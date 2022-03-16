@@ -11,4 +11,4 @@ export const catTypeUrl = `${DEFAULT_API_LOCALHOST}/cat_type`
 export const catSexUrl = `${DEFAULT_API_LOCALHOST}/cat_sex`
 
 // ユーザー管理機能
-export const postUserUrl = `${DEFAULT_API_LOCALHOST}/api/v1/auth`
+export const postUserUrl = `${DEFAULT_API_LOCALHOST}/auth`

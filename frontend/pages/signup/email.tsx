@@ -4,8 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { State } from "../../src/state/store/type";
 import { getCatType } from "../../src/state/ducks/labels/selectors";
 import { fetchCatType } from "../../src/state/ducks/labels/operation";
-import { postUser } from "../../src/state/ducks/user/operation";
-import { useForm, SubmitHandler } from "react-hook-form";
+import { signUp } from "../../src/state/ducks/user/operation";
+import { useForm } from "react-hook-form";
 
 // import Next
 import Head from "next/head";
@@ -31,10 +31,10 @@ export interface FormValues {
   phone: number;
   email: string;
   post_code: number;
-  prefecture: string;
+  prefecture_id: string;
   city: string;
   building: string;
-  cat_type: string;
+  cat_type_id: string;
   password: string;
   password_confirmation: string;
 }
@@ -57,7 +57,8 @@ const EmailSignUp: NextPage = () => {
     getValues,
   } = useForm<FormValues>();
   // ユーザー情報をuser/operationsに渡す
-  const onSubmit: SubmitHandler<FormValues> = (data) => console.log(data);
+
+  const onSubmit = handleSubmit(data => signUp(data));
 
   return (
     <>
@@ -66,7 +67,7 @@ const EmailSignUp: NextPage = () => {
       </Head>
       <AuthTemplate>
         <H2Text>新規登録</H2Text>
-        <RegistrationForm onSubmit={handleSubmit(onSubmit)}>
+        <RegistrationForm onSubmit={onSubmit}>
           <FormWrapper>
             <InputText
               type="text"
@@ -154,7 +155,7 @@ const EmailSignUp: NextPage = () => {
             </InputText>
             <InputSelect
               options={prefecture}
-              register={register("prefecture", {
+              register={register("prefecture_id", {
                 validate: {
                   value: (value) =>
                     value !== "選択してください" ||
@@ -191,7 +192,7 @@ const EmailSignUp: NextPage = () => {
             </InputText>
             <InputSelect
               options={catType}
-              register={register("cat_type", {
+              register={register("cat_type_id", {
                 validate: {
                   value: (value) =>
                     value !== "種類を選択してください" ||
