@@ -1,5 +1,5 @@
 // import React && Redux
-import React, { memo, useEffect, useState } from "react";
+import React, { memo, useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { CatSearchArea } from "../src/components/molecules/CatSearchArea";
 import {
@@ -33,6 +33,9 @@ import List from "@material-ui/core/List";
 import Divider from "@material-ui/core/Divider";
 import Link from "next/link";
 
+// hooks
+import { useWindowResize } from "../src/hooks/useWindowResize";
+
 const useStyles = makeStyles({
   list: {
     width: 250,
@@ -62,18 +65,22 @@ const Home: NextPage = memo(() => {
   const [spSearchState, setSpSearchState] = useState({
     right: false,
   });
-  const toggleDrawer = (anchor: string, open: boolean) => (
-    event: React.KeyboardEvent | React.MouseEvent
-  ) => {
-    if (
-      event.type === "keydown" &&
-      ((event as React.KeyboardEvent).key === "Tab" ||
-        (event as React.KeyboardEvent).key === "Shift")
-    ) {
-      return;
-    }
-    setSpSearchState({ ...spSearchState, [anchor]: open });
-  };
+  const [isSp] = useWindowResize();
+  const toggleDrawer = useCallback(
+    (anchor: string, open: boolean) => (
+      event: React.KeyboardEvent | React.MouseEvent
+    ) => {
+      if (
+        event.type === "keydown" &&
+        ((event as React.KeyboardEvent).key === "Tab" ||
+          (event as React.KeyboardEvent).key === "Shift")
+      ) {
+        return;
+      }
+      setSpSearchState({ ...spSearchState, [anchor]: open });
+    },
+    [spSearchState]
+  );
 
   const list = () => (
     <div
@@ -138,7 +145,7 @@ const Home: NextPage = memo(() => {
                 open={spSearchState["right"]}
                 onClose={toggleDrawer("right", false)}
               >
-                {list()}
+                {isSp === false && list()}
               </Drawer>
             </SpButtonWrap>
             {/* OnlySP */}

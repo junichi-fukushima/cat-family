@@ -3,10 +3,15 @@ import styled from "styled-components";
 import Image from "next/image";
 import { device } from "../../../utility/responsive";
 
-export const Avatar: VFC = memo(() => {
+type Props = {
+  onClick: () => void;
+}
+
+export const Avatar: VFC<Props> = memo((props) => {
+  const { onClick } = props;
   return (
     <>
-      <SpUserAvatarWrap>
+      <SpUserAvatarWrap onClick={onClick}>
         <Image
           src="/top/non-user-avatar.png"
           height={30} // 高さ指定
