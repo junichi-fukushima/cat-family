@@ -16,7 +16,6 @@ import { H3Text } from "../../src/components/atoms/text/H3Text";
 import { InputText } from "../../src/components/atoms/input/Form/InputText";
 import { SubmitButton } from "../../src/components/atoms/input/Form/SubmitButton";
 import { AuthTemplate } from "../../src/components/template/pages/Auth";
-import { HeadTemplate } from "../../src/components/template/head/Head";
 import { FormWrapper } from "../../src/components/organisms/Form/FormWrapper";
 import { signIn } from "../../src/state/ducks/user/operation";
 
@@ -37,7 +36,12 @@ const SignIn: NextPage = () => {
   return (
     <>
       <Head>
-        <HeadTemplate />
+        <title>Cat Family 猫好きのための里親コミュニティ</title>
+        <meta
+          name="description"
+          content="Cat Family 猫好きのための里親コミュニティ"
+        />
+        <link rel="icon" href="/favicon.ico" />
       </Head>
       <AuthTemplate>
         <H2Text>ログイン</H2Text>

@@ -19,7 +19,6 @@ import { H2Text } from "../../src/components/atoms/text/H2Text";
 import { InputText } from "../../src/components/atoms/input/Form/InputText";
 import { SubmitButton } from "../../src/components/atoms/input/Form/SubmitButton";
 import { AuthTemplate } from "../../src/components/template/pages/Auth";
-import { HeadTemplate } from "../../src/components/template/head/Head";
 import { FormWrapper } from "../../src/components/organisms/Form/FormWrapper";
 import { InputSelect } from "../../src/components/atoms/input/Form/InputSelect";
 import { prefecture } from "../../src/data/prefecture";
@@ -63,7 +62,12 @@ const EmailSignUp: NextPage = () => {
   return (
     <>
       <Head>
-        <HeadTemplate />
+        <title>Cat Family 猫好きのための里親コミュニティ</title>
+        <meta
+          name="description"
+          content="Cat Family 猫好きのための里親コミュニティ"
+        />
+        <link rel="icon" href="/favicon.ico" />
       </Head>
       <AuthTemplate>
         <H2Text>新規登録</H2Text>

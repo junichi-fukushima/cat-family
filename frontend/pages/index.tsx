@@ -22,7 +22,6 @@ import { HeaderLayout } from "../src/components/template/layout/HeaderLayout";
 import { device } from "../src/utility/responsive";
 import { CatItems } from "../src/components/organisms/index/CatItems";
 import { Container } from "../src/components/template/layout/Container";
-import { HeadTemplate } from "../src/components/template/head/Head";
 
 // import styled-components &&  Material UI
 import styled from "styled-components";
@@ -66,6 +65,7 @@ const Home: NextPage = memo(() => {
     right: false,
   });
   const [isSp] = useWindowResize();
+
   const toggleDrawer = useCallback(
     (anchor: string, open: boolean) => (
       event: React.KeyboardEvent | React.MouseEvent
@@ -81,7 +81,6 @@ const Home: NextPage = memo(() => {
     },
     [spSearchState]
   );
-
   const list = () => (
     <div
       className={classes.list}
@@ -111,7 +110,12 @@ const Home: NextPage = memo(() => {
   return (
     <>
       <Head>
-        <HeadTemplate />
+        <title>Cat Family 猫好きのための里親コミュニティ</title>
+        <meta
+          name="description"
+          content="Cat Family 猫好きのための里親コミュニティ"
+        />
+        <link rel="icon" href="/favicon.ico" />
       </Head>
       <HeaderLayout />
       <Container>

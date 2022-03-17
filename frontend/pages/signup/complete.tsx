@@ -9,7 +9,6 @@ import styled from "styled-components";
 
 // import components
 import { H2Text } from "../../src/components/atoms/text/H2Text";
-import { HeadTemplate } from "../../src/components/template/head/Head";
 import { AuthTemplate } from "../../src/components/template/pages/Auth";
 import { PrimaryButton } from "../../src/components/atoms/button/PrimaryButton";
 
@@ -17,7 +16,14 @@ const SignUp: NextPage = () => {
   return (
     <>
       <Head>
-        <HeadTemplate />
+      <Head>
+        <title>Cat Family 猫好きのための里親コミュニティ</title>
+        <meta
+          name="description"
+          content="Cat Family 猫好きのための里親コミュニティ"
+        />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
       </Head>
       <AuthTemplate>
         <H2Text>登録が完了しました！</H2Text>

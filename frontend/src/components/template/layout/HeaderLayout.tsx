@@ -17,7 +17,6 @@ import { device } from "../../../utility/responsive";
 import styled from "styled-components";
 import { color } from "../../../utility/colors";
 
-// onClick=
 export const HeaderLayout: VFC = memo(() => {
   const [spNavState, setspNavState] = useState<boolean>(false);
   const onClickNav = useCallback(() => {
