@@ -34,6 +34,7 @@ import Link from "next/link";
 
 // hooks
 import { useWindowResize } from "../src/hooks/useWindowResize";
+import { CircularIndeterminate } from "../src/hooks/spiner";
 
 const useStyles = makeStyles({
   list: {
@@ -64,6 +65,7 @@ const Home: NextPage = memo(() => {
   const [spSearchState, setSpSearchState] = useState({
     right: false,
   });
+  // ウィンドウサイズを取得
   const [isSp] = useWindowResize();
 
   const toggleDrawer = useCallback(
@@ -94,6 +96,12 @@ const Home: NextPage = memo(() => {
     </div>
   );
 
+  // reduxでやるかそれぞれの画面ごとにやるか？
+  // redux⇨1個1個状態管理するのか？
+  // https://developers.freee.co.jp/entry/react-loading-pattern
+  // 画面ごと⇨画面ごとにloadingの設定をするのか
+  const [loading, setLoading] = useState(false);
+
   // redux
   const dispatch = useDispatch();
   useEffect(() => {
@@ -117,6 +125,7 @@ const Home: NextPage = memo(() => {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      {loading ? (<CircularIndeterminate />) : (null) }
       <HeaderLayout />
       <Container>
         <HeadingWrap>
@@ -149,7 +158,7 @@ const Home: NextPage = memo(() => {
                 open={spSearchState["right"]}
                 onClose={toggleDrawer("right", false)}
               >
-                {isSp === false && list()}
+                {!isSp && list()}
               </Drawer>
             </SpButtonWrap>
             {/* OnlySP */}
