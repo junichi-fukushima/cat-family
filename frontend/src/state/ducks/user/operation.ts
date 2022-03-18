@@ -4,7 +4,7 @@ import axios from "axios";
 
 export const signUp = (user :{}) => {
   axios
-    .post(postUserUrl, user)
+    .post(postUserUrl, {...user, confirm_success_url: "http://localhost:8000/signup/complete"})
     .then(() => {
       console.log("完了しました");
     })

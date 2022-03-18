@@ -7,4 +7,5 @@ export const initialState: State = {
   cat_sex: [],
   cat_type: [],
   user: null,
+  loading: true,
 };

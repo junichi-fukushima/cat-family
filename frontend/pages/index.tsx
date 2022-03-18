@@ -9,7 +9,7 @@ import {
   fetchCatType,
 } from "../src/state/ducks/labels/operation";
 import { fetchCats } from "../src/state/ducks/cats/operation";
-import { getCats, getSexName } from "../src/state/ducks/cats/selectors";
+import { getCatLoading, getCats, getSexName } from "../src/state/ducks/cats/selectors";
 import { State } from "../src/state/store/type";
 
 // import Next
@@ -100,7 +100,6 @@ const Home: NextPage = memo(() => {
   // redux⇨1個1個状態管理するのか？
   // https://developers.freee.co.jp/entry/react-loading-pattern
   // 画面ごと⇨画面ごとにloadingの設定をするのか
-  const [loading, setLoading] = useState(false);
 
   // redux
   const dispatch = useDispatch();
@@ -125,7 +124,6 @@ const Home: NextPage = memo(() => {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      {loading ? (<CircularIndeterminate />) : (null) }
       <HeaderLayout />
       <Container>
         <HeadingWrap>

@@ -1,6 +1,7 @@
 import { catsIndexUrl } from "../../urls";
 import { fetchAllCatsAction } from "./actions";
 import axios from "axios";
+import { useState } from "react";
 
 
 export const fetchCats = () => {
@@ -11,6 +12,7 @@ export const fetchCats = () => {
     .then((result) => {
       dispatch(fetchAllCatsAction(result.data.map((x: any) => x)));
     })
+
     .catch(() => null)
   };
 };

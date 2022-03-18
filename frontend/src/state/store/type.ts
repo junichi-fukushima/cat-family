@@ -8,5 +8,6 @@ export type State = {
   cat_sex: CatsSex[];
   cat_type: CatsType[];
   cat_age: CatsAge[];
-  user: User | null
+  user: User | null;
+  loading: boolean;
 };
