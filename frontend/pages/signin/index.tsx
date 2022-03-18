@@ -83,7 +83,6 @@ const SignIn: NextPage = () => {
             <SubmitButton type="submit" value="ログイン" />
           </FormWrapper>
         </LoginForm>
-
         <AuthButtonWraper>
           <Link href="#">
             <a>
