@@ -25,7 +25,6 @@ export const useSignUp = () => {
 
 export const useSignIn = () => {
   const router = useRouter();
-
   const signIn = useCallback(
     (user) => {
       axios
@@ -40,14 +39,20 @@ export const useSignIn = () => {
   return { signIn };
 };
 
-// Note
-// 今後の流れ
-// ユーザー登録を完了する
-// トップページにリダイレクトさせる
-// ヘッドタグ内にユーザー情報を送る？
+// ログインユーザーの取得
+// export const getCurrentUser = () => {
+//   if (
+//     !Cookies.get("_access_token") ||
+//     !Cookies.get("_client") ||
+//     !Cookies.get("_uid")
+//   )
+//     return;
 
-// 現状の問題点
-// ①registrationsというオブジェクトが入り込んでいる
-// Rails側で入れるなと言っている
-// email.tsx側でregistrationsを抜き出そうとしたらない。。？
-// 対処法registrationsを抜き出す or registrationsを削除？
+//   return client.get("/auth/sessions", {
+//     headers: {
+//       "access-token": Cookies.get("_access_token"),
+//       client: Cookies.get("_client"),
+//       uid: Cookies.get("_uid"),
+//     },
+//   });
+// };
