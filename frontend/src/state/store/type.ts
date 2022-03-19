@@ -10,4 +10,5 @@ export type State = {
   cat_age: CatsAge[];
   user: User | null;
   loading: boolean;
+  isSignedIn: boolean,
 };

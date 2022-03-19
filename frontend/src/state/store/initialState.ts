@@ -8,4 +8,5 @@ export const initialState: State = {
   cat_type: [],
   user: null,
   loading: true,
+  isSignedIn:false
 };

@@ -2,7 +2,6 @@
 // import Next
 import Head from "next/head";
 import type { NextPage } from "next";
-import Link from "next/link";
 
 // import styled-components
 import styled from "styled-components";
@@ -10,7 +9,6 @@ import styled from "styled-components";
 // import components
 import { H2Text } from "../../src/components/atoms/text/H2Text";
 import { AuthTemplate } from "../../src/components/template/pages/Auth";
-import { PrimaryButton } from "../../src/components/atoms/button/PrimaryButton";
 
 const Temporary: NextPage = () => {
   return (
