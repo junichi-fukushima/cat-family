@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { State } from "../../src/state/store/type";
 import { getCatType } from "../../src/state/ducks/labels/selectors";
 import { fetchCatType } from "../../src/state/ducks/labels/operation";
-import { signUp } from "../../src/state/ducks/user/operation";
+import { useSignUp } from "../../src/state/ducks/user/operation";
 import { useForm } from "react-hook-form";
 
 // import Next
@@ -57,7 +57,8 @@ const EmailSignUp: NextPage = () => {
   } = useForm<FormValues>();
   // ユーザー情報をuser/operationsに渡す
 
-  const onSubmit = handleSubmit(data => signUp(data));
+  const { signUp } = useSignUp();
+  const onSubmit = handleSubmit((data) => signUp(data));
 
   return (
     <>

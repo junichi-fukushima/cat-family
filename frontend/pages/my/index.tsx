@@ -38,7 +38,6 @@ const MyPage: NextPage = () => {
   // react-hook-form
   const {
     register,
-    handleSubmit,
     formState: { errors },
   } = useForm<FormValues>();
   const onSubmit: SubmitHandler<FormValues> = (data) => console.log(data);

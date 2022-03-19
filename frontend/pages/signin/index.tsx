@@ -17,7 +17,7 @@ import { InputText } from "../../src/components/atoms/input/Form/InputText";
 import { SubmitButton } from "../../src/components/atoms/input/Form/SubmitButton";
 import { AuthTemplate } from "../../src/components/template/pages/Auth";
 import { FormWrapper } from "../../src/components/organisms/Form/FormWrapper";
-import { signIn } from "../../src/state/ducks/user/operation";
+import { useSignIn } from "../../src/state/ducks/user/operation";
 
 // ログインの際に使用する値
 export interface FormValues {
@@ -31,6 +31,8 @@ const SignIn: NextPage = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<FormValues>();
+
+  const { signIn } = useSignIn();
   const onSubmit: SubmitHandler<FormValues> = (data) => signIn(data);
 
   return (

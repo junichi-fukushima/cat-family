@@ -1,27 +1,43 @@
-import { postUserUrl } from "../../urls";
-import { signUpAction } from "./actions";
+import { signUpUrl, successURL, signInURL } from "../../urls";
 import axios from "axios";
+import { useRouter } from "next/router";
+import { useCallback } from "react";
 
-export const signUp = (user :{}) => {
-  axios
-    .post(postUserUrl, {...user, confirm_success_url: "http://localhost:8000/signup/complete"})
-    .then(() => {
-      console.log("完了しました");
-    })
-    .catch((err) => {
-      console.log("err", err);
-    });
+export const useSignUp = () => {
+  const router = useRouter();
+
+  const signUp = useCallback(
+    (user) => {
+      axios
+        .post(signUpUrl, {
+          ...user,
+          confirm_success_url: successURL,
+        })
+        .then(() => {
+          router.push("/signup/temporary");
+        })
+        .catch((err) => null);
+    },
+    [router]
+  );
+  return { signUp };
 };
 
-export const signIn = (user :{}) => {
-  axios
-    .post(postUserUrl, user)
-    .then(() => {
-      console.log("完了しました");
-    })
-    .catch((err) => {
-      console.log("err", err);
-    });
+export const useSignIn = () => {
+  const router = useRouter();
+
+  const signIn = useCallback(
+    (user) => {
+      axios
+        .post(signInURL, user)
+        .then(() => {
+          router.push("/");
+        })
+        .catch((err) => null);
+    },
+    [router]
+  );
+  return { signIn };
 };
 
 // Note
