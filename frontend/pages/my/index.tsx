@@ -53,7 +53,6 @@ const MyPage: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <HeaderLayout />
-
       <Container>
         <Main>
           <Aside>

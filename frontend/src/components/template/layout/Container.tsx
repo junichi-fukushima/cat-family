@@ -23,6 +23,7 @@ export const Container: VFC<Props> = memo((props) => {
 const Inner = styled.div`
   color: ${color.black};
   max-width: 1200px;
+  position: relative;
   @media ${device.pc} {
     margin: 40px auto 0;
   }

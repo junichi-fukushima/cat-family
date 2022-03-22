@@ -16,14 +16,12 @@ const SignUp: NextPage = () => {
   return (
     <>
       <Head>
-      <Head>
         <title>Cat Family 猫好きのための里親コミュニティ</title>
         <meta
           name="description"
           content="Cat Family 猫好きのための里親コミュニティ"
         />
         <link rel="icon" href="/favicon.ico" />
-      </Head>
       </Head>
       <AuthTemplate>
         <H2Text>登録が完了しました！</H2Text>

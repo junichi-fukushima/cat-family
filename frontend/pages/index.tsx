@@ -9,7 +9,7 @@ import {
   fetchCatType,
 } from "../src/state/ducks/labels/operation";
 import { fetchCats } from "../src/state/ducks/cats/operation";
-import { getCatLoading, getCats, getSexName } from "../src/state/ducks/cats/selectors";
+import { getCats, getSexName } from "../src/state/ducks/cats/selectors";
 import { State } from "../src/state/store/type";
 
 // import Next
@@ -34,7 +34,8 @@ import Link from "next/link";
 
 // hooks
 import { useWindowResize } from "../src/hooks/useWindowResize";
-import { CircularIndeterminate } from "../src/hooks/spiner";
+import { getLoadingStatus } from "../src/state/ducks/loading/selectors";
+import { LoadingIcon } from "../src/components/atoms/Icon/Loading";
 
 const useStyles = makeStyles({
   list: {
@@ -111,9 +112,10 @@ const Home: NextPage = memo(() => {
     dispatch(fetchCatType());
   }, []);
 
-  // selectorの呼び出し(ラベルAPIの呼び出し)
+  // selectorの呼び出し
   const selector = useSelector((state: State) => state);
   const cats = getCats(selector);
+  const loading = getLoadingStatus(selector);
   return (
     <>
       <Head>
@@ -125,61 +127,65 @@ const Home: NextPage = memo(() => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <HeaderLayout />
-      <Container>
-        <HeadingWrap>
-          <H2Text>猫の里親募集</H2Text>
-        </HeadingWrap>
-        <Main>
-          <Aside>
-            <CatSearchHeading>
-              <CatSearchHeadingItem>絞り込む</CatSearchHeadingItem>
-              <CatSearchHeadingItem>クリア</CatSearchHeadingItem>
-            </CatSearchHeading>
-            <CatSearchArea />
-          </Aside>
-          <Section>
-            <CatListHeading>
-              <CatListHeadingItem>若い順</CatListHeadingItem>
-              <CatListHeadingItem>新着順</CatListHeadingItem>
-              <CatListHeadingItem>募集中のみ</CatListHeadingItem>
-            </CatListHeading>
-            {/* OnlySP */}
-            <SpButtonWrap>
-              <Button
-                className={classes.button}
-                onClick={toggleDrawer("right", true)}
-              >
-                絞り込む
-              </Button>
-              <Drawer
-                anchor="right"
-                open={spSearchState["right"]}
-                onClose={toggleDrawer("right", false)}
-              >
-                {!isSp && list()}
-              </Drawer>
-            </SpButtonWrap>
-            {/* OnlySP */}
-            <CatList>
-              {cats.map((cat, index) => {
-                index = index + 1;
-                return (
-                  <Link href="/" key={index}>
-                    <a>
-                      <CatItems
-                        title={cat.title}
-                        main_img={cat.main_image_url}
-                        sex={getSexName(selector, cat.cat_sex_id)}
-                        status={cat.status ? "募集中" : "募集締め切り"}
-                      />
-                    </a>
-                  </Link>
-                );
-              })}
-            </CatList>
-          </Section>
-        </Main>
-      </Container>
+      {loading ? (
+        <LoadingIcon />
+      ) : (
+        <Container>
+          <HeadingWrap>
+            <H2Text>猫の里親募集</H2Text>
+          </HeadingWrap>
+          <Main>
+            <Aside>
+              <CatSearchHeading>
+                <CatSearchHeadingItem>絞り込む</CatSearchHeadingItem>
+                <CatSearchHeadingItem>クリア</CatSearchHeadingItem>
+              </CatSearchHeading>
+              <CatSearchArea />
+            </Aside>
+            <Section>
+              <CatListHeading>
+                <CatListHeadingItem>若い順</CatListHeadingItem>
+                <CatListHeadingItem>新着順</CatListHeadingItem>
+                <CatListHeadingItem>募集中のみ</CatListHeadingItem>
+              </CatListHeading>
+              {/* OnlySP */}
+              <SpButtonWrap>
+                <Button
+                  className={classes.button}
+                  onClick={toggleDrawer("right", true)}
+                >
+                  絞り込む
+                </Button>
+                <Drawer
+                  anchor="right"
+                  open={spSearchState["right"]}
+                  onClose={toggleDrawer("right", false)}
+                >
+                  {!isSp && list()}
+                </Drawer>
+              </SpButtonWrap>
+              {/* OnlySP */}
+              <CatList>
+                {cats.map((cat, index) => {
+                  index = index + 1;
+                  return (
+                    <Link href="/" key={index}>
+                      <a>
+                        <CatItems
+                          title={cat.title}
+                          main_img={cat.main_image_url}
+                          sex={getSexName(selector, cat.cat_sex_id)}
+                          status={cat.status ? "募集中" : "募集締め切り"}
+                        />
+                      </a>
+                    </Link>
+                  );
+                })}
+              </CatList>
+            </Section>
+          </Main>
+        </Container>
+      )}
     </>
   );
 });
