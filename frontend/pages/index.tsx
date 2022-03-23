@@ -97,12 +97,6 @@ const Home: NextPage = memo(() => {
       <Divider />
     </div>
   );
-
-  // reduxでやるかそれぞれの画面ごとにやるか？
-  // redux⇨1個1個状態管理するのか？
-  // https://developers.freee.co.jp/entry/react-loading-pattern
-  // 画面ごと⇨画面ごとにloadingの設定をするのか
-
   // redux
   const dispatch = useDispatch();
   useEffect(() => {
