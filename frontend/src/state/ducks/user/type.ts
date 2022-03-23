@@ -10,8 +10,6 @@ export type User = {
   building: string;
   cat_type_id: number;
   password: string;
-  password_confirmation: string;
-  confirm_success_url: string;
 };
 //  Actionの型を定義する
 export const UserActionTypes = {

@@ -1,3 +1,11 @@
+// library
+import { useCallback } from "react";
+import { useRouter } from "next/router";
+import axios from "axios";
+import Cookies from "js-cookie";
+
+// others
+import { client } from "../../../lib/api/client";
 import {
   signUpUrl,
   successURL,
@@ -5,12 +13,9 @@ import {
   sessionURL,
   signOutURL,
 } from "../../urls";
-import axios from "axios";
-import { useRouter } from "next/router";
-import { useCallback } from "react";
-import Cookies from "js-cookie";
-import client from "../../../lib/api/client";
+import { signInAction } from "./actions";
 
+// 新規登録
 export const useSignUp = () => {
   const router = useRouter();
 
@@ -29,17 +34,18 @@ export const useSignUp = () => {
         .then(() => {
           router.push("/signup/temporary");
         })
-        .catch((err) => null);
+        .catch(() => null);
     },
     [router]
   );
   return { signUp };
 };
 
+// ログイン
 export const useSignIn = () => {
   const router = useRouter();
   const signIn = useCallback(
-    (user) => {
+    (user, dispatch: any) => {
       axios
         .post(signInURL, user)
         .then((res) => {
@@ -47,11 +53,12 @@ export const useSignIn = () => {
           Cookies.set("_access_token", res.headers["access-token"]);
           Cookies.set("_client", res.headers["client"]);
           Cookies.set("_uid", res.headers["uid"]);
+          // ユーザー情報をstoreに格納
+          dispatch(signInAction(res?.data.data));
           // トップページにリダイレクト
           router.push("/");
-          console.log(res?.data.data)
         })
-        .catch((err) => null);
+        .catch(() => null);
     },
     [router]
   );
