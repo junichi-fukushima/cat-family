@@ -1,3 +1,8 @@
+/***********
+ * 募集管理ページ
+ * /my/collect/
+***********/
+
 // import Next
 import Head from "next/head";
 import type { NextPage } from "next";

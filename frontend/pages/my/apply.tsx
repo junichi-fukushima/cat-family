@@ -1,3 +1,7 @@
+/***********
+ * 応募管理ページ
+ * /my/apply/
+***********/
 // import Next
 import Head from "next/head";
 import type { NextPage } from "next";

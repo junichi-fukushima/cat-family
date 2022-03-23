@@ -1,3 +1,8 @@
+/***********
+ * フォロー/フォロワー管理ページ
+ * /my/follow/
+***********/
+
 // import Next
 import Head from "next/head";
 import type { NextPage } from "next";

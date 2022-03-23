@@ -1,3 +1,8 @@
+/***********
+ * ブックマーク管理ページ
+ * /my/bookmark/
+***********/
+
 // import Next
 import Head from "next/head";
 import type { NextPage } from "next";

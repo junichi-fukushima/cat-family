@@ -1,3 +1,8 @@
+/***********
+ * プロフィール情報管理ページ
+ * /my/profile/
+***********/
+
 // import React && Redux && react-hook-form
 import { SubmitHandler, useForm } from "react-hook-form";
 
