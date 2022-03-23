@@ -1,29 +1,22 @@
 import { memo, ReactNode, VFC } from "react";
+import { useForm } from "react-hook-form";
 import styled from "styled-components";
-import { color } from "../../../../utility/colors";
-import { device } from "../../../../utility/responsive";
+import { color } from "../../../utility/colors";
+import { device } from "../../../utility/responsive";
 
 type Props = {
-  type: string;
-  placeholder?: string;
   children?: ReactNode;
   notice?: string;
-  // 一旦anyで黙らせるがstringに戻したい
+  options: { id: number; name: string }[];
+  // 一旦anyで黙らせる
   register: any;
   errors?: any;
   required?: boolean;
 };
 
-export const InputText: VFC<Props> = memo((props) => {
-  const {
-    type,
-    placeholder,
-    children,
-    notice,
-    register,
-    errors,
-    required,
-  } = props;
+export const InputSelect: VFC<Props> = memo((props) => {
+  const { children, notice, options, errors, required, register } = props;
+  // react-hook-form
   return (
     <>
       <FormItem>
@@ -31,16 +24,16 @@ export const InputText: VFC<Props> = memo((props) => {
           {children}
           {required ? <Required>必須</Required> : ""}
         </FormLabel>
-
-        <Input type={type} placeholder={placeholder} {...register} />
+        <Select {...register}>
+          {options &&
+            options.map((option, index) => (
+              <Option id={`${index + 1}`} key={index} value={option.id}>
+                {option.name}
+              </Option>
+            ))}
+        </Select>
         <Notice>{notice}</Notice>
         <ErrorText>
-          {errors[register.name]?.type === "required"
-            ? errors[register.name]?.message
-            : ""}
-          {errors[register.name]?.type === "pattern"
-            ? errors[register.name]?.message
-            : ""}
           {errors[register.name]?.type === "value"
             ? errors[register.name]?.message
             : ""}
@@ -53,12 +46,10 @@ export const InputText: VFC<Props> = memo((props) => {
 const FormItem = styled.div`
   text-align: left;
 `;
-
 const FormLabel = styled.div`
   font-weight: bold;
   margin-bottom: 5px;
 `;
-
 const Required = styled.span`
   color: ${color.white};
   background-color: ${color.green};
@@ -75,18 +66,20 @@ const Notice = styled.p`
   margin-top: 5px;
 `;
 
-const Input = styled.input`
+const Select = styled.select`
   width: 100%;
   padding: 14px 10px 14px 16px;
   background-color: ${color.lightGrey};
   color: ${color.black};
   border-radius: 4px;
   text-align: left;
+  cursor: pointer;
   &::placeholder {
     font-size: 16px;
     color: ${color.grey};
   }
 `;
+const Option = styled.option``;
 
 const ErrorText = styled.p`
   color: ${color.red};

@@ -2,7 +2,7 @@
 import styled from "styled-components";
 import { HeaderLayout } from "../layout/HeaderLayout";
 
-import { SideBar } from "../../molecules/my/SideBar";
+import { SideBar } from "../../molecules/SideBar";
 import { memo, ReactNode, VFC } from "react";
 import { device } from "../../../utility/responsive";
 import { Container } from "../layout/Container";

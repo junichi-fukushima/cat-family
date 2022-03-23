@@ -16,11 +16,11 @@ import styled from "styled-components";
 
 // import components
 import { H2Text } from "../../src/components/atoms/text/H2Text";
-import { InputText } from "../../src/components/atoms/input/Form/InputText";
-import { SubmitButton } from "../../src/components/atoms/input/Form/SubmitButton";
+import { InputText } from "../../src/components/atoms/input/InputText";
+import { SubmitButton } from "../../src/components/atoms/input/SubmitButton";
 import { AuthTemplate } from "../../src/components/template/pages/Auth";
 import { FormWrapper } from "../../src/components/organisms/Form/FormWrapper";
-import { InputSelect } from "../../src/components/atoms/input/Form/InputSelect";
+import { InputSelect } from "../../src/components/atoms/input/InputSelect";
 import { prefecture } from "../../src/data/prefecture";
 
 // 新規登録でpostするデータ

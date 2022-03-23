@@ -1,6 +1,6 @@
 import { memo, VFC } from "react";
 import styled from "styled-components";
-import { color } from "../../../../utility/colors";
+import { color } from "../../../utility/colors";
 
 type CatSearchTypes = {
   id: number;

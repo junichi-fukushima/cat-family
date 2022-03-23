@@ -9,12 +9,12 @@ import type { NextPage } from "next";
 import styled from "styled-components";
 import { H2Text } from "../../src/components/atoms/text/H2Text";
 import { color } from "../../src/utility/colors";
-import { InputText } from "../../src/components/atoms/input/Form/InputText";
+import { InputText } from "../../src/components/atoms/input/InputText";
 import { prefecture } from "../../src/data/prefecture";
-import { InputSelect } from "../../src/components/atoms/input/Form/InputSelect";
-import { InputTextField } from "../../src/components/atoms/input/Form/inputTextField";
-import { SubmitButton } from "../../src/components/atoms/input/Form/SubmitButton";
-import { InputFileField } from "../../src/components/atoms/input/Form/InputFileField";
+import { InputSelect } from "../../src/components/atoms/input/InputSelect";
+import { InputTextField } from "../../src/components/atoms/input/inputTextField";
+import { SubmitButton } from "../../src/components/atoms/input/SubmitButton";
+import { InputFileField } from "../../src/components/atoms/input/InputFileField";
 import { MyPageTemplate } from "../../src/components/template/pages/My";
 
 // プロフィール更新の際に使用

@@ -1,6 +1,6 @@
 import { memo, VFC, ReactNode } from "react";
 import styled from "styled-components";
-import { color } from "../../../../utility/colors";
+import { color } from "../../../utility/colors";
 
 type Props = {
   type: string;
