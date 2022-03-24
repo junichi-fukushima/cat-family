@@ -18,6 +18,7 @@ import { SubmitButton } from "../../src/components/atoms/input/SubmitButton";
 import { AuthTemplate } from "../../src/components/template/pages/Auth";
 import { FormWrapper } from "../../src/components/organisms/Form/FormWrapper";
 import { useSignIn } from "../../src/state/ducks/user/operation";
+import { useDispatch } from "react-redux";
 
 // ログインの際に使用する値
 export interface FormValues {
@@ -33,7 +34,8 @@ const SignIn: NextPage = () => {
   } = useForm<FormValues>();
 
   const { signIn } = useSignIn();
-  const onSubmit: SubmitHandler<FormValues> = (data) => signIn(data);
+  const dispatch = useDispatch();
+  const onSubmit: SubmitHandler<FormValues> = (data) => dispatch(signIn(data));
 
   return (
     <>
