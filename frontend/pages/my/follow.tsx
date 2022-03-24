@@ -12,6 +12,7 @@ import styled from "styled-components";
 import { color } from "../../src/utility/colors";
 import { MyPageTemplate } from "../../src/components/template/pages/My";
 import Image from "next/image";
+import { device } from "../../src/utility/responsive";
 
 const MyPageFollow: NextPage = () => {
   return (
@@ -92,19 +93,33 @@ const Text = styled.p`
 `;
 const FollowList = styled.ul``;
 const FollowItem = styled.li`
-  display: grid;
-  grid-template-columns: 100px 1fr;
-  gap: 0 10px;
-  align-items: center;
+  @media ${device.pc} {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    gap: 0 10px;
+    align-items: center;
+  }
+  @media ${device.sp} {
+  }
   &:not(:first-of-type) {
-    margin-top: 30px;
+    @media ${device.pc} {
+      margin-top: 30px;
+    }
+    @media ${device.sp} {
+      margin-top: 20px;
+    }
   }
 `;
 const FollowItemText = styled.div`
   > p {
     &:first-child {
       font-weight: bold;
-      margin-bottom: 10px;
+      @media ${device.pc} {
+        margin-bottom: 10px;
+      }
+      @media ${device.sp} {
+        margin: 10px 0;
+      }
     }
   }
 `;

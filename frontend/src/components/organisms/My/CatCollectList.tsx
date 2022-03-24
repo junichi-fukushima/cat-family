@@ -3,6 +3,7 @@ import { memo, VFC } from "react";
 
 // import styled-components
 import styled from "styled-components";
+import { device } from "../../../utility/responsive";
 import { PrimaryButton } from "../../atoms/button/PrimaryButton";
 import { MyCatItem } from "../../molecules/My/MyCatItem";
 
@@ -38,9 +39,18 @@ export const CatCollectList: VFC = memo(() => {
 // styled-components
 const CatList = styled.ul``;
 const ButtonWrap = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap:0 15px;
-  width: 85%;
   margin: 30px auto 0;
+  display: grid;
+
+  @media ${device.pc} {
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0 15px;
+    width: 100%;
+    max-width:600px;
+
+  }
+  @media ${device.sp} {
+    gap: 15px 0;
+    max-width:300px;
+  }
 `;

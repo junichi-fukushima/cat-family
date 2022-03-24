@@ -3,11 +3,12 @@ import styled from "styled-components";
 import { HeaderLayout } from "../layout/HeaderLayout";
 
 import { SideBar } from "../../molecules/SideBar";
-import { memo, ReactNode, VFC } from "react";
+import { memo, ReactNode, useState, VFC } from "react";
 import { device } from "../../../utility/responsive";
 import { Container } from "../layout/Container";
 import { color } from "../../../utility/colors";
 import { H2Text } from "../../atoms/text/H2Text";
+import { useWindowResize } from "../../../hooks/useWindowResize";
 
 type Props = {
   children: ReactNode;
@@ -16,12 +17,14 @@ type Props = {
 
 export const MyPageTemplate: VFC<Props> = memo((props) => {
   const { children, title } = props;
+  const [isSp] = useWindowResize();
+  const [spNavState, setspNavState] = useState<boolean>(false);
   return (
     <>
       <HeaderLayout />
       <Container>
         <Main>
-          <SideBar />
+          {isSp === true && <SideBar />}
           <MyPageSec>
             <H2Text>{title}</H2Text>
             <MyPageContent>
@@ -42,7 +45,7 @@ const Main = styled.main`
     grid-column-gap: 2%;
   }
   @media ${device.sp} {
-    padding: 30px 20px;
+    padding: 10px 20px 30px;
   }
 `;
 
@@ -50,9 +53,19 @@ const Main = styled.main`
 const MyPageSec = styled.section``;
 
 const MyPageContent = styled.div`
-  margin-top: 67px;
+  @media ${device.pc} {
+    margin-top: 67px;
+  }
+  @media ${device.sp} {
+    margin-top: 27px;
+  }
 `;
 const Inner = styled.div`
   background-color: ${color.white};
-  padding: 30px;
+  @media ${device.pc} {
+    padding: 30px;
+  }
+  @media ${device.sp} {
+    padding: 10px 20px;
+  }
 `;

@@ -19,6 +19,7 @@ import { InputTextField } from "../../src/components/atoms/input/inputTextField"
 import { SubmitButton } from "../../src/components/atoms/input/SubmitButton";
 import { InputFileField } from "../../src/components/atoms/input/InputFileField";
 import { MyPageTemplate } from "../../src/components/template/pages/My";
+import { device } from "../../src/utility/responsive";
 
 // プロフィール更新の際に使用
 export interface FormValues {
@@ -213,13 +214,25 @@ export default MyPageProfile;
 const Form = styled.form``;
 const FormList = styled.ul`
   display: grid;
-  gap: 40px 0;
+  @media ${device.pc} {
+    gap: 40px 0;
+  }
+  @media ${device.sp} {
+    gap: 20px 0;
+  }
 `;
 const FormItemCol2 = styled.li`
-  display: grid;
-  align-items: center;
-  grid-template-columns: 1fr 1fr;
   gap: 0 20px;
+  @media ${device.pc} {
+    display: grid;
+    align-items: center;
+    grid-template-columns: 1fr 1fr;
+  }
+  @media ${device.sp} {
+    >div{
+      margin-bottom: 20px;
+    }
+  }
 `;
 const FormItemCol1 = styled.li``;
 const FormItemSubmitWrap = styled.li`
