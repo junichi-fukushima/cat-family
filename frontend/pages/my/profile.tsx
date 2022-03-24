@@ -12,8 +12,6 @@ import type { NextPage } from "next";
 
 // import components && styled-components
 import styled from "styled-components";
-import { H2Text } from "../../src/components/atoms/text/H2Text";
-import { color } from "../../src/utility/colors";
 import { InputText } from "../../src/components/atoms/input/InputText";
 import { prefecture } from "../../src/data/prefecture";
 import { InputSelect } from "../../src/components/atoms/input/InputSelect";

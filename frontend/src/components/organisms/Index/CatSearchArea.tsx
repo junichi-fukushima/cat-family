@@ -1,16 +1,16 @@
 // import React && Redux
 import { memo, VFC } from "react";
-import { getCatAge, getCatLabel, getCatSex, getCatType } from "../../state/ducks/labels/selectors";
+import { getCatAge, getCatLabel, getCatSex, getCatType } from "../../../state/ducks/labels/selectors";
 import { useDispatch, useSelector } from "react-redux";
-import { State } from "../../state/store/type";
-import { updateCatLabel } from "../../state/ducks/labels/operation";
+import { State } from "../../../state/store/type";
+import { updateCatLabel } from "../../../state/ducks/labels/operation";
 
 // import styled-components
 import styled from "styled-components";
 
 // import components
-import { SelectCatSearch } from "../atoms/input/SelectSearch";
-import { CheckBoxCatSearch } from "../atoms/input/CheckBoxSearch";
+import { SelectCatSearch } from "../../atoms/input/SelectSearch";
+import { CheckBoxCatSearch } from "../../atoms/input/CheckBoxSearch";
 
 export const CatSearchArea: VFC = memo(() => {
   // selectorの呼び出し(ラベルAPIの呼び出し)

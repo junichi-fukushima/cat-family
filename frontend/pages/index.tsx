@@ -1,7 +1,7 @@
 // import React && Redux
 import React, { memo, useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { CatSearchArea } from "../src/components/molecules/CatSearchArea";
+import { CatSearchArea } from "../src/components/organisms/Index/CatSearchArea";
 import {
   fetchCatAge,
   fetchCatLabel,
@@ -20,7 +20,7 @@ import type { NextPage } from "next";
 import { H2Text } from "../src/components/atoms/text/H2Text";
 import { HeaderLayout } from "../src/components/template/layout/HeaderLayout";
 import { device } from "../src/utility/responsive";
-import { CatItems } from "../src/components/organisms/index/CatItems";
+import { CatItems } from "../src/components/molecules/index/CatItems";
 import { Container } from "../src/components/template/layout/Container";
 
 // import styled-components &&  Material UI
