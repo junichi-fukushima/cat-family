@@ -6,20 +6,28 @@ import { SideBar } from "../../molecules/SideBar";
 import { memo, ReactNode, VFC } from "react";
 import { device } from "../../../utility/responsive";
 import { Container } from "../layout/Container";
+import { color } from "../../../utility/colors";
+import { H2Text } from "../../atoms/text/H2Text";
 
 type Props = {
   children: ReactNode;
+  title?: string;
 };
 
 export const MyPageTemplate: VFC<Props> = memo((props) => {
-  const { children } = props;
+  const { children, title } = props;
   return (
     <>
       <HeaderLayout />
       <Container>
         <Main>
           <SideBar />
-          <MyPageSec>{children}</MyPageSec>
+          <MyPageSec>
+            <H2Text>{title}</H2Text>
+            <MyPageContent>
+              <Inner>{children}</Inner>
+            </MyPageContent>
+          </MyPageSec>
         </Main>
       </Container>
     </>
@@ -40,3 +48,11 @@ const Main = styled.main`
 
 // section
 const MyPageSec = styled.section``;
+
+const MyPageContent = styled.div`
+  margin-top: 67px;
+`;
+const Inner = styled.div`
+  background-color: ${color.white};
+  padding: 30px;
+`;

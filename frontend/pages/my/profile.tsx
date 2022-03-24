@@ -1,7 +1,7 @@
 /***********
  * プロフィール情報管理ページ
  * /my/profile/
-***********/
+ ***********/
 
 // import React && Redux && react-hook-form
 import { SubmitHandler, useForm } from "react-hook-form";
@@ -56,178 +56,160 @@ const MyPageProfile: NextPage = () => {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <MyPageTemplate>
-        <MyPageSec>
-          <H2Text>プロフィール</H2Text>
-          <MyPageContent>
-            <Inner>
-              <Form>
-                <FormList>
-                  <FormItemCol2>
-                    <InputText
-                      type="text"
-                      placeholder="(例) 福嶋 淳一"
-                      register={register("user_name", {
-                        required: {
-                          value: true,
-                          message: "氏名を入力してください",
-                        },
-                      })}
-                      errors={errors}
-                    >
-                      氏名
-                    </InputText>
-                    <InputText
-                      type="text"
-                      placeholder="(例) 猫好き福ちゃん"
-                      register={register("nickname", {
-                        required: {
-                          value: true,
-                          message: "ニックネームを入力してください",
-                        },
-                      })}
-                      errors={errors}
-                    >
-                      ニックネーム
-                    </InputText>
-                  </FormItemCol2>
-                  <FormItemCol2>
-                    <InputText
-                      type="email"
-                      placeholder="(例) nekochan@gmail.com"
-                      register={register("email", {
-                        required: {
-                          value: true,
-                          message: "メールアドレスを入力してください",
-                        },
-                        pattern: {
-                          value: /^[a-zA-Z0-9_.+-]+@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*\.)+[a-zA-Z]{2,}$/,
-                          message:
-                            "正しい形式でメールアドレスを入力してください。",
-                        },
-                      })}
-                      errors={errors}
-                    >
-                      メールアドレス
-                    </InputText>
-                    <InputText
-                      type="tel"
-                      placeholder="(例) 08021494335"
-                      register={register("phone", {
-                        required: {
-                          value: true,
-                          message: "電話番号を入力してください",
-                        },
-                        pattern: {
-                          value: /^0\d{9,10}$/,
-                          message: "正しい形式で電話番号を入力してください。",
-                        },
-                      })}
-                      errors={errors}
-                    >
-                      電話番号
-                    </InputText>
-                  </FormItemCol2>
-                  <FormItemCol2>
-                    <InputText
-                      type="text"
-                      placeholder="(例) 1112222"
-                      register={register("post_code", {
-                        required: {
-                          value: true,
-                          message: "郵便番号を入力してください",
-                        },
-                        pattern: {
-                          value: /^\d{7}$/,
-                          message: "正しい形式で郵便番号を入力してください。",
-                        },
-                      })}
-                      errors={errors}
-                    >
-                      郵便番号
-                    </InputText>
-                    <InputSelect
-                      options={prefecture}
-                      register={register("prefecture_id", {
-                        validate: {
-                          value: (value) =>
-                            value !== "選択してください" ||
-                            "都道府県を選択してください",
-                        },
-                      })}
-                      errors={errors}
-                    >
-                      都道府県
-                    </InputSelect>
-                  </FormItemCol2>
-                  <FormItemCol2>
-                    <InputText
-                      type="text"
-                      placeholder="(例) 市区町村"
-                      register={register("city", {
-                        required: {
-                          value: true,
-                          message: "市区町村を入力してください",
-                        },
-                      })}
-                      errors={errors}
-                    >
-                      市区町村
-                    </InputText>
-                    <InputText
-                      type="text"
-                      placeholder="(例) ３−３−３猫ハウス２０１号室"
-                      register={register("building", { required: false })}
-                      errors={errors}
-                      required={false}
-                    >
-                      番地以下
-                    </InputText>
-                  </FormItemCol2>
-                  <FormItemCol1>
-                    <InputFileField
-                      type="file"
-                      placeholder="(例) 福嶋 淳一"
-                      register={register("icon_image")}
-                    >
-                      アイコン画像
-                    </InputFileField>
-                  </FormItemCol1>
-                  <FormItemCol1>
-                    <InputTextField
-                      type="text"
-                      notice="※200字以内で記入してください"
-                      placeholder="(例) ３−３−３猫ハウス２０１号室"
-                      register={register("building", { required: false })}
-                      errors={errors}
-                      required={false}
-                    >
-                      自己紹介
-                    </InputTextField>
-                  </FormItemCol1>
-                  <FormItemSubmitWrap>
-                    <SubmitButton type="submit" value="更新する" />
-                  </FormItemSubmitWrap>
-                </FormList>
-              </Form>
-            </Inner>
-          </MyPageContent>
-        </MyPageSec>
+      <MyPageTemplate title="プロフィール">
+        <Form>
+          <FormList>
+            <FormItemCol2>
+              <InputText
+                type="text"
+                placeholder="(例) 福嶋 淳一"
+                register={register("user_name", {
+                  required: {
+                    value: true,
+                    message: "氏名を入力してください",
+                  },
+                })}
+                errors={errors}
+              >
+                氏名
+              </InputText>
+              <InputText
+                type="text"
+                placeholder="(例) 猫好き福ちゃん"
+                register={register("nickname", {
+                  required: {
+                    value: true,
+                    message: "ニックネームを入力してください",
+                  },
+                })}
+                errors={errors}
+              >
+                ニックネーム
+              </InputText>
+            </FormItemCol2>
+            <FormItemCol2>
+              <InputText
+                type="email"
+                placeholder="(例) nekochan@gmail.com"
+                register={register("email", {
+                  required: {
+                    value: true,
+                    message: "メールアドレスを入力してください",
+                  },
+                  pattern: {
+                    value: /^[a-zA-Z0-9_.+-]+@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*\.)+[a-zA-Z]{2,}$/,
+                    message: "正しい形式でメールアドレスを入力してください。",
+                  },
+                })}
+                errors={errors}
+              >
+                メールアドレス
+              </InputText>
+              <InputText
+                type="tel"
+                placeholder="(例) 08021494335"
+                register={register("phone", {
+                  required: {
+                    value: true,
+                    message: "電話番号を入力してください",
+                  },
+                  pattern: {
+                    value: /^0\d{9,10}$/,
+                    message: "正しい形式で電話番号を入力してください。",
+                  },
+                })}
+                errors={errors}
+              >
+                電話番号
+              </InputText>
+            </FormItemCol2>
+            <FormItemCol2>
+              <InputText
+                type="text"
+                placeholder="(例) 1112222"
+                register={register("post_code", {
+                  required: {
+                    value: true,
+                    message: "郵便番号を入力してください",
+                  },
+                  pattern: {
+                    value: /^\d{7}$/,
+                    message: "正しい形式で郵便番号を入力してください。",
+                  },
+                })}
+                errors={errors}
+              >
+                郵便番号
+              </InputText>
+              <InputSelect
+                options={prefecture}
+                register={register("prefecture_id", {
+                  validate: {
+                    value: (value) =>
+                      value !== "選択してください" ||
+                      "都道府県を選択してください",
+                  },
+                })}
+                errors={errors}
+              >
+                都道府県
+              </InputSelect>
+            </FormItemCol2>
+            <FormItemCol2>
+              <InputText
+                type="text"
+                placeholder="(例) 市区町村"
+                register={register("city", {
+                  required: {
+                    value: true,
+                    message: "市区町村を入力してください",
+                  },
+                })}
+                errors={errors}
+              >
+                市区町村
+              </InputText>
+              <InputText
+                type="text"
+                placeholder="(例) ３−３−３猫ハウス２０１号室"
+                register={register("building", { required: false })}
+                errors={errors}
+                required={false}
+              >
+                番地以下
+              </InputText>
+            </FormItemCol2>
+            <FormItemCol1>
+              <InputFileField
+                type="file"
+                placeholder="(例) 福嶋 淳一"
+                register={register("icon_image")}
+              >
+                アイコン画像
+              </InputFileField>
+            </FormItemCol1>
+            <FormItemCol1>
+              <InputTextField
+                type="text"
+                notice="※200字以内で記入してください"
+                placeholder="(例) ３−３−３猫ハウス２０１号室"
+                register={register("building", { required: false })}
+                errors={errors}
+                required={false}
+              >
+                自己紹介
+              </InputTextField>
+            </FormItemCol1>
+            <FormItemSubmitWrap>
+              <SubmitButton type="submit" value="更新する" />
+            </FormItemSubmitWrap>
+          </FormList>
+        </Form>
       </MyPageTemplate>
     </>
   );
 };
 export default MyPageProfile;
-
-// section
-const MyPageSec = styled.section``;
-const MyPageContent = styled.div`
-  margin-top: 67px;
-`;
-const Inner = styled.div`
-  background-color: ${color.white};
-  padding: 33px 57px;
-`;
 
 // プロフィール編集
 const Form = styled.form``;
