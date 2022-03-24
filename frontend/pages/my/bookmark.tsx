@@ -9,8 +9,6 @@ import type { NextPage } from "next";
 
 // import components && styled-components
 import styled from "styled-components";
-import { H2Text } from "../../src/components/atoms/text/H2Text";
-import { color } from "../../src/utility/colors";
 import { MyPageTemplate } from "../../src/components/template/pages/My";
 import Image from "next/image";
 
