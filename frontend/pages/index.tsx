@@ -20,7 +20,7 @@ import type { NextPage } from "next";
 import { H2Text } from "../src/components/atoms/text/H2Text";
 import { HeaderLayout } from "../src/components/template/layout/HeaderLayout";
 import { device } from "../src/utility/responsive";
-import { CatItems } from "../src/components/molecules/index/CatItems";
+import { CatItems } from "../src/components/molecules/Index/CatItems";
 import { Container } from "../src/components/template/layout/Container";
 
 // import styled-components &&  Material UI

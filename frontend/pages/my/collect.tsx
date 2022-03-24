@@ -9,6 +9,7 @@ import type { NextPage } from "next";
 
 // import components && styled-components
 import { MyPageTemplate } from "../../src/components/template/pages/My";
+import { CatCollectList } from "../../src/components/organisms/My/CatCollectList";
 
 const MyPageCollect: NextPage = () => {
   return (
@@ -22,7 +23,7 @@ const MyPageCollect: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <MyPageTemplate title="募集一覧">
-        <p>a</p>
+        <CatCollectList />
       </MyPageTemplate>
     </>
   );

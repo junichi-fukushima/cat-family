@@ -36,7 +36,7 @@ export const MyPageTemplate: VFC<Props> = memo((props) => {
 
 const Main = styled.main`
   @media ${device.pc} {
-    padding: 0px 30px;
+    padding: 0px 30px 30px;
     display: grid;
     grid-template-columns: 250px 1fr;
     grid-column-gap: 2%;
