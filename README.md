@@ -10,25 +10,55 @@
 また、既存のサービスにはない寄付機能をつけることで、中々里親が決まらない猫への支援を活性化させていくことも目的としています。
 ```
 ## 使用技術
-**バックエンド**<br>
-Ruby on Rails
+### バックエンド
+* Ruby on Rails
 
-**フロントエンド**<br>
-Next.js<br>
-TypeScript<br>
-styled-components<br>
-Material UI<br>
+### フロントエンド
+* Next.js(TypeScript)
 
-**テスト**<br>
-Rspec<br>
-Jest
+### テスト
+* Rspec
+* Jest
 
-**CI/CD**<br>
-GithubActions
+### CI/CD
+* GithubActions
 
-**開発環境**<br>
-Docker
+### 開発環境
+* Docker
 
+## フロントエンド設計
+### AtomicDesignをベースに設計
+* atoms<br>
+button,input,iconなど<br>
+アプリケーション内で**これ以上分割しない単位**を想定
+
+* molecules<br>
+items,sidebarなど<br>
+
+* organisms<br>
+list,wrapしたものなど<br>
+atomsやmoleculesのパーツを組み合わせたもの
+
+* template<br>
+layout,containerなど<br>
+ロジックを持たない。ページ全体のレイアウトを共通して当て込むために仕様
+
+### 状態管理ライブラリはReduxを使用
+* reduxの設計パターンはre-duckを使用<br>
+ファイル数は多くなるが、役割が明快であるため。またducksパターンだとファイルの中身が肥大化しやすいため。
+<pre>
+state
+ └ store
+        ├ initialState.ts
+        ├ store.ts
+ └ ducks
+         └ cats
+             ├ actions.ts
+             ├ operation.ts
+             ├ reducers.ts
+             ├ selectors.ts
+             └ type.ts
+</pre>
 
 ## ローカル環境導入方法
 
