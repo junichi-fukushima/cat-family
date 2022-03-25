@@ -45,12 +45,14 @@ layout,containerなど<br>
 
 ### 状態管理ライブラリはReduxを使用
 * reduxの設計パターンはre-ducksパターンを使用<br>
-ファイル数は多くなるが、役割が明快であるため。またducksパターンだとファイルの中身が肥大化しやすいため。
+理由ファイル数は多くなるが、役割が明快であるため。またducksパターンだとファイルの中身が肥大化しやすいため。<br>
+store/store.ts内では、combineReducersを用いて、責務を明確に分割する。
 <pre>
 state
  └ store
         ├ initialState.ts
         ├ store.ts
+        ├ type.ts
  └ ducks
          └ cats
              ├ actions.ts
