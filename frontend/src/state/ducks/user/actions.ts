@@ -7,8 +7,6 @@ export const signUpAction = (state: User) => {
   };
 };
 export const signInAction = (state: User) => {
-  console.log(state);
-
   return {
     type: UserActionTypes.SIGN_IN,
     payload: state,

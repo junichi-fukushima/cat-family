@@ -43,7 +43,7 @@ const MyPageProfile: NextPage = () => {
     register,
     formState: { errors },
   } = useForm<FormValues>();
-  const onSubmit: SubmitHandler<FormValues> = (data) => console.log(data);
+  const onSubmit: SubmitHandler<FormValues> = (data) => data;
 
   return (
     <>

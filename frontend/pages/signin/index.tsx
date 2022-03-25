@@ -19,6 +19,7 @@ import { AuthTemplate } from "../../src/components/template/pages/Auth";
 import { FormWrapper } from "../../src/components/organisms/Form/FormWrapper";
 import { useSignIn } from "../../src/state/ducks/user/operation";
 import { useDispatch } from "react-redux";
+import { useRouter } from "next/router";
 
 // ログインの際に使用する値
 export interface FormValues {
@@ -33,9 +34,14 @@ const SignIn: NextPage = () => {
     formState: { errors },
   } = useForm<FormValues>();
 
-  const { signIn } = useSignIn();
   const dispatch = useDispatch();
-  const onSubmit: SubmitHandler<FormValues> = (data) => dispatch(signIn(data));
+  const router = useRouter();
+  const onSubmit: SubmitHandler<FormValues> = async (data) => {
+    await dispatch(useSignIn(data));
+    router.push("/")
+    // dispatchをしたら全体に/へpushされる
+    // 失敗した時は、エラー文を持ってリダイレクトさせる
+  };
 
   return (
     <>
