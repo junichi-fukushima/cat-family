@@ -1,5 +1,6 @@
 // import React && Redux && react-hook-form
 import { SubmitHandler, useForm } from "react-hook-form";
+import Cookies from "js-cookie";
 
 // import Next
 import Head from "next/head";
@@ -19,7 +20,7 @@ import { AuthTemplate } from "../../src/components/template/pages/Auth";
 import { FormWrapper } from "../../src/components/organisms/Form/FormWrapper";
 import { useSignIn } from "../../src/state/ducks/user/operation";
 import { useDispatch } from "react-redux";
-import { useRouter } from "next/router";
+import { signIn } from "../../src/lib/api/auth";
 
 // ログインの際に使用する値
 export interface FormValues {
@@ -35,14 +36,34 @@ const SignIn: NextPage = () => {
   } = useForm<FormValues>();
 
   const dispatch = useDispatch();
-  const router = useRouter();
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
-    await dispatch(useSignIn(data));
-    router.push("/")
-    // dispatchをしたら全体に/へpushされる
-    // 失敗した時は、エラー文を持ってリダイレクトさせる
-  };
 
+    try {
+      const res = await signIn(data);
+      console.log(res);
+      if(res.status === 200){
+        Cookies.set("_access_token", res.headers["access-token"]);
+        Cookies.set("_client", res.headers["client"]);
+        Cookies.set("_uid", res.headers["uid"]);
+        dispatch(useSignIn(data))
+        console.log("成功")
+      } else {
+        console.log("ユーザー情報を確認してください")
+      }
+    } catch (err) {
+      // console.log(err);
+    }
+    // 成功時の処理
+    // ユーザー情報をstateに格納
+    // トップへリダイレクト
+    // 失敗時の処理
+    // サーバー側からエラー文をもらう
+    // ログインstatusをfalseに変更
+    //
+    // 大枠
+    // ログイン自体の機能を実装
+    // 全体に反映させる
+  };
   return (
     <>
       <Head>
