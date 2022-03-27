@@ -26,6 +26,10 @@
 ### 開発環境
 * Docker
 
+### インフラ
+* ECS Fargate
+* TerraForm
+
 ## フロントエンド設計
 ### AtomicDesignをベースに設計
 * atoms<br>
