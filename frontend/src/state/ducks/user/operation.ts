@@ -25,7 +25,7 @@ export const useSignUp = () => {
       axios
         .post(signUpUrl, user)
         .then(() => {
-          // router.push("/signup/temporary");
+          router.push("/signup/temporary");
         })
         .catch(() => null);
     },
