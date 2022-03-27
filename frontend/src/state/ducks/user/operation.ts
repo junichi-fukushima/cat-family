@@ -23,17 +23,9 @@ export const useSignUp = () => {
   const signUp = useCallback(
     (user) => {
       axios
-        .post(
-          signUpUrl,
-          {
-            ...user,
-            confirm_success_url: successURL,
-          },
-          // withCredentials:trueでcookie情報を含めることができる
-          { withCredentials: true }
-        )
+        .post(signUpUrl, user)
         .then(() => {
-          router.push("/signup/temporary");
+          // router.push("/signup/temporary");
         })
         .catch(() => null);
     },
