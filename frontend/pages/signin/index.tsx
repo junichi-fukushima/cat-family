@@ -1,4 +1,7 @@
-// import React && Redux
+// import React && Redux && react-hook-form
+import { SubmitHandler, useForm } from "react-hook-form";
+import Cookies from "js-cookie";
+
 // import Next
 import Head from "next/head";
 import type { NextPage } from "next";
@@ -6,28 +9,108 @@ import Link from "next/link";
 
 // import styled-components
 import styled from "styled-components";
+
+// import components
 import { AuthButton } from "../../src/components/atoms/button/AuthButton";
 import { H2Text } from "../../src/components/atoms/text/H2Text";
 import { H3Text } from "../../src/components/atoms/text/H3Text";
-import { InputText } from "../../src/components/atoms/input/Form/InputText";
-import { SubmitButton } from "../../src/components/atoms/input/Form/SubmitButton";
+import { InputText } from "../../src/components/atoms/input/InputText";
+import { SubmitButton } from "../../src/components/atoms/input/SubmitButton";
 import { AuthTemplate } from "../../src/components/template/pages/Auth";
-import { HeadTemplate } from "../../src/components/template/head/Head";
-import { FormItem } from "../../src/components/organisms/Form/FormItem";
+import { FormWrapper } from "../../src/components/organisms/Form/FormWrapper";
+import { useSignIn } from "../../src/state/ducks/user/operation";
+import { useDispatch } from "react-redux";
+import { signIn } from "../../src/lib/api/auth";
+import { useState } from "react";
+import { color } from "../../src/utility/colors";
+import { useRouter } from "next/router";
 
+// ログインの際に使用する値
+export interface FormValues {
+  email: string;
+  password: string;
+}
 const SignIn: NextPage = () => {
+  // react-hook-form
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormValues>();
+
+  // ログインに失敗した時はエラー文を表示
+  const [alertMessageOpen, setAlertMessageOpen] = useState<boolean>(false);
+
+  const router = useRouter();
+  const dispatch = useDispatch();
+  const onSubmit: SubmitHandler<FormValues> = async (data) => {
+    try {
+      const res = await signIn(data);
+      Cookies.set("_access_token", res.headers["access-token"]);
+      Cookies.set("_client", res.headers["client"]);
+      Cookies.set("_uid", res.headers["uid"]);
+      setAlertMessageOpen(false);
+      dispatch(useSignIn(res?.data.data));
+      router.push("/");
+    } catch (err) {
+      setAlertMessageOpen(true);
+    }
+  };
   return (
     <>
       <Head>
-        <HeadTemplate />
+        <title>Cat Family 猫好きのための里親コミュニティ</title>
+        <meta
+          name="description"
+          content="Cat Family 猫好きのための里親コミュニティ"
+        />
+        <link rel="icon" href="/favicon.ico" />
       </Head>
       <AuthTemplate>
         <H2Text>ログイン</H2Text>
-        <FormItem>
-          <InputText type="email" placeholder="fukuima1749@gmail.com">氏名(フルネーム)</InputText>
-          <InputText type="text">パスワード</InputText>
-          <SubmitButton type="submit" value="ログイン" />
-        </FormItem>
+        <LoginForm onSubmit={handleSubmit(onSubmit)}>
+          {alertMessageOpen ? (
+            <ErrorMessage>
+              メールアドレスもしくはパスワードをご確認ください。
+            </ErrorMessage>
+          ) : null}
+          <FormWrapper>
+            <InputText
+              type="email"
+              placeholder="(例) nekochan@gmail.com"
+              register={register("email", {
+                required: {
+                  value: true,
+                  message: "メールアドレスを入力してください",
+                },
+                pattern: {
+                  value: /^[a-zA-Z0-9_.+-]+@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*\.)+[a-zA-Z]{2,}$/,
+                  message: "正しい形式でメールアドレスを入力してください。",
+                },
+              })}
+              errors={errors}
+            >
+              メールアドレス
+            </InputText>
+            <InputText
+              type="password"
+              register={register("password", {
+                required: {
+                  value: true,
+                  message: "パスワードを入力してください",
+                },
+                pattern: {
+                  value: /^(?=.*?[a-z])(?=.*?\d)[a-z\d]{8,100}$/i,
+                  message: "半角英数字8文字以上で入力してください",
+                },
+              })}
+              errors={errors}
+            >
+              パスワード
+            </InputText>
+            <SubmitButton type="submit" value="ログイン" />
+          </FormWrapper>
+        </LoginForm>
         <AuthButtonWraper>
           <Link href="#">
             <a>
@@ -59,3 +142,10 @@ const AuthButtonWraper = styled.div`
 const AuthBottom = styled.div`
   margin-top: 30px;
 `;
+
+const ErrorMessage = styled.p`
+  color: ${color.red};
+  margin-top: 10px;
+`;
+
+const LoginForm = styled.form``;

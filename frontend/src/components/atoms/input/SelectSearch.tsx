@@ -1,6 +1,6 @@
 import { memo, VFC } from "react";
 import styled from "styled-components";
-import { color } from "../../../../utility/colors";
+import { color } from "../../../utility/colors";
 
 type CatSearchTypes = {
   id: number;
@@ -11,7 +11,7 @@ type Props = {
   options: CatSearchTypes;
 };
 
-// selectで選ぶ検索
+// ドロップダウンの検索エリア
 export const SelectCatSearch: VFC<Props> = memo((props) => {
   const { options } = props;
   return (
@@ -20,7 +20,7 @@ export const SelectCatSearch: VFC<Props> = memo((props) => {
         <SearchSelect>
           {options &&
             options.map((option, index) => (
-              <SearchOption id={`${index + 1}`} key={index} value={option.name}>
+              <SearchOption key={index} value={option.name}>
                 {option.name}
               </SearchOption>
             ))}

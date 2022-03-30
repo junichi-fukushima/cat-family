@@ -4,7 +4,7 @@
     [
       // 再レンダリング時クラス名変更の影響でCSSが当たらないので記載
       "styled-components",
-      { "ssr": true, "preprocess": false }
+      { "ssr": true, "displayName": true, "preprocess": false }
     ]
   ]
 }

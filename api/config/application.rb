@@ -23,6 +23,7 @@ module Api
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.0
+    config.i18n.default_locale = :ja  #:jaはjapaneseのja
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers
@@ -43,10 +44,10 @@ module Api
       allow do
         origins "localhost:8000"
         resource "*",
-                 headers: :any,
-                 # この一文で、渡される、'access-token'、'uid'、'client'というheaders情報を用いてログイン状態を維持する。
-                 expose: %w[access-token expiry token-type uid client],
-                 methods: %i[get post options delete put]
+        :headers => :any,
+        # この一文で、渡される、'access-token'、'uid'、'client'というheaders情報を用いてログイン状態を維持する。
+        :expose => ['access-token', 'expiry', 'token-type', 'uid', 'client'],
+        :methods => [:get, :post, :options, :delete, :put]
       end
     end
   end

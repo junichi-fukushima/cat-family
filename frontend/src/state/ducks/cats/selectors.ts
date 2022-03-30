@@ -2,6 +2,7 @@ import { createSelector } from "reselect";
 import { State } from "../../store/type";
 
 const catsSelector = (state: State) => state.cats;
+const loadingSelector = (state: State) => state.loading;
 export const getCats = createSelector([catsSelector], (state) => state);
 
 export const getSexName = (state: State, id: number) => {
@@ -12,3 +13,8 @@ export const getSexName = (state: State, id: number) => {
     }
   )(state);
 };
+
+export const getCatLoading = createSelector(
+  [loadingSelector],
+  (state) => state
+);

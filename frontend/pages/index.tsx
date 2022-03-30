@@ -1,7 +1,7 @@
 // import React && Redux
-import React, { useEffect, useState } from "react";
+import React, { memo, useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { CatSearchArea } from "../src/components/molecules/CatSearchArea";
+import { CatSearchArea } from "../src/components/organisms/Index/CatSearchArea";
 import {
   fetchCatAge,
   fetchCatLabel,
@@ -20,9 +20,8 @@ import type { NextPage } from "next";
 import { H2Text } from "../src/components/atoms/text/H2Text";
 import { HeaderLayout } from "../src/components/template/layout/HeaderLayout";
 import { device } from "../src/utility/responsive";
-import { CatItems } from "../src/components/organisms/index/CatItems";
+import { CatItems } from "../src/components/molecules/Index/CatItems";
 import { Container } from "../src/components/template/layout/Container";
-import { HeadTemplate } from "../src/components/template/head/Head";
 
 // import styled-components &&  Material UI
 import styled from "styled-components";
@@ -32,6 +31,12 @@ import Button from "@material-ui/core/Button";
 import List from "@material-ui/core/List";
 import Divider from "@material-ui/core/Divider";
 import Link from "next/link";
+
+// hooks
+import { useWindowResize } from "../src/hooks/useWindowResize";
+import { getLoadingStatus } from "../src/state/ducks/loading/selectors";
+import { LoadingIcon } from "../src/components/atoms/Icon/Loading";
+import { getUser } from "../src/state/ducks/user/selectors";
 
 const useStyles = makeStyles({
   list: {
@@ -56,26 +61,30 @@ const useStyles = makeStyles({
   },
 });
 
-const Home: NextPage = () => {
+const Home: NextPage = memo(() => {
   // materialUI
   const classes = useStyles();
   const [spSearchState, setSpSearchState] = useState({
     right: false,
   });
+  // ウィンドウサイズを取得
+  const [isSp] = useWindowResize();
 
-  const toggleDrawer = (anchor: string, open: boolean) => (
-    event: React.KeyboardEvent | React.MouseEvent
-  ) => {
-    if (
-      event.type === "keydown" &&
-      ((event as React.KeyboardEvent).key === "Tab" ||
-        (event as React.KeyboardEvent).key === "Shift")
-    ) {
-      return;
-    }
-    setSpSearchState({ ...spSearchState, [anchor]: open });
-  };
-
+  const toggleDrawer = useCallback(
+    (anchor: string, open: boolean) => (
+      event: React.KeyboardEvent | React.MouseEvent
+    ) => {
+      if (
+        event.type === "keydown" &&
+        ((event as React.KeyboardEvent).key === "Tab" ||
+          (event as React.KeyboardEvent).key === "Shift")
+      ) {
+        return;
+      }
+      setSpSearchState({ ...spSearchState, [anchor]: open });
+    },
+    [spSearchState]
+  );
   const list = () => (
     <div
       className={classes.list}
@@ -88,7 +97,6 @@ const Home: NextPage = () => {
       <Divider />
     </div>
   );
-
   // redux
   const dispatch = useDispatch();
   useEffect(() => {
@@ -99,74 +107,85 @@ const Home: NextPage = () => {
     dispatch(fetchCatType());
   }, []);
 
-  // selectorの呼び出し(ラベルAPIの呼び出し)
+  // selectorの呼び出し
   const selector = useSelector((state: State) => state);
   const cats = getCats(selector);
+  const loading = getLoadingStatus(selector);
+  const user = getUser(selector);
   return (
     <>
       <Head>
-        <HeadTemplate />
+        <title>Cat Family 猫好きのための里親コミュニティ</title>
+        <meta
+          name="description"
+          content="Cat Family 猫好きのための里親コミュニティ"
+        />
+        <link rel="icon" href="/favicon.ico" />
       </Head>
       <HeaderLayout />
-      <Container>
-        <HeadingWrap>
-          <H2Text>猫の里親募集</H2Text>
-        </HeadingWrap>
-        <Main>
-          <Aside>
-            <CatSearchHeading>
-              <CatSearchHeadingItem>絞り込む</CatSearchHeadingItem>
-              <CatSearchHeadingItem>クリア</CatSearchHeadingItem>
-            </CatSearchHeading>
-            <CatSearchArea />
-          </Aside>
-          <Section>
-            <CatListHeading>
-              <CatListHeadingItem>若い順</CatListHeadingItem>
-              <CatListHeadingItem>新着順</CatListHeadingItem>
-              <CatListHeadingItem>募集中のみ</CatListHeadingItem>
-            </CatListHeading>
-            {/* OnlySP */}
-            <SpButtonWrap>
-              <Button
-                className={classes.button}
-                onClick={toggleDrawer("right", true)}
-              >
-                絞り込む
-              </Button>
-              <Drawer
-                anchor="right"
-                open={spSearchState["right"]}
-                onClose={toggleDrawer("right", false)}
-              >
-                {list()}
-              </Drawer>
-            </SpButtonWrap>
-            {/* OnlySP */}
-            <CatList>
-              {cats.map((cat, index) => {
-                index = index + 1;
-                return (
-                  <Link href="/">
-                    <a>
-                      <CatItems
-                        key={index}
-                        title={cat.title}
-                        main_img={cat.main_image_url}
-                        sex={getSexName(selector, cat.cat_sex_id)}
-                        status={cat.status ? "募集中" : "募集締め切り"}
-                      />
-                    </a>
-                  </Link>
-                );
-              })}
-            </CatList>
-          </Section>
-        </Main>
-      </Container>
+      {/* ユーザー情報があるかどうかチェック */}
+      {loading ? (
+        <LoadingIcon />
+      ) : (
+        <Container>
+          <HeadingWrap>
+            <H2Text>猫の里親募集</H2Text>
+          </HeadingWrap>
+          <Main>
+            <Aside>
+              <CatSearchHeading>
+                <CatSearchHeadingItem>絞り込む</CatSearchHeadingItem>
+                <CatSearchHeadingItem>クリア</CatSearchHeadingItem>
+              </CatSearchHeading>
+              <CatSearchArea />
+            </Aside>
+            <Section>
+              <CatListHeading>
+                <CatListHeadingItem>若い順</CatListHeadingItem>
+                <CatListHeadingItem>新着順</CatListHeadingItem>
+                <CatListHeadingItem>募集中のみ</CatListHeadingItem>
+              </CatListHeading>
+              {/* OnlySP */}
+              <SpButtonWrap>
+                <Button
+                  className={classes.button}
+                  onClick={toggleDrawer("right", true)}
+                >
+                  絞り込む
+                </Button>
+                <Drawer
+                  anchor="right"
+                  open={spSearchState["right"]}
+                  onClose={toggleDrawer("right", false)}
+                >
+                  {!isSp && list()}
+                </Drawer>
+              </SpButtonWrap>
+              {/* OnlySP */}
+              <CatList>
+                {cats.map((cat, index) => {
+                  index = index + 1;
+                  return (
+                    <Link href="/" key={index}>
+                      <a>
+                        <CatItems
+                          title={cat.title}
+                          main_img={cat.main_image_url}
+                          sex={getSexName(selector, cat.cat_sex_id)}
+                          status={cat.status ? "募集中" : "募集締め切り"}
+                        />
+                      </a>
+                    </Link>
+                  );
+                })}
+              </CatList>
+            </Section>
+          </Main>
+        </Container>
+      )}
     </>
   );
-};
+});
 export default Home;
 
 // styled-components
@@ -197,13 +216,16 @@ const CatSearchHeading = styled.ul`
   justify-content: space-between;
   margin-bottom: 20px;
 `;
-const CatSearchHeadingItem = styled.li``;
+const CatSearchHeadingItem = styled.li`
+  cursor: pointer;
+`;
 
 const Section = styled.section``;
 const CatListHeading = styled.ul`
   margin-bottom: 20px;
   display: grid;
   justify-content: right;
+  cursor: pointer;
   @media ${device.pc} {
     grid-template-columns: 100px 100px 100px;
   }
@@ -236,13 +258,6 @@ const CatListHeadingItem = styled.li`
   }
   @media ${device.sp} {
     font-size: 16px;
-  }
-`;
-const CatListHeadingNote = styled.li`
-  @media ${device.pc} {
-    font-size: 14px;
-  }
-  @media ${device.sp} {
-    font-size: 12px;
+    text-align: center;
   }
 `;

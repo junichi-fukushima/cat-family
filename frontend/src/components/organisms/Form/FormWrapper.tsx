@@ -5,7 +5,8 @@ type Props = {
   children?: ReactNode;
 };
 
-export const FormItem: VFC<Props> = memo((props) => {
+
+export const FormWrapper: VFC<Props> = memo((props) => {
   const { children } = props;
   return (
     <>
@@ -14,7 +15,7 @@ export const FormItem: VFC<Props> = memo((props) => {
   );
 });
 
-const Form = styled.form`
+const Form = styled.div`
   padding: 15px 0;
   display: grid;
   gap: 20px 0;

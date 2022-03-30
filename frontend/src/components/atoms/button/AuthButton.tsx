@@ -37,12 +37,12 @@ const EmailButton = styled(Button)`
   background-color: ${color.red};
   color: ${color.white};
   border: 1px solid ${color.white};
-  &::before {
+  /* &::before {
     content: "";
     background-image: url("../../../../assets/email.png");
     width: 48px;
     height: 48px;
-  }
+  } */
 `;
 const GoogleButton = styled(Button)`
   background-color: ${color.white};
