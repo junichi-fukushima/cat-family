@@ -8,8 +8,6 @@ import Cookies from "js-cookie";
 import { client } from "../../../lib/api/client";
 import {
   signUpUrl,
-  successURL,
-  signInURL,
   sessionURL,
   signOutURL,
 } from "../../urls";

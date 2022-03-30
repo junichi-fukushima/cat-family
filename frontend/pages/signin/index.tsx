@@ -21,6 +21,8 @@ import { FormWrapper } from "../../src/components/organisms/Form/FormWrapper";
 import { useSignIn } from "../../src/state/ducks/user/operation";
 import { useDispatch } from "react-redux";
 import { signIn } from "../../src/lib/api/auth";
+import { useState } from "react";
+import { color } from "../../src/utility/colors";
 
 // ログインの際に使用する値
 export interface FormValues {
@@ -35,23 +37,20 @@ const SignIn: NextPage = () => {
     formState: { errors },
   } = useForm<FormValues>();
 
+  // ログインに失敗した時はエラー文を表示
+  const [alertMessageOpen, setAlertMessageOpen] = useState<boolean>(false);
+
   const dispatch = useDispatch();
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
-
     try {
       const res = await signIn(data);
-      console.log(res);
-      if(res.status === 200){
-        Cookies.set("_access_token", res.headers["access-token"]);
-        Cookies.set("_client", res.headers["client"]);
-        Cookies.set("_uid", res.headers["uid"]);
-        dispatch(useSignIn(data))
-        console.log("成功")
-      } else {
-        console.log("ユーザー情報を確認してください")
-      }
+      Cookies.set("_access_token", res.headers["access-token"]);
+      Cookies.set("_client", res.headers["client"]);
+      Cookies.set("_uid", res.headers["uid"]);
+      setAlertMessageOpen(false);
+      dispatch(useSignIn(data));
     } catch (err) {
-      // console.log(err);
+      setAlertMessageOpen(true);
     }
     // 成功時の処理
     // ユーザー情報をstateに格納
@@ -77,6 +76,12 @@ const SignIn: NextPage = () => {
       <AuthTemplate>
         <H2Text>ログイン</H2Text>
         <LoginForm onSubmit={handleSubmit(onSubmit)}>
+          {console.log(alertMessageOpen)}
+          {alertMessageOpen ? (
+            <ErrorMessage>
+              メールアドレスもしくはパスワードをご確認ください。
+            </ErrorMessage>
+          ) : null}
           <FormWrapper>
             <InputText
               type="email"
@@ -144,6 +149,11 @@ const AuthButtonWraper = styled.div`
 `;
 const AuthBottom = styled.div`
   margin-top: 30px;
+`;
+
+const ErrorMessage = styled.p`
+  color: ${color.red};
+  margin-top: 10px;
 `;
 
 const LoginForm = styled.form``;
