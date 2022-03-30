@@ -124,7 +124,6 @@ const Home: NextPage = memo(() => {
       </Head>
       <HeaderLayout />
       {/* ユーザー情報があるかどうかチェック */}
-      {console.log(user)}
       {loading ? (
         <LoadingIcon />
       ) : (

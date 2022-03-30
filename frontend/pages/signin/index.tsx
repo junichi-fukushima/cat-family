@@ -23,6 +23,7 @@ import { useDispatch } from "react-redux";
 import { signIn } from "../../src/lib/api/auth";
 import { useState } from "react";
 import { color } from "../../src/utility/colors";
+import { useRouter } from "next/router";
 
 // ログインの際に使用する値
 export interface FormValues {
@@ -40,6 +41,7 @@ const SignIn: NextPage = () => {
   // ログインに失敗した時はエラー文を表示
   const [alertMessageOpen, setAlertMessageOpen] = useState<boolean>(false);
 
+  const router = useRouter();
   const dispatch = useDispatch();
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     try {
@@ -48,20 +50,11 @@ const SignIn: NextPage = () => {
       Cookies.set("_client", res.headers["client"]);
       Cookies.set("_uid", res.headers["uid"]);
       setAlertMessageOpen(false);
-      dispatch(useSignIn(data));
+      dispatch(useSignIn(res?.data.data));
+      router.push("/");
     } catch (err) {
       setAlertMessageOpen(true);
     }
-    // 成功時の処理
-    // ユーザー情報をstateに格納
-    // トップへリダイレクト
-    // 失敗時の処理
-    // サーバー側からエラー文をもらう
-    // ログインstatusをfalseに変更
-    //
-    // 大枠
-    // ログイン自体の機能を実装
-    // 全体に反映させる
   };
   return (
     <>
@@ -76,7 +69,6 @@ const SignIn: NextPage = () => {
       <AuthTemplate>
         <H2Text>ログイン</H2Text>
         <LoginForm onSubmit={handleSubmit(onSubmit)}>
-          {console.log(alertMessageOpen)}
           {alertMessageOpen ? (
             <ErrorMessage>
               メールアドレスもしくはパスワードをご確認ください。

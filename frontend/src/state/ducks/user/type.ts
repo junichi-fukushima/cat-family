@@ -1,20 +1,22 @@
 // APIデータの型を定義する
 export type User = {
-  id: number;
-  user_name: string;
+  id: number | null;
+  userName: string;
   nickname: string;
-  phone: number;
+  phone: number | null;
   email: string;
-  post_code: number;
-  prefecture_id: number;
+  postCode: number | null;
+  prefectureId: number | null;
   city: string;
   building: string;
-  cat_type_id: number;
+  catTypeId: number | null;
   // Note : ここから下は余裕があれば削除
-  allow_password_change?: boolean;
+  allowPasswordChange?: boolean;
   provider?: string;
-  uid?:string;
-}
+  uid?: string;
+  isSignIn: boolean;
+
+};
 //  Actionの型を定義する
 export const UserActionTypes = {
   SIGN_IN: "SIGN_IN",

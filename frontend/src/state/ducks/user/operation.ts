@@ -6,11 +6,7 @@ import Cookies from "js-cookie";
 
 // others
 import { client } from "../../../lib/api/client";
-import {
-  signUpUrl,
-  sessionURL,
-  signOutURL,
-} from "../../urls";
+import { signUpUrl, sessionURL, signOutURL } from "../../urls";
 import { signInAction } from "./actions";
 import { Action } from "redux";
 
@@ -35,7 +31,9 @@ export const useSignUp = () => {
 // ログイン
 // Note: 引数の型を定義 : formValuesをどこかで定義
 export const useSignIn = (user: any) => {
-  return async (dispatch: Dispatch<Action>) => {
+  // Note: getStateの型を定義したい
+  return async (dispatch: Dispatch<Action>, getState: any) => {
+    const state = getState();
     dispatch(signInAction(user));
   };
 };

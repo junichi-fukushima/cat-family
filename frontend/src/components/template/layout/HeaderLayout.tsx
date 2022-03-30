@@ -16,6 +16,9 @@ import { useWindowResize } from "../../../hooks/useWindowResize";
 import { device } from "../../../utility/responsive";
 import styled from "styled-components";
 import { color } from "../../../utility/colors";
+import { useSelector } from "react-redux";
+import { getUser } from "../../../state/ducks/user/selectors";
+import { State } from "../../../state/store/type";
 
 export const HeaderLayout: VFC = memo(() => {
   const [spNavState, setspNavState] = useState<boolean>(false);
@@ -23,12 +26,16 @@ export const HeaderLayout: VFC = memo(() => {
     setspNavState(!spNavState);
   }, [spNavState]);
   const [isSp] = useWindowResize();
+  // selectorの呼び出し
+  const selector = useSelector((state: State) => state);
+  const user = getUser(selector);
+
   return (
     <>
       <Header>
         <HeaderNavigation />
         <Avatar onClick={onClickNav} />
-        {isSp === false && spNavState === true && (
+        {isSp === false && spNavState === true ? (
           <SpNav>
             <SpNavList>
               <SpNavItem>
@@ -41,21 +48,46 @@ export const HeaderLayout: VFC = memo(() => {
                   <a>新規登録</a>
                 </Link>
               </SpNavItem>
+              {user?.isSignIn ? (
+                <SpNavItem>
+                  <Link href="/my/profile/">
+                    <a>マイページ</a>
+                  </Link>
+                </SpNavItem>
+              ) : null}
             </SpNavList>
           </SpNav>
+        ) : (
+          <HeaderButtonWrap>
+            {user?.isSignIn ? (
+              <>
+                <Link href="/signin">
+                  <a>
+                    <PrimaryButton>ログアウト</PrimaryButton>
+                  </a>
+                </Link>
+                <Link href="/my/profile">
+                  <a>
+                    <PrimaryButton>マイページ</PrimaryButton>
+                  </a>
+                </Link>
+              </>
+            ) : (
+              <>
+                <Link href="/signin">
+                  <a>
+                    <PrimaryButton>ログイン</PrimaryButton>
+                  </a>
+                </Link>
+                <Link href="/signup">
+                  <a>
+                    <PrimaryButton>新規登録</PrimaryButton>
+                  </a>
+                </Link>
+              </>
+            )}
+          </HeaderButtonWrap>
         )}
-        <HeaderButtonWrap>
-          <Link href="/signin">
-            <a>
-              <PrimaryButton>ログイン</PrimaryButton>
-            </a>
-          </Link>
-          <Link href="/signup">
-            <a>
-              <PrimaryButton>新規登録</PrimaryButton>
-            </a>
-          </Link>
-        </HeaderButtonWrap>
       </Header>
     </>
   );
