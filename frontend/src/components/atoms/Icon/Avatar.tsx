@@ -14,8 +14,8 @@ export const Avatar: VFC<Props> = memo((props) => {
       <SpUserAvatarWrap onClick={onClick}>
         <Image
           src="/top/non-user-avatar.png"
-          height={30} // 高さ指定
-          width={30} // 幅指定
+          height={33} // 高さ指定
+          width={33} // 幅指定
           alt="user-avatar"
         />
       </SpUserAvatarWrap>
@@ -24,9 +24,5 @@ export const Avatar: VFC<Props> = memo((props) => {
 });
 
 const SpUserAvatarWrap = styled.div`
-  @media ${device.pc} {
-    display: none;
-  }
-  margin-left: auto;
   cursor: pointer;
 `;

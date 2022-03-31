@@ -1,12 +1,15 @@
 // import React && Redux && react-hook-form
 import { SubmitHandler, useForm } from "react-hook-form";
 import Cookies from "js-cookie";
+import axios from "axios";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
 
 // import Next
 import Head from "next/head";
 import type { NextPage } from "next";
 import Link from "next/link";
-
+import { useRouter } from "next/router";
 // import styled-components
 import styled from "styled-components";
 
@@ -19,11 +22,10 @@ import { SubmitButton } from "../../src/components/atoms/input/SubmitButton";
 import { AuthTemplate } from "../../src/components/template/pages/Auth";
 import { FormWrapper } from "../../src/components/organisms/Form/FormWrapper";
 import { useSignIn } from "../../src/state/ducks/user/operation";
-import { useDispatch } from "react-redux";
-import { signIn } from "../../src/lib/api/auth";
-import { useState } from "react";
+
+
 import { color } from "../../src/utility/colors";
-import { useRouter } from "next/router";
+import { signIn } from "../../src/hooks/api/auth";
 
 // ログインの際に使用する値
 export interface FormValues {
@@ -46,10 +48,18 @@ const SignIn: NextPage = () => {
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     try {
       const res = await signIn(data);
+      // クッキー情報のセット
       Cookies.set("_access_token", res.headers["access-token"]);
       Cookies.set("_client", res.headers["client"]);
       Cookies.set("_uid", res.headers["uid"]);
+      // グローバルヘッダーのセット
+      axios.defaults.headers.post["_access_token"] =
+        res.headers["access-token"];
+      axios.defaults.headers.post["_client"] = res.headers["client"];
+      axios.defaults.headers.post["_uid"] = res.headers["uid"];
+      // ログイン画面のエラー表示をOFFに
       setAlertMessageOpen(false);
+      // storeにデータを格納する
       dispatch(useSignIn(res?.data.data));
       router.push("/");
     } catch (err) {
