@@ -32,7 +32,9 @@ export const HeaderLayout: VFC = memo(() => {
   // PC用のnav表示切り替え
   const [pcNavState, setpcNavState] = useState<boolean>(false);
   const onClickPcNav = useCallback(() => {
-    {console.log(pcNavState)}
+    {
+      console.log(pcNavState);
+    }
     setpcNavState(!pcNavState);
   }, [pcNavState]);
 
@@ -62,23 +64,53 @@ export const HeaderLayout: VFC = memo(() => {
         {isSp === false && spNavState === true ? (
           <Nav>
             <NavList>
-              <NavItem>
-                <Link href="/signin">
-                  <a>ログイン</a>
-                </Link>
-              </NavItem>
-              <NavItem>
-                <Link href="/signup">
-                  <a>新規登録</a>
-                </Link>
-              </NavItem>
               {user?.isSignIn ? (
-                <NavItem>
-                  <Link href="/my/profile/">
-                    <a>マイページ</a>
-                  </Link>
-                </NavItem>
-              ) : null}
+                <>
+                  <NavItem>
+                    <Link href="/my/profile/">
+                      <a>プロフィール</a>
+                    </Link>
+                  </NavItem>
+                  <NavItem>
+                    <Link href="/my/follow">
+                      <a>フォローリスト</a>
+                    </Link>
+                  </NavItem>
+                  <NavItem>
+                    <Link href="/my/bookmark">
+                      <a>ブックマーク</a>
+                    </Link>
+                  </NavItem>
+                  <NavItem>
+                    <Link href="/my/collect">
+                      <a>募集一覧</a>
+                    </Link>
+                  </NavItem>
+                  <NavItem>
+                    <Link href="/my/apply">
+                      <a>応募履歴</a>
+                    </Link>
+                  </NavItem>
+                  <NavItem>
+                    <Link href="/my/message">
+                      <a>メッセージ</a>
+                    </Link>
+                  </NavItem>
+                </>
+              ) : (
+                <>
+                  <NavItem>
+                    <Link href="/signin">
+                      <a>ログイン</a>
+                    </Link>
+                  </NavItem>
+                  <NavItem>
+                    <Link href="/signup">
+                      <a>新規登録</a>
+                    </Link>
+                  </NavItem>
+                </>
+              )}
             </NavList>
           </Nav>
         ) : (
@@ -96,22 +128,39 @@ export const HeaderLayout: VFC = memo(() => {
                 {pcNavState === true ? (
                   <Nav>
                     <NavList>
-                      <NavItem>
-                        <Link href="/signin">
-                          <a>ログイン</a>
-                        </Link>
-                      </NavItem>
-                      <NavItem>
-                        <Link href="/signup">
-                          <a>新規登録</a>
-                        </Link>
-                      </NavItem>
                       {user?.isSignIn ? (
-                        <NavItem>
-                          <Link href="/my/profile/">
-                            <a>マイページ</a>
-                          </Link>
-                        </NavItem>
+                        <>
+                          <NavItem>
+                            <Link href="/my/profile/">
+                              <a>プロフィール</a>
+                            </Link>
+                          </NavItem>
+                          <NavItem>
+                            <Link href="/my/follow">
+                              <a>フォローリスト</a>
+                            </Link>
+                          </NavItem>
+                          <NavItem>
+                            <Link href="/my/bookmark">
+                              <a>ブックマーク</a>
+                            </Link>
+                          </NavItem>
+                          <NavItem>
+                            <Link href="/my/collect">
+                              <a>募集一覧</a>
+                            </Link>
+                          </NavItem>
+                          <NavItem>
+                            <Link href="/my/apply">
+                              <a>応募履歴</a>
+                            </Link>
+                          </NavItem>
+                          <NavItem>
+                            <Link href="/my/message">
+                              <a>メッセージ</a>
+                            </Link>
+                          </NavItem>
+                        </>
                       ) : null}
                     </NavList>
                   </Nav>
