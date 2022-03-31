@@ -19,17 +19,32 @@ import { color } from "../../../utility/colors";
 import { useSelector } from "react-redux";
 import { getUser } from "../../../state/ducks/user/selectors";
 import { State } from "../../../state/store/type";
+import { useRouter } from "next/router";
+import { signOut } from "../../../hooks/api/auth";
+
 
 export const HeaderLayout: VFC = memo(() => {
+  // SP用のnav表示切り替え
   const [spNavState, setspNavState] = useState<boolean>(false);
   const onClickNav = useCallback(() => {
     setspNavState(!spNavState);
   }, [spNavState]);
+  // レスポンシブ表示切り替え
   const [isSp] = useWindowResize();
   // selectorの呼び出し
   const selector = useSelector((state: State) => state);
   const user = getUser(selector);
 
+  // ログアウトボタン処理
+  const router = useRouter();
+  const onClickLogOutButton = useCallback(async () => {
+    try {
+      await signOut();
+      router.push("/");
+    } catch (err) {
+      null;
+    }
+  }, []);
   return (
     <>
       <Header>
@@ -61,9 +76,11 @@ export const HeaderLayout: VFC = memo(() => {
           <HeaderButtonWrap>
             {user?.isSignIn ? (
               <>
-                <Link href="/signin">
+                <Link href="/">
                   <a>
-                    <PrimaryButton>ログアウト</PrimaryButton>
+                    <PrimaryButton onClick={onClickLogOutButton}>
+                      ログアウト
+                    </PrimaryButton>
                   </a>
                 </Link>
                 <Link href="/my/profile">
@@ -101,10 +118,11 @@ const SpNav = styled.div`
   right: 20px;
   width: 220px;
   text-align: center;
+  z-index: 2;
 `;
 const SpNavList = styled.ul``;
 const SpNavItem = styled.li`
-  &:first-child {
+  &:not(:last-child) {
     margin-bottom: 10px;
   }
 `;

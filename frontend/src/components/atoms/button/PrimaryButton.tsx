@@ -4,13 +4,14 @@ import { color } from "../../../utility/colors";
 
 type Props = {
   children: ReactNode;
+  onClick?: () => void;
 };
 
 export const PrimaryButton: VFC<Props> = memo((props) => {
-  const { children } = props;
+  const { children, onClick } = props;
   return (
     <>
-      <Button>{children}</Button>
+      <Button onClick={onClick}>{children}</Button>
     </>
   );
 });
