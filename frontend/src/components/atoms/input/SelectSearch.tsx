@@ -1,4 +1,5 @@
 import { memo, VFC } from "react";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { color } from "../../../utility/colors";
 
@@ -9,18 +10,20 @@ type CatSearchTypes = {
 
 type Props = {
   options: CatSearchTypes;
+  onChange: (value: any) => void;
 };
 
 // ドロップダウンの検索エリア
 export const SelectCatSearch: VFC<Props> = memo((props) => {
-  const { options } = props;
+  const { options, onChange } = props;
+
   return (
     <>
       <FormGroup>
-        <SearchSelect>
+        <SearchSelect onChange={(e) => onChange(e.target.value)}>
           {options &&
             options.map((option, index) => (
-              <SearchOption key={index} value={option.name}>
+              <SearchOption key={index} value={option.id}>
                 {option.name}
               </SearchOption>
             ))}

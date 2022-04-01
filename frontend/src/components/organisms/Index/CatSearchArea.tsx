@@ -1,9 +1,17 @@
 // import React && Redux
 import { memo, VFC } from "react";
-import { getCatAge, getCatLabel, getCatSex, getCatType } from "../../../state/ducks/labels/selectors";
+import {
+  getCatAge,
+  getCatLabel,
+  getCatSex,
+  getCatType,
+} from "../../../state/ducks/labels/selectors";
 import { useDispatch, useSelector } from "react-redux";
 import { State } from "../../../state/store/type";
-import { updateCatLabel } from "../../../state/ducks/labels/operation";
+import {
+  updateCatAge,
+  updateCatLabel,
+} from "../../../state/ducks/labels/operation";
 
 // import styled-components
 import styled from "styled-components";
@@ -11,6 +19,7 @@ import styled from "styled-components";
 // import components
 import { SelectCatSearch } from "../../atoms/input/SelectSearch";
 import { CheckBoxCatSearch } from "../../atoms/input/CheckBoxSearch";
+import { updateCatAgeAction } from "../../../state/ducks/labels/actions";
 
 export const CatSearchArea: VFC = memo(() => {
   // selectorの呼び出し(ラベルAPIの呼び出し)
@@ -24,15 +33,31 @@ export const CatSearchArea: VFC = memo(() => {
   const handleChecked = (id: number) => {
     dispatch(updateCatLabel(id));
   };
+  const handleSelectAge = (value: any) => {
+    // valueがnumberだと怒られる、dispatchすると怒られる
+    dispatch(updateCatAge(value));
+    // console.log(value)
+  };
+
+  // storeが配列なのに、ここではidを取得しているのでエラーを吐き出している
+  // 対処法に関して
+  // 仮説 : cat_searchというstoreを生成
+  // cat_search : {
+    // cat_sex: number;
+    // cat_type: number;
+    // cat_age: number;
+    // cat_label: number;
+  // }
+  // update cat_searchというアクションを定義してdispachする
 
   return (
     <>
       <Form>
         <SelectWrap>
           {/* <SelectCatSearch options={prefectures} /> */}
-          <SelectCatSearch options={ages} />
-          <SelectCatSearch options={types} />
-          <SelectCatSearch options={sexs} />
+          <SelectCatSearch options={ages} onChange={handleSelectAge} />
+          {/* <SelectCatSearch options={types} />
+          <SelectCatSearch options={sexs} /> */}
         </SelectWrap>
         <CheckBoxWrap>
           {catLabels.map((label, index) => {
@@ -65,5 +90,5 @@ const CheckBoxWrap = styled.div`
   display: grid;
   gap: 10px;
   grid-template-columns: 1fr 1fr;
-  margin-top: 20px;
+  margin: 20px 0;
 `;

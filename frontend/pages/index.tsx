@@ -20,7 +20,6 @@ import type { NextPage } from "next";
 import { H2Text } from "../src/components/atoms/text/H2Text";
 import { HeaderLayout } from "../src/components/template/layout/HeaderLayout";
 import { device } from "../src/utility/responsive";
-import { CatItems } from "../src/components/molecules/Index/CatItems";
 import { Container } from "../src/components/template/layout/Container";
 
 // import styled-components &&  Material UI
@@ -37,6 +36,7 @@ import { useWindowResize } from "../src/hooks/useWindowResize";
 import { getLoadingStatus } from "../src/state/ducks/loading/selectors";
 import { LoadingIcon } from "../src/components/atoms/Icon/Loading";
 import { getUser } from "../src/state/ducks/user/selectors";
+import { CatItems } from "../src/components/molecules/index/CatItems";
 
 const useStyles = makeStyles({
   list: {
@@ -64,12 +64,13 @@ const useStyles = makeStyles({
 const Home: NextPage = memo(() => {
   // materialUI
   const classes = useStyles();
-  const [spSearchState, setSpSearchState] = useState({
-    right: false,
-  });
   // ウィンドウサイズを取得
   const [isSp] = useWindowResize();
 
+  // SP用の検索窓切り替え
+  const [spSearchState, setSpSearchState] = useState({
+    right: false,
+  });
   const toggleDrawer = useCallback(
     (anchor: string, open: boolean) => (
       event: React.KeyboardEvent | React.MouseEvent
@@ -85,6 +86,7 @@ const Home: NextPage = memo(() => {
     },
     [spSearchState]
   );
+  // SP用の検索窓
   const list = () => (
     <div
       className={classes.list}
@@ -93,6 +95,7 @@ const Home: NextPage = memo(() => {
     >
       <List>
         <CatSearchArea />
+        <Button className={classes.button}>検索する</Button>
       </List>
       <Divider />
     </div>
@@ -111,7 +114,6 @@ const Home: NextPage = memo(() => {
   const selector = useSelector((state: State) => state);
   const cats = getCats(selector);
   const loading = getLoadingStatus(selector);
-  const user = getUser(selector);
   return (
     <>
       <Head>
@@ -123,7 +125,6 @@ const Home: NextPage = memo(() => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <HeaderLayout />
-      {/* ユーザー情報があるかどうかチェック */}
       {loading ? (
         <LoadingIcon />
       ) : (
