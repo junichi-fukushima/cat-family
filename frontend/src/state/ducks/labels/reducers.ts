@@ -10,33 +10,28 @@ export const CatLabelReducer = (
       return action.payload;
     case CatsActionTypes.UPDATE_CAT_LABEL:
       return state.map((label) => {
-        if(label.id === action.payload){
-          label.checked  = !(label.checked);
+        if (label.id === action.payload) {
+          label.checked = !label.checked;
         }
         return label;
-      })
+      });
     default:
       return state;
   }
 };
 
-export const CatAgeReducer = (
-  state = initialState.cat_age,
-  action: any
-) => {
+export const CatAgeReducer = (state = initialState.cat_age, action: any) => {
   switch (action.type) {
     case CatsActionTypes.FETCH_CAT_AGE:
       return action.payload;
-
+    case CatsActionTypes.UPDATE_CAT_AGE:
+      return action.payload;
     default:
       return state;
   }
 };
 
-export const CatSexReducer = (
-  state = initialState.cat_sex,
-  action: any
-) => {
+export const CatSexReducer = (state = initialState.cat_sex, action: any) => {
   switch (action.type) {
     case CatsActionTypes.FETCH_CAT_SEX:
       return action.payload;
@@ -46,10 +41,7 @@ export const CatSexReducer = (
   }
 };
 
-export const CatTypeReducer = (
-  state = initialState.cat_type,
-  action: any
-) => {
+export const CatTypeReducer = (state = initialState.cat_type, action: any) => {
   switch (action.type) {
     case CatsActionTypes.FETCH_CAT_TYPE:
       return action.payload;

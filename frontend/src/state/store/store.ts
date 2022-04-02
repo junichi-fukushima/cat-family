@@ -5,6 +5,7 @@ import {
 } from "redux";
 import thunk from "redux-thunk";
 import { CatsReducer } from "../ducks/cats/reducers";
+import { CatsSearchReducer } from "../ducks/cat_search/reducers";
 import {
   CatAgeReducer,
   CatLabelReducer,
@@ -28,6 +29,8 @@ export default function createStore() {
       user: UserReducer,
       // ローディング
       loading: LoadingReducer,
+      // 猫検索機能
+      cat_search: CatsSearchReducer
     }),
     applyMiddleware(
       // operation.jsに記載されるような関数をdispatchする時や、非同期での処理をする際はapplayMiddlewareの中でthunkを呼び出す必要がある

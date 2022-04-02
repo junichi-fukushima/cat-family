@@ -21,4 +21,13 @@ class Cat < ApplicationRecord
   # Association
 
   # Validation
+
+  # 検索機能
+  def self.search(search)
+    # 検索ワードがない時
+    return Cat.all unless search
+
+    # 検索ワードがある時
+    Category.where(category_name: search).joins(:ideas).select('ideas.id,ideas.body,category_name')
+  end
 end

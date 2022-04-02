@@ -3,6 +3,7 @@ import {
   fetchCatLabelAction,
   fetchCatSexAction,
   fetchCatTypeAction,
+  updateCatAgeAction,
   updateCatLabelAction,
 } from "./actions";
 import {
@@ -44,6 +45,12 @@ export const fetchCatAge = () => {
       dispatch(fetchCatAgeAction(result.data.map((x: any) => x.attributes)));
     })
     .catch(() => null);
+  };
+};
+
+export const updateCatAge = (id: number) => {
+  return async (dispatch: any) => {
+    dispatch(updateCatAgeAction(id));
   };
 };
 

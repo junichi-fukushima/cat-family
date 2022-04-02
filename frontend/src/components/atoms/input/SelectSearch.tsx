@@ -9,18 +9,20 @@ type CatSearchTypes = {
 
 type Props = {
   options: CatSearchTypes;
+  onChange: (value: number) => void;
 };
 
 // ドロップダウンの検索エリア
 export const SelectCatSearch: VFC<Props> = memo((props) => {
-  const { options } = props;
+  const { options, onChange } = props;
+
   return (
     <>
       <FormGroup>
-        <SearchSelect>
+        <SearchSelect onChange={(e) => onChange(Number(e.target.value))}>
           {options &&
             options.map((option, index) => (
-              <SearchOption key={index} value={option.name}>
+              <SearchOption key={index} value={option.id}>
                 {option.name}
               </SearchOption>
             ))}
