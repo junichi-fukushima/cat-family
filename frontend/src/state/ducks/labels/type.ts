@@ -26,5 +26,4 @@ export const CatsActionTypes = {
   FETCH_CAT_TYPE: "FETCH_CAT_TYPE",
   // 更新
   UPDATE_CAT_LABEL: "UPDATE_CAT_LABEL",
-  UPDATE_CAT_AGE: "UPDATE_CAT_AGE",
 };

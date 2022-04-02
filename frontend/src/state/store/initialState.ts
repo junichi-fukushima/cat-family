@@ -26,8 +26,11 @@ export const initialState: State = {
   },
   loading: true,
   isSignedIn: false,
-  cats_search: {
+  catSearch: {
     ageId: null,
-    label:[]
+    typeId: null,
+    sexId: null,
+    prefectureId: null,
+    label:[],
   },
 };

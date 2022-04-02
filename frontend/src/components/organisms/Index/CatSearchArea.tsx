@@ -8,9 +8,7 @@ import {
 } from "../../../state/ducks/labels/selectors";
 import { useDispatch, useSelector } from "react-redux";
 import { State } from "../../../state/store/type";
-import {
-  updateCatLabel,
-} from "../../../state/ducks/labels/operation";
+import { updateCatLabel } from "../../../state/ducks/labels/operation";
 
 // import styled-components
 import styled from "styled-components";
@@ -18,33 +16,52 @@ import styled from "styled-components";
 // import components
 import { SelectCatSearch } from "../../atoms/input/SelectSearch";
 import { CheckBoxCatSearch } from "../../atoms/input/CheckBoxSearch";
-import { setSearchAgeCondition } from "../../../state/ducks/cat_search/operation";
+import {
+  setSearchAgeCondition,
+  setSearchSexCondition,
+  setSearchTypeCondition,
+  setSearchPrefectureCondition,
+  setSearchLabelCondition
+} from "../../../state/ducks/cat_search/operation";
+import { prefecture } from "../../../data/prefecture";
+import { getCatSearchCondition } from "../../../state/ducks/cat_search/selectors";
 
 export const CatSearchArea: VFC = memo(() => {
   // selectorの呼び出し(ラベルAPIの呼び出し)
   const selector = useSelector((state: State) => state);
   const catLabels = getCatLabel(selector);
   const ages = getCatAge(selector);
-  const types = getCatSex(selector);
-  const sexs = getCatType(selector);
-  // catLabelのstatusを変更する
+  const types = getCatType(selector);
+  const sexs = getCatSex(selector);
+  const searchcondition = getCatSearchCondition(selector)
+  // 検索情報の取得
   const dispatch = useDispatch();
   const handleChecked = (id: number) => {
     dispatch(updateCatLabel(id));
+    dispatch(setSearchLabelCondition(catLabels))
   };
   const handleSelectAge = (value: number) => {
-    // valueがnumberだと怒られる、dispatchすると怒られる
     dispatch(setSearchAgeCondition(value));
+  };
+  const handleSelectType = (value: number) => {
+    dispatch(setSearchTypeCondition(value));
+  };
+  const handleSelectSex = (value: number) => {
+    dispatch(setSearchSexCondition(value));
+  };
+  const handleSelectPrefecture = (value: number) => {
+    dispatch(setSearchPrefectureCondition(value));
   };
 
   return (
     <>
+    {console.log(searchcondition)}
       <Form>
         <SelectWrap>
-          {/* <SelectCatSearch options={prefectures} /> */}
+          <SelectCatSearch options={prefecture} onChange={handleSelectPrefecture} />
           <SelectCatSearch options={ages} onChange={handleSelectAge} />
-          {/* <SelectCatSearch options={types} />
-          <SelectCatSearch options={sexs} /> */}
+          <SelectCatSearch options={types} onChange={handleSelectType} />
+          <SelectCatSearch options={sexs} onChange={handleSelectSex} />
         </SelectWrap>
         <CheckBoxWrap>
           {catLabels.map((label, index) => {

@@ -32,9 +32,3 @@ export const updateCatLabelAction = (id: number) => {
     payload: id,
   };
 };
-export const updateCatAgeAction = (id: number) => {
-  return {
-    type: CatsActionTypes.UPDATE_CAT_AGE,
-    payload: id,
-  };
-};
