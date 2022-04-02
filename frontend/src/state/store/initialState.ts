@@ -22,8 +22,12 @@ export const initialState: State = {
     provider: "",
     uid: "",
     // ログインステータス
-    isSignIn:false,
+    isSignIn: false,
   },
   loading: true,
   isSignedIn: false,
+  cats_search: {
+    ageId: null,
+    label:[]
+  },
 };

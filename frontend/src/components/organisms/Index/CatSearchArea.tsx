@@ -9,7 +9,6 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { State } from "../../../state/store/type";
 import {
-  updateCatAge,
   updateCatLabel,
 } from "../../../state/ducks/labels/operation";
 
@@ -19,7 +18,7 @@ import styled from "styled-components";
 // import components
 import { SelectCatSearch } from "../../atoms/input/SelectSearch";
 import { CheckBoxCatSearch } from "../../atoms/input/CheckBoxSearch";
-import { updateCatAgeAction } from "../../../state/ducks/labels/actions";
+import { setSearchAgeCondition } from "../../../state/ducks/cat_search/operation";
 
 export const CatSearchArea: VFC = memo(() => {
   // selectorの呼び出し(ラベルAPIの呼び出し)
@@ -33,22 +32,10 @@ export const CatSearchArea: VFC = memo(() => {
   const handleChecked = (id: number) => {
     dispatch(updateCatLabel(id));
   };
-  const handleSelectAge = (value: any) => {
+  const handleSelectAge = (value: number) => {
     // valueがnumberだと怒られる、dispatchすると怒られる
-    dispatch(updateCatAge(value));
-    // console.log(value)
+    dispatch(setSearchAgeCondition(value));
   };
-
-  // storeが配列なのに、ここではidを取得しているのでエラーを吐き出している
-  // 対処法に関して
-  // 仮説 : cat_searchというstoreを生成
-  // cat_search : {
-    // cat_sex: number;
-    // cat_type: number;
-    // cat_age: number;
-    // cat_label: number;
-  // }
-  // update cat_searchというアクションを定義してdispachする
 
   return (
     <>
