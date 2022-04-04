@@ -34,7 +34,7 @@ export const CatSearchArea: VFC = memo(() => {
   const types = getCatType(selector);
   const sexs = getCatSex(selector);
   const searchcondition = getCatSearchCondition(selector)
-  // 検索情報の取得
+  // 検索情報
   const dispatch = useDispatch();
   const handleChecked = (id: number) => {
     dispatch(updateCatLabel(id));
