@@ -24,6 +24,11 @@ export const setSearchSexCondition = (data: number) => {
     dispatch(updateCatSexCondition(data));
   };
 };
+export const setSearchPrefectureCondition = (data: number) => {
+  return async (dispatch: Dispatch<Action>) => {
+    dispatch(updateCatPrefectureCondition(data));
+  };
+};
 export const setSearchLabelCondition = (data: CatsLabel[]) => {
   return async (dispatch: Dispatch<Action>, getState: any) => {
     const state = getState();
@@ -44,10 +49,5 @@ export const setSearchLabelCondition = (data: CatsLabel[]) => {
         dispatch(updateCatLabelCondition([...deletedLabels]));
       }
     });
-  };
-};
-export const setSearchPrefectureCondition = (data: number) => {
-  return async (dispatch: Dispatch<Action>) => {
-    dispatch(updateCatPrefectureCondition(data));
   };
 };

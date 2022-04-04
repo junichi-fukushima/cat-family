@@ -1,5 +1,8 @@
 import { memo, VFC } from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
+import { getCatSearchCondition } from "../../../state/ducks/cat_search/selectors";
+import { State } from "../../../state/store/type";
 import { color } from "../../../utility/colors";
 
 type CatSearchTypes = {
@@ -12,9 +15,16 @@ type Props = {
   onChange: (value: number) => void;
 };
 
+// valueを共有したい
+// valueとoption.idが一致した時にselectedを付与する
+// 問題点
+// デフォルト値がnull / undefinedになっている
+// 条件分岐使えない？
+// https://chaika.hatenablog.com/entry/2019/05/16/083000
+
 // ドロップダウンの検索エリア
 export const SelectCatSearch: VFC<Props> = memo((props) => {
-  const { options, onChange } = props;
+  const { options, onChange} = props;
 
   return (
     <>
