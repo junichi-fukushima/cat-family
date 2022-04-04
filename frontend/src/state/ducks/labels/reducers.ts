@@ -24,8 +24,6 @@ export const CatAgeReducer = (state = initialState.cat_age, action: any) => {
   switch (action.type) {
     case CatsActionTypes.FETCH_CAT_AGE:
       return action.payload;
-    case CatsActionTypes.UPDATE_CAT_AGE:
-      return action.payload;
     default:
       return state;
   }
