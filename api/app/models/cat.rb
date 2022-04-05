@@ -26,8 +26,9 @@ class Cat < ApplicationRecord
   def self.search(search)
     # 検索ワードがない時
     return Cat.all unless search
-
     # 検索ワードがある時
-    Category.where(category_name: search).joins(:ideas).select('ideas.id,ideas.body,category_name')
+    # 空の時どうする
+    Cat.where(cat_label_id: search[:cat_label_id], cat_sex_id: search[:cat_sex_id], cat_type_id: search[:cat_type_id],
+              cat_age_id: search[:cat_age_id])
   end
 end
