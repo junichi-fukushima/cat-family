@@ -40,12 +40,12 @@ const Label = styled.div`
 `;
 
 const WhiteLabel = styled(Label)`
-  border: ${color.darkGrey};
+  border: 1px solid ${color.darkGrey};
   background-color: ${color.white};
   color: ${color.black};
 `;
 const GreenLabel = styled(Label)`
-  border: ${color.green};
+  border: 1px solid ${color.green};
   background-color: ${color.green};
   color: ${color.white};
 `;
