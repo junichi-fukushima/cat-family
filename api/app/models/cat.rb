@@ -26,9 +26,11 @@ class Cat < ApplicationRecord
   def self.search(search)
     # 検索ワードがない時
     return Cat.all unless search
+
     # 検索ワードがある時
-    # 空の時どうする
     Cat.where(cat_label_id: search[:cat_label_id], cat_sex_id: search[:cat_sex_id], cat_type_id: search[:cat_type_id],
-              cat_age_id: search[:cat_age_id])
+      cat_age_id: search[:cat_age_id])
   end
 end
+# whereが1個ならいけるけど、他がnullになるといけない
+#
