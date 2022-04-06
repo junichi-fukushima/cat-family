@@ -117,10 +117,10 @@ export const HeaderLayout: VFC = memo(() => {
           <>
             {user?.isSignIn ? (
               <HeaderSignIn>
-                <Link href="/">
+                <Link href="/cat/post/">
                   <a>
-                    <PrimaryButton onClick={onClickLogOutButton}>
-                      ログアウト
+                    <PrimaryButton>
+                      里親募集をする
                     </PrimaryButton>
                   </a>
                 </Link>
@@ -158,6 +158,11 @@ export const HeaderLayout: VFC = memo(() => {
                           <NavItem>
                             <Link href="/my/message">
                               <a>メッセージ</a>
+                            </Link>
+                          </NavItem>
+                          <NavItem>
+                            <Link href="/my/message">
+                              <a onClick={onClickLogOutButton}>ログアウト</a>
                             </Link>
                           </NavItem>
                         </>
@@ -228,7 +233,7 @@ const HeaderCommon = styled.div`
   }
 `;
 const HeaderSignIn = styled(HeaderCommon)`
-  grid-template-columns: 120px 33px;
+  grid-template-columns: 140px 33px;
 `;
 const HeaderSignOut = styled(HeaderCommon)`
   grid-template-columns: repeat(2, 100px);

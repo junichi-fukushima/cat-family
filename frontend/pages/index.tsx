@@ -35,7 +35,6 @@ import Link from "next/link";
 import { useWindowResize } from "../src/hooks/useWindowResize";
 import { getLoadingStatus } from "../src/state/ducks/loading/selectors";
 import { LoadingIcon } from "../src/components/atoms/Icon/Loading";
-import { getUser } from "../src/state/ducks/user/selectors";
 import { CatItems } from "../src/components/molecules/index/CatItems";
 
 const useStyles = makeStyles({
