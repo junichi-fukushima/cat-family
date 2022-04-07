@@ -2,7 +2,7 @@ class Cat < ApplicationRecord
   # ActiveHash
   extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to_active_hash :cat_age
-  belongs_to_active_hash :cat_label
+  has_many :cat_label
   belongs_to_active_hash :cat_sex
   belongs_to_active_hash :cat_type
 
@@ -24,13 +24,12 @@ class Cat < ApplicationRecord
 
   # 検索機能
   def self.search(search)
-    # 検索ワードがない時
-    return Cat.all unless search
-
-    # 検索ワードがある時
-    Cat.where(cat_label_id: search[:cat_label_id], cat_sex_id: search[:cat_sex_id], cat_type_id: search[:cat_type_id],
-      cat_age_id: search[:cat_age_id])
+    results = Cat.all
+    results = results.where(cat_label_id: search[:cat_label_id]) if search[:cat_label_id].present?
+    results = results.where(cat_sex_id: search[:cat_sex_id]) if search[:cat_sex_id].present?
+    results = results.where(cat_type_id: search[:cat_type_id]) if search[:cat_type_id].present?
+    results = results.where(cat_age_id: search[:cat_age_id]) if search[:cat_age_id].present?
+    # rubocopエラー対策 : if文の後に使用しているローカル変数を明示する
+    return results
   end
 end
-# whereが1個ならいけるけど、他がnullになるといけない
-#
