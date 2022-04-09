@@ -19,7 +19,7 @@ module Api
       private
 
       def search_params
-        params.permit(:cat_label_id, :cat_sex_id, :cat_type_id, :cat_age_id)
+        params.permit(:label_ids, :cat_sex_id, :cat_type_id, :cat_age_id)
       end
     end
   end

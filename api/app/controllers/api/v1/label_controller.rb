@@ -1,9 +1,9 @@
 module Api
   module V1
-    class CatLabelController < ApplicationController
+    class LabelController < ApplicationController
       def index
         # activehash(ラベルマスタ)
-        render json: CatLabel.all
+        render json: Label.all
       end
     end
   end

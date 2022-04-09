@@ -2,9 +2,12 @@ class Cat < ApplicationRecord
   # ActiveHash
   extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to_active_hash :cat_age
-  has_many :cat_label
   belongs_to_active_hash :cat_sex
   belongs_to_active_hash :cat_type
+  # アソシエーション
+  belongs_to :user
+  has_many :cat_labels
+  has_many :labels, through: :cat_label
 
   # ActiveStorage
   include Rails.application.routes.url_helpers
@@ -25,11 +28,12 @@ class Cat < ApplicationRecord
   # 検索機能
   def self.search(search)
     results = Cat.all
-    results = results.where(cat_label_id: search[:cat_label_id]) if search[:cat_label_id].present?
-    results = results.where(cat_sex_id: search[:cat_sex_id]) if search[:cat_sex_id].present?
-    results = results.where(cat_type_id: search[:cat_type_id]) if search[:cat_type_id].present?
-    results = results.where(cat_age_id: search[:cat_age_id]) if search[:cat_age_id].present?
+
+    # results = results.where(cat_sex_id: search[:cat_sex_id]) if search[:cat_sex_id].present?
+    # results = results.where(cat_type_id: search[:cat_type_id]) if search[:cat_type_id].present?
+    # results = results.where(cat_age_id: search[:cat_age_id]) if search[:cat_age_id].present?
     # rubocopエラー対策 : if文の後に使用しているローカル変数を明示する
     return results
   end
 end
+Cat.includes(:labels).where(label_id: { id: 2})

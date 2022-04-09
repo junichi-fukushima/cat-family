@@ -36,6 +36,8 @@ import { useWindowResize } from "../src/hooks/useWindowResize";
 import { getLoadingStatus } from "../src/state/ducks/loading/selectors";
 import { LoadingIcon } from "../src/components/atoms/Icon/Loading";
 import { CatItems } from "../src/components/molecules/index/CatItems";
+import { getCurrentUser } from "../src/hooks/api/auth";
+import { getUser } from "../src/state/ducks/user/selectors";
 
 const useStyles = makeStyles({
   list: {
@@ -100,7 +102,37 @@ const Home: NextPage = memo(() => {
     </div>
   );
   // redux
+
+  // selectorの呼び出し
+  const selector = useSelector((state: State) => state);
+  const cats = getCats(selector);
+  const user = getUser(selector);
+  const loading = getLoadingStatus(selector);
+
   const dispatch = useDispatch();
+  // dispatchは各fetch関数が更新されたタイミングで実行するようにする
+  // 理由 : 1箇所にまとめると複数回dispatchしてしまうため
+  // useEffect(() => {
+  //   dispatch(fetchCats());
+  // }, [fetchCats]);
+  // useEffect(() => {
+  //   dispatch(fetchCatLabel());
+  // }, [fetchCatLabel]);
+  // useEffect(() => {
+  //   dispatch(fetchCatAge());
+  // }, [fetchCatAge]);
+  // useEffect(() => {
+  //   dispatch(fetchCatSex());
+  // }, [fetchCatSex]);
+  // useEffect(() => {
+  //   dispatch(fetchCatType());
+  // }, [fetchCatType]);
+  // useEffect(() => {
+  //   // signInしていない時に情報を取得する
+  //   // if(!user?.isSignIn){
+  //   // }
+  //   getCurrentUser();
+  // }, []);
   useEffect(() => {
     dispatch(fetchCats());
     dispatch(fetchCatLabel());
@@ -109,10 +141,6 @@ const Home: NextPage = memo(() => {
     dispatch(fetchCatType());
   }, []);
 
-  // selectorの呼び出し
-  const selector = useSelector((state: State) => state);
-  const cats = getCats(selector);
-  const loading = getLoadingStatus(selector);
   return (
     <>
       <Head>

@@ -10,7 +10,7 @@ Rails.application.routes.draw do
 
       # active-hash(ラベルマスタ)
       get "cat_age", to: "cat_age#index"
-      get "cat_label", to: "cat_label#index"
+      get "label", to: "label#index"
       get "cat_sex", to: "cat_sex#index"
       get "cat_type", to: "cat_type#index"
 
