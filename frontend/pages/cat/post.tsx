@@ -14,9 +14,9 @@ import type { NextPage } from "next";
 // import components && styled-components
 import styled from "styled-components";
 import { InputText } from "../../src/components/atoms/input/InputText";
-import { prefecture } from "../../src/data/prefecture";
 import { InputSelect } from "../../src/components/atoms/input/InputSelect";
 import { InputTextField } from "../../src/components/atoms/input/inputTextField";
+import { InputCheckBox } from "../../src/components/atoms/input/InputCheckBox";
 import { SubmitButton } from "../../src/components/atoms/input/SubmitButton";
 import { InputFileField } from "../../src/components/atoms/input/InputFileField";
 import { device } from "../../src/utility/responsive";
@@ -36,7 +36,7 @@ import {
   updateCatLabel,
 } from "../../src/state/ducks/labels/operation";
 import { useEffect } from "react";
-import { CheckBoxCatSearch } from "../../src/components/atoms/input/CheckBoxSearch";
+
 
 // プロフィール更新の際に使用
 export interface FormValues {
@@ -66,6 +66,7 @@ const CatPost: NextPage = () => {
 
   const dispatch = useDispatch();
   const handleChecked = (id: number) => {
+    console.log(id)
     dispatch(updateCatLabel(id));
   };
 
@@ -187,18 +188,19 @@ const CatPost: NextPage = () => {
               </InputTextField>
             </FormItemCol1>
             <FormItemCol1>
+              <FormLabel>該当するものを選択</FormLabel>
               <CheckBoxWrap>
                 {catLabels.map((label, index) => {
                   index = index + 1;
                   return (
-                    <CheckBoxCatSearch
+                    <InputCheckBox
                       key={index}
                       id={label.id}
                       checked={label.checked}
                       onChange={handleChecked}
                     >
                       {label.name}
-                    </CheckBoxCatSearch>
+                    </InputCheckBox>
                   );
                 })}
               </CheckBoxWrap>
@@ -256,6 +258,10 @@ const FormItemCol2 = styled.li`
   }
 `;
 const FormItemCol1 = styled.li``;
+const FormLabel = styled.div`
+  font-weight: bold;
+  margin-bottom: 5px;
+`;
 const FormItemSubmitWrap = styled.li`
   text-align: center;
 `;

@@ -28,6 +28,11 @@ class Cat < ApplicationRecord
   # 検索機能
   def self.search(search)
     results = Cat.all
+    # 複数のラベルに全て合致する、猫データを取得する
+    # 複数のラベルを取得する
+    search[:label_ids].map { |label_id|
+      joins(:items).merge(Item.id_is item_id)
+    }.injdect(:&)
 
     # results = results.where(cat_sex_id: search[:cat_sex_id]) if search[:cat_sex_id].present?
     # results = results.where(cat_type_id: search[:cat_type_id]) if search[:cat_type_id].present?
@@ -36,4 +41,3 @@ class Cat < ApplicationRecord
     return results
   end
 end
-Cat.includes(:labels).where(label_id: { id: 2})
