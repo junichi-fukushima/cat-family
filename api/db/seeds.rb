@@ -7,6 +7,13 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 # run : rails db:seed
+# ラベルデータの格納
+labels = ['単身者可','高齢者可','去勢済み','エイズ陰性','先住猫可']
+
+labels.each do |label|
+  Label.create(name: "#{label}")
+end
+
 2.times do |n|
   cat = Cat.new(
     name: "チャチャ_#{n}号",

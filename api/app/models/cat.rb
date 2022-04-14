@@ -30,9 +30,9 @@ class Cat < ApplicationRecord
     results = Cat.all
     # 複数のラベルに全て合致する、猫データを取得する
     # 複数のラベルを取得する
-    search[:label_ids].map { |label_id|
-      joins(:items).merge(Item.id_is item_id)
-    }.injdect(:&)
+    results = search[:label_ids].map { |label_id|
+      joins(:labels).merge(Label.where(id: label_id))
+    }
 
     # results = results.where(cat_sex_id: search[:cat_sex_id]) if search[:cat_sex_id].present?
     # results = results.where(cat_type_id: search[:cat_type_id]) if search[:cat_type_id].present?

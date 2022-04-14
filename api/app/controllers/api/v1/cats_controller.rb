@@ -7,8 +7,8 @@ module Api
 
       def search
         # モデルでの検索結果を取得する
-        data = Cat.search(params)
-
+        data = Cat.search(search_params)
+        binding.pry
         if data.exists?
           render json: { data: data }, status: 200
         else
@@ -19,7 +19,8 @@ module Api
       private
 
       def search_params
-        params.permit(:label_ids, :cat_sex_id, :cat_type_id, :cat_age_id)
+
+        params.permit(:cat_sex_id, :cat_type_id, :cat_age_id ,label_ids: [])
       end
     end
   end
