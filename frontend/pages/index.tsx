@@ -275,7 +275,7 @@ const SpButtonWrap = styled.div`
 const CatList = styled.ul`
   @media ${device.pc} {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+    grid-template-columns: 1fr 1fr 1fr;
     gap: 50px 70px;
   }
 `;
