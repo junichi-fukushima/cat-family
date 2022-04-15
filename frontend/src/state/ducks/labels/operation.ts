@@ -20,11 +20,11 @@ export const fetchCatLabel = () => {
     axios
     .get(catLabelUrl)
     .then((result) => {
-      let catLabelArray = result.data.map((x: any) => x.attributes);
+      let catLabelArray = result.data;
       catLabelArray.forEach((element: any) => {
         element.checked = false;
       });
-      dispatch(fetchCatLabelAction(result.data.map((x: any) => x.attributes)));
+      dispatch(fetchCatLabelAction(result.data));
     })
     .catch(() => null);
   };

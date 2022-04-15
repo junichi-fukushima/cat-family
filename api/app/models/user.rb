@@ -9,4 +9,7 @@ class User < ActiveRecord::Base
   # ActiveHash
   extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to_active_hash :cat_type
+
+  # アソシエーション
+  has_many :cats
 end

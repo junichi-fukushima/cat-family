@@ -10,7 +10,7 @@ type Props = {
 };
 
 // チェックボックス
-export const CheckBoxCatSearch: VFC<Props> = memo((props) => {
+export const InputCheckBox: VFC<Props> = memo((props) => {
   const { children, id, checked, onChange } = props;
   return (
     <>
@@ -37,6 +37,11 @@ const Label = styled.div`
   height: 100%;
   padding: 10px;
   border-radius: 30px;
+`;
+
+const FormLabel = styled.div`
+  font-weight: bold;
+  margin-bottom: 5px;
 `;
 
 const WhiteLabel = styled(Label)`

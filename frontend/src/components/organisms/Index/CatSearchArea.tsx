@@ -70,7 +70,7 @@ export const CatSearchArea: VFC = memo(() => {
                 key={index}
                 id={label.id}
                 checked={label.checked}
-                // Note : ここにチェックした時にbooleaを入れ替える関数入れる
+                // Note : ここにチェックした時にbooleanを入れ替える関数入れる
                 onChange={handleChecked}
               >
                 {label.name}

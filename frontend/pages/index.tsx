@@ -35,8 +35,10 @@ import Link from "next/link";
 import { useWindowResize } from "../src/hooks/useWindowResize";
 import { getLoadingStatus } from "../src/state/ducks/loading/selectors";
 import { LoadingIcon } from "../src/components/atoms/Icon/Loading";
-import { getUser } from "../src/state/ducks/user/selectors";
 import { CatItems } from "../src/components/molecules/index/CatItems";
+import { getCurrentUser } from "../src/hooks/api/auth";
+import { getUser } from "../src/state/ducks/user/selectors";
+import { useSignIn } from "../src/state/ducks/user/operation";
 
 const useStyles = makeStyles({
   list: {
@@ -101,19 +103,38 @@ const Home: NextPage = memo(() => {
     </div>
   );
   // redux
+
+  // selectorの呼び出し
+  const selector = useSelector((state: State) => state);
+  const cats = getCats(selector);
+  const user = getUser(selector);
+  const loading = getLoadingStatus(selector);
+
   const dispatch = useDispatch();
+
+  // アクセス時にユーザー情報を取得
+  const handleGetCurrentUser = async () => {
+    try {
+      const res = await getCurrentUser();
+      if(res?.data.is_login === true){
+        dispatch(useSignIn(res?.data.data))
+      } else {
+        console.log("ログインしているユーザーはいないです")
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+
   useEffect(() => {
     dispatch(fetchCats());
     dispatch(fetchCatLabel());
     dispatch(fetchCatAge());
     dispatch(fetchCatSex());
     dispatch(fetchCatType());
+    handleGetCurrentUser();
   }, []);
-
-  // selectorの呼び出し
-  const selector = useSelector((state: State) => state);
-  const cats = getCats(selector);
-  const loading = getLoadingStatus(selector);
   return (
     <>
       <Head>
@@ -248,7 +269,7 @@ const SpButtonWrap = styled.div`
 const CatList = styled.ul`
   @media ${device.pc} {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+    grid-template-columns: 1fr 1fr 1fr;
     gap: 50px 70px;
   }
 `;
