@@ -32,9 +32,6 @@ export const HeaderLayout: VFC = memo(() => {
   // PC用のnav表示切り替え
   const [pcNavState, setpcNavState] = useState<boolean>(false);
   const onClickPcNav = useCallback(() => {
-    {
-      console.log(pcNavState);
-    }
     setpcNavState(!pcNavState);
   }, [pcNavState]);
 

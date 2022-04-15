@@ -39,7 +39,6 @@ export const setSearchLabelCondition = (data: CatsLabel[]) => {
       // ラベルデータを保存するとき
       if (label.checked && !savedLabels.includes(label.id)) {
         dispatch(updateCatLabelCondition([...savedLabels, label.id]));
-        {console.log(savedLabels)}
       }
       // ラベルデータを削除するとき
       if (!label.checked && savedLabels.includes(label.id)) {

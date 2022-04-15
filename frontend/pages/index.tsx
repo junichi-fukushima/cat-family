@@ -38,6 +38,7 @@ import { LoadingIcon } from "../src/components/atoms/Icon/Loading";
 import { CatItems } from "../src/components/molecules/index/CatItems";
 import { getCurrentUser } from "../src/hooks/api/auth";
 import { getUser } from "../src/state/ducks/user/selectors";
+import { useSignIn } from "../src/state/ducks/user/operation";
 
 const useStyles = makeStyles({
   list: {
@@ -109,38 +110,33 @@ const Home: NextPage = memo(() => {
   const user = getUser(selector);
   const loading = getLoadingStatus(selector);
 
+
+
   const dispatch = useDispatch();
-  // dispatchは各fetch関数が更新されたタイミングで実行するようにする
-  // 理由 : 1箇所にまとめると複数回dispatchしてしまうため
-  // useEffect(() => {
-  //   dispatch(fetchCats());
-  // }, [fetchCats]);
-  // useEffect(() => {
-  //   dispatch(fetchCatLabel());
-  // }, [fetchCatLabel]);
-  // useEffect(() => {
-  //   dispatch(fetchCatAge());
-  // }, [fetchCatAge]);
-  // useEffect(() => {
-  //   dispatch(fetchCatSex());
-  // }, [fetchCatSex]);
-  // useEffect(() => {
-  //   dispatch(fetchCatType());
-  // }, [fetchCatType]);
-  // useEffect(() => {
-  //   // signInしていない時に情報を取得する
-  //   // if(!user?.isSignIn){
-  //   // }
-  //   getCurrentUser();
-  // }, []);
+
+  // アクセス時にユーザー情報を取得
+  const handleGetCurrentUser = async () => {
+    try {
+      const res = await getCurrentUser();
+      if(res?.data.is_login === true){
+        dispatch(useSignIn(res?.data.data))
+      } else {
+        console.log("ログインしているユーザーはいないです")
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+
   useEffect(() => {
     dispatch(fetchCats());
     dispatch(fetchCatLabel());
     dispatch(fetchCatAge());
     dispatch(fetchCatSex());
     dispatch(fetchCatType());
+    handleGetCurrentUser();
   }, []);
-
   return (
     <>
       <Head>

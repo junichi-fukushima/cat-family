@@ -66,7 +66,6 @@ const CatPost: NextPage = () => {
 
   const dispatch = useDispatch();
   const handleChecked = (id: number) => {
-    console.log(id)
     dispatch(updateCatLabel(id));
   };
 
