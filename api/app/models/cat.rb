@@ -7,7 +7,7 @@ class Cat < ApplicationRecord
   # アソシエーション
   belongs_to :user
   has_many :cat_labels
-  has_many :labels, through: :cat_label
+  has_many :labels, through: :cat_labels
 
   # ActiveStorage
   include Rails.application.routes.url_helpers
@@ -28,11 +28,18 @@ class Cat < ApplicationRecord
   # 検索機能
   def self.search(search)
     results = Cat.all
-    # 複数のラベルに全て合致する、猫データを取得する
-    # 複数のラベルを取得する
-    results = search[:label_ids].map { |label_id|
-      joins(:labels).merge(Label.where(id: label_id))
-    }
+
+    # or検索
+    results = Cat.joins(:labels).merge(Label.where(id: search[:label_ids])).distinct
+    # and検索
+    # https://qiita.com/ishidamakot/items/4e70010c0e11399c3404
+    label = arel_table
+    cat_label = CatLabel.arel_table
+    subquery = cat_label.project(cat_label[:cat_id])
+    .where(cat_label[:label_id].in(search[:label_ids]))
+    .group(cat_label[:cat_id])
+    .having(cat_label[:label_id].count('distinct').eq(search[:label_ids].size))
+    results = where(label[:id].in(subquery))
 
     # results = results.where(cat_sex_id: search[:cat_sex_id]) if search[:cat_sex_id].present?
     # results = results.where(cat_type_id: search[:cat_type_id]) if search[:cat_type_id].present?

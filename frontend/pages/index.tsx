@@ -110,8 +110,6 @@ const Home: NextPage = memo(() => {
   const user = getUser(selector);
   const loading = getLoadingStatus(selector);
 
-
-
   const dispatch = useDispatch();
 
   // アクセス時にユーザー情報を取得
