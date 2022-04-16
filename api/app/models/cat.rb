@@ -41,9 +41,9 @@ class Cat < ApplicationRecord
     .having(cat_label[:label_id].count('distinct').eq(search[:label_ids].size))
     results = where(label[:id].in(subquery))
 
-    # results = results.where(cat_sex_id: search[:cat_sex_id]) if search[:cat_sex_id].present?
-    # results = results.where(cat_type_id: search[:cat_type_id]) if search[:cat_type_id].present?
-    # results = results.where(cat_age_id: search[:cat_age_id]) if search[:cat_age_id].present?
+    results = results.where(cat_sex_id: search[:cat_sex_id]) if search[:cat_sex_id].present?
+    results = results.where(cat_type_id: search[:cat_type_id]) if search[:cat_type_id].present?
+    results = results.where(cat_age_id: search[:cat_age_id]) if search[:cat_age_id].present?
     # rubocopエラー対策 : if文の後に使用しているローカル変数を明示する
     return results
   end

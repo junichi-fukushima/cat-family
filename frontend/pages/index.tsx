@@ -39,6 +39,7 @@ import { CatItems } from "../src/components/molecules/index/CatItems";
 import { getCurrentUser } from "../src/hooks/api/auth";
 import { getUser } from "../src/state/ducks/user/selectors";
 import { useSignIn } from "../src/state/ducks/user/operation";
+import { getCatSearchCondition } from "../src/state/ducks/cat_search/selectors";
 
 const useStyles = makeStyles({
   list: {
@@ -107,7 +108,7 @@ const Home: NextPage = memo(() => {
   // selectorの呼び出し
   const selector = useSelector((state: State) => state);
   const cats = getCats(selector);
-  const user = getUser(selector);
+  const catSearchCondition = getCatSearchCondition(selector);
   const loading = getLoadingStatus(selector);
 
   const dispatch = useDispatch();
