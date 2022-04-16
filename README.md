@@ -17,7 +17,6 @@
 * Next.js(TypeScript)
 
 ### テスト
-* Rspec
 * Jest
 
 ### CI/CD
