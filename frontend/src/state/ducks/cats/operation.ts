@@ -19,3 +19,8 @@ export const fetchCats = () => {
     .catch(() => null)
   };
 };
+
+// 猫情報を更新する
+// store内のcatsを検索条件に応じて更新する
+// useEffectでオンマウントしてデータを更新する
+// catSearchConditionが更新されるタイミングで、サーバー側に通信する処理
