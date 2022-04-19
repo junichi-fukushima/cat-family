@@ -1,6 +1,6 @@
 module Api
   module V1
-    class Auth::SessionsController < ApplicationController
+    class Auth::SessionsController < DeviseTokenAuth::SessionsController
       # ユーザー情報を取得する
       def index
         if current_api_v1_user
