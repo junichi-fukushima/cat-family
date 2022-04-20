@@ -23,6 +23,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        // 文字列の最大文字数を設定する
+        \Schema::defaultStringLength(191);
     }
 }
