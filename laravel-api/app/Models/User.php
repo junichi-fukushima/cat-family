@@ -17,11 +17,22 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-    ];
+    // 一括代入するプロパディを決める
+    // ホワイトリスト
+    // protected $fillable = [
+    //     'user_name',
+    //     'nickname',
+    //     'email',
+    //     'phone',
+    //     'post_code',
+    //     'prefecture_id',
+    //     'city',
+    //     'building',
+    //     'cat_type_id',
+    //     'password'
+    // ];
+    // ブラックリストの指定
+    protected $guarded = [];
 
     /**
      * The attributes that should be hidden for serialization.
