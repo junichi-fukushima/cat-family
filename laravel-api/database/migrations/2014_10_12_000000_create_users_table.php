@@ -22,10 +22,11 @@ return new class extends Migration
             $table->string('phone');
             $table->string('post_code');
             $table->integer('prefecture_id');
+            $table->integer('cat_type_id');
             $table->string('city');
             $table->string('building');
-            $table->integer('cat_type_id');
             $table->string('password');
+            $table->string('profile_img')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

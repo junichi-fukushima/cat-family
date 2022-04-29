@@ -10,6 +10,9 @@ class Cat extends Model
     use HasFactory;
 
     // リレーション
+
+    // リレーション
+    // cat_labels
     public function cat_labels()
     {
         return $this->hasMany(CatLabel::class);
@@ -18,14 +21,17 @@ class Cat extends Model
     {
         $this->cat_label_ids;
     }
+    // cat_age
     public function cat_age()
     {
         return Age::from($this->cat_age_id);
     }
+    // cat_sex
     public function cat_sex()
     {
         return Sex::from($this->cat_sex_id);
     }
+    // cat_type
     public function cat_type()
     {
         return Type::from($this->cat_type_id);

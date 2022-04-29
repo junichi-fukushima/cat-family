@@ -20,10 +20,16 @@ return new class extends Migration
             $table->text('terms');
             $table->text('summary');
             $table->integer('price');
-            $table->boolean('status');
+            $table->boolean('status')->default(false);
             $table->integer('cat_sex_id');
             $table->integer('cat_type_id');
             $table->integer('cat_age_id');
+            $table->unsignedBigInteger('user_id');
+            $table->string('main_img');
+            $table->string('sub_img1')->nullable();
+            $table->string('sub_img2')->nullable();
+            $table->string('sub_img3')->nullable();
+            $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });
     }
