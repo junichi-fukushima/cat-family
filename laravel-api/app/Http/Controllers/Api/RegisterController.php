@@ -3,21 +3,28 @@
 
 namespace App\Http\Controllers\Api;
 
+// controller
 use App\Http\Controllers\Controller;
-use App\Http\Requests\UserCreateRequest;
-use App\Providers\RouteServiceProvider;
+// models
 use App\Models\User;
-use Illuminate\Http\RedirectResponse;
+// others
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Fsssacades\Validator;
 use \Symfony\Component\HttpFoundation\Response;
+use Validator;
+use Hash;
 
 class RegisterController extends Controller
 {
-    public function register(Request $request)
+    /**
+     * ユーザー情報を保管する
+     * @param Request
+     * @return void
+     */
+
+    public function register(Request $request): string
     {
-        /** @var Illuminate\Validation\Validator $validator */
+
+        // バリデーション
         $validator = Validator::make($request->all(), [
             'user_name' => 'required',
             'nickname' => 'required',
@@ -35,6 +42,7 @@ class RegisterController extends Controller
             return response()->json($validator->messages(), Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
+        // 保存
         User::create([
             'user_name' =>  $request->user_name,
             'nickname' => $request->nickname,
@@ -45,6 +53,7 @@ class RegisterController extends Controller
             'building' => $request->building,
             'cat_type_id' => $request->cat_type_id,
             'email' => $request->email,
+            'profile_img' => $request->profile_img,
             'password' => Hash::make($request->password),
         ]);
 
