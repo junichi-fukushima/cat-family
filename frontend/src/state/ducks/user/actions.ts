@@ -1,9 +1,20 @@
-import { User, UserActionTypes } from "./type";
+import { signUpUser, User, UserActionTypes } from "./type";
 
-export const signUpAction = (state: User) => {
+export const signUpAction = (state: signUpUser) => {
   return {
     type: UserActionTypes.SIGN_UP,
-    payload: state,
+    payload: {
+      user_name: state.userName,
+      nickname: state.nickname,
+      phone: state.phone,
+      email: state.email,
+      post_code: state.postCode,
+      prefecture_id: state.prefectureId,
+      city: state.city,
+      building: state.building,
+      cat_type_id: state.catTypeId,
+      password: state.password
+    }
   };
 };
 export const signInAction = (state: User) => {

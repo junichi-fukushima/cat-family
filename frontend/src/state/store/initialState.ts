@@ -17,10 +17,6 @@ export const initialState: State = {
     city: "",
     building: "",
     catTypeId: null,
-    // Note : ここから下は余裕があれば削除
-    allowPasswordChange: false,
-    provider: "",
-    uid: "",
     // ログインステータス
     isSignIn: false,
   },

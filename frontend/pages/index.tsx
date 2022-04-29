@@ -193,7 +193,7 @@ const Home: NextPage = memo(() => {
                       <a>
                         <CatItems
                           title={cat.title}
-                          main_img={cat.main_image_url}
+                          main_img={cat.main_img}
                           sex={getSexName(selector, cat.cat_sex_id)}
                           status={cat.status ? "募集中" : "募集締め切り"}
                         />

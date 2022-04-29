@@ -13,7 +13,7 @@ use \Symfony\Component\HttpFoundation\Response;
 use Validator;
 use Hash;
 
-class RegisterController extends Controller
+class AuthController extends Controller
 {
     /**
      * ユーザー情報を保管する

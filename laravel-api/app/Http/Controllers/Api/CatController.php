@@ -18,7 +18,7 @@ class CatController extends Controller
      * 猫情報を一括で返却する
      * @return array
      */
-    public function index (): array
+    public function index ()
     {
         $items = Cat::get();
         return $items;
