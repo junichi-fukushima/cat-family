@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Http\Controllers\Api;
 
 // controller
@@ -9,14 +8,18 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 // others
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Auth;
 use \Symfony\Component\HttpFoundation\Response;
+use App\Mail\EmailVerification;
 use Validator;
 use Hash;
 
+// 新規登録 / ログイン機能を実装
 class AuthController extends Controller
 {
     /**
-     * ユーザー情報を保管する
+     * 新規登録
      * @param Request
      * @return void
      */
@@ -43,7 +46,7 @@ class AuthController extends Controller
         }
 
         // 保存
-        User::create([
+        $user = User::create([
             'user_name' =>  $request->user_name,
             'nickname' => $request->nickname,
             'phone' => $request->phone,
@@ -57,6 +60,30 @@ class AuthController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
+        $email = new EmailVerification($user);
+        Mail::to($user->email)->send($email);
+
         return response()->json('User registration completed', Response::HTTP_OK);
+    }
+
+    /**
+     * ログイン
+     * @param Request
+     * @return string
+     */
+
+    public function login(Request $request): string
+    {
+        $credentials = $request->validate([
+            'email' => ['required', 'email'],
+            'password' => ['required'],
+        ]);
+
+        if (Auth::attempt($credentials)) {
+            $token = $request->user()->createToken('email_verify_token');
+            return response()->json(['email_verify_token' => $token->plainTextToken], 200);
+        }
+
+        return response()->json(['email_verify_token' => null], 401);
     }
 }

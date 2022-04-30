@@ -23,7 +23,7 @@ class CatMasterListController extends Controller
      */
     public function cat_age ()
     {
-        // メモ : PHPは配列にメソッドがないので
+        // メモ : PHPは配列にメソッドがないのでコレクション型にする
         return collect(Age::cases())->map(function($val) {
             return ['id' => $val->value, 'name' => $val->name()];
         });
