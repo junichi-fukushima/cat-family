@@ -11,15 +11,16 @@ class EmailVerification extends Mailable
 {
     use Queueable, SerializesModels;
 
-    protected $user;
+    protected $token;
+
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($user)
+    public function __construct($token)
     {
-        $this->user = $user;
+        $this->token = $token;
     }
 
     /**
@@ -29,9 +30,26 @@ class EmailVerification extends Mailable
      */
     public function build()
     {
+        // 件名
+        $subject = '【CatFamily】仮登録が完了しました！';
+
+        // 送信元のアドレス
+        // .envの「MAIL_FROM_ADDRESS」に設定したアドレスを取得
+        $from = config('mail.from.address');
+
+        $baseUrl = config('app.url');
+        $token = $this->token;
+        $url = "{$baseUrl}/register/verify/";
+
+        // メール送信
         return $this
-            ->subject('【site】仮登録が完了しました')
+            ->from($from)
+            ->subject($subject)
+            // 送信メールのビュー
             ->view('auth.email.pre_register')
-            ->with(['token' => $this->user->email_verify_token,]);
+            // ビューで使う変数を渡す
+            ->with('url', $url);
+
+        // リンクをふんで認証を完了する
     }
 }

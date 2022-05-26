@@ -12,12 +12,9 @@ use App\Http\Controllers\Api\CatMasterListController;
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //     return $request->user();
 // });
-// Route::post('/tokens/create', function (Request $request) {
-//     $token = $request->user()->createToken($request->token_name);
-//     return ['token' => $token->plainTextToken];
-// });
 
-// ルーティング : api/***/
+
+// ルーティング : /api/***/
 Route::group(['middleware' => ['api']], function(){
     // ユーザー機能
     Route::post('/auth', [AuthController::class, 'register']);
