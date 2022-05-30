@@ -113,7 +113,7 @@ class AuthController extends Controller
         return hash_hmac('sha256', \Str::random(40), config('app.key'));
     }
 
-       /**
+    /**
      * responseSuccess
      * 成功のレスポンス
      *
@@ -137,5 +137,28 @@ class AuthController extends Controller
     protected function responseFailed(string $message)
     {
         return response()->json(['message' => trans($message)], 403);
+    }
+
+    /**
+     * 新規登録時のEmail認証機能
+     * @param string $token
+     * @return void
+     */
+    public function checkRegisterEmail($email_token)
+    {
+        // 使用可能なトークンか
+        $user = User::where('token', $email_token)->first();
+        // 本登録済みユーザーかどうかをチェック
+        if ($user->email_verified == 1) {
+            // Note : .envから取得できるようにする
+            return redirect('http://localhost:8000/signin');
+        }
+        // ユーザーステータス更新
+        $user->email_verified = 1;
+
+        // 本来は失敗した時用のページを用意すべきだが今回は割愛する
+        if ($user->save()) {
+            return redirect('/register/verify/');
+        }
     }
 }

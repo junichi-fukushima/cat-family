@@ -18,8 +18,7 @@ use App\Http\Controllers\Api\AuthController;
 
 Route::get('/register/verify/', function () {
     return view('register.verify');
-})->middleware('auth')->name('verification.notice');
-
-Route::get('/register/verify/{hash}', function (EmailVerificationRequest $request) {
-    $request->fulfill();
-})->middleware(['auth', 'signed'])->name('verification.verify');
+});
+Route::group(['middleware' => ['api']], function(){
+    Route::get('/register/verify/{hash}',  [AuthController::class, 'checkRegisterEmail']);
+});

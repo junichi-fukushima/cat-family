@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('user_name');
             $table->string('nickname');
             $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
+            $table->integer('email_verified')->nullable(); // null=未認証 / 1=認証済み
             $table->string('phone');
             $table->string('post_code');
             $table->integer('prefecture_id');

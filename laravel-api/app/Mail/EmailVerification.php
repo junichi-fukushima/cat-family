@@ -39,7 +39,7 @@ class EmailVerification extends Mailable
 
         $baseUrl = config('app.url');
         $token = $this->token;
-        $url = "{$baseUrl}/register/verify/";
+        $url = "{$baseUrl}/register/verify/{$token}";
 
         // メール送信
         return $this
@@ -49,7 +49,5 @@ class EmailVerification extends Mailable
             ->view('auth.email.pre_register')
             // ビューで使う変数を渡す
             ->with('url', $url);
-
-        // リンクをふんで認証を完了する
     }
 }
