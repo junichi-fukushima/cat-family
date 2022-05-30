@@ -8,7 +8,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable
+// MustVerifyEmailをつけることで、メール認証を必須とする
+class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -18,19 +19,6 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     // 一括代入するプロパディを決める
-    // ホワイトリスト
-    // protected $fillable = [
-    //     'user_name',
-    //     'nickname',
-    //     'email',
-    //     'phone',
-    //     'post_code',
-    //     'prefecture_id',
-    //     'city',
-    //     'building',
-    //     'cat_type_id',
-    //     'password'
-    // ];
     // ブラックリストの指定
     protected $guarded = [];
 

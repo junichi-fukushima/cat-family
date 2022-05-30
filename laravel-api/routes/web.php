@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use App\Http\Controllers\Api\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +15,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+
+Route::get('/register/verify/', function () {
+    return view('register.verify');
+});
+Route::group(['middleware' => ['api']], function(){
+    Route::get('/register/verify/{hash}',  [AuthController::class, 'checkRegisterEmail']);
 });

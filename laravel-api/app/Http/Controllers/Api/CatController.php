@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 
 // models
 use App\Models\Cat;
+use Illuminate\Support\Collection;
 
 // others
 
@@ -18,7 +19,7 @@ class CatController extends Controller
      * 猫情報を一括で返却する
      * @return array
      */
-    public function index (): array
+    public function index (): Collection
     {
         $items = Cat::get();
         return $items;

@@ -191,8 +191,6 @@ return [
     */
 
     'aliases' => Facade::defaultAliases()->merge([
-        'Validator' => Illuminate\Support\Facades\Validator::class,
-        'Hash' => Illuminate\Support\Facades\Hash::class,
     ])->toArray(),
 
 ];

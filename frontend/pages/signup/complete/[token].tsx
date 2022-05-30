@@ -8,9 +8,9 @@ import Link from "next/link";
 import styled from "styled-components";
 
 // import components
-import { H2Text } from "../../src/components/atoms/text/H2Text";
-import { AuthTemplate } from "../../src/components/template/pages/Auth";
-import { PrimaryButton } from "../../src/components/atoms/button/PrimaryButton";
+import { H2Text } from "../../../src/components/atoms/text/H2Text";
+import { AuthTemplate } from "../../../src/components/template/pages/Auth";
+import { PrimaryButton } from "../../../src/components/atoms/button/PrimaryButton";
 
 const SignUp: NextPage = () => {
   return (

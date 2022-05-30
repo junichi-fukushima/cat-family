@@ -13,6 +13,7 @@ use App\Models\Type;
 
 // others
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 
 // enumで保管している情報を返却するコントローラー
 class CatMasterListController extends Controller
@@ -21,9 +22,9 @@ class CatMasterListController extends Controller
      * 猫の年齢ラベルを全て取得する
      * @return array {id: number, name:string}
      */
-    public function cat_age ()
+    public function cat_age (): Collection
     {
-        // メモ : PHPは配列にメソッドがないので
+        // メモ : PHPは配列にメソッドがないのでコレクション型にする
         return collect(Age::cases())->map(function($val) {
             return ['id' => $val->value, 'name' => $val->name()];
         });

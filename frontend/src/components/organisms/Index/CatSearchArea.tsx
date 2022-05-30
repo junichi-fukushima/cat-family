@@ -56,6 +56,7 @@ export const CatSearchArea: VFC = memo(() => {
   return (
     <>
       <Form>
+
         <SelectWrap>
           <SelectCatSearch options={prefecture} onChange={handleSelectPrefecture}/>
           <SelectCatSearch options={ages} onChange={handleSelectAge} />

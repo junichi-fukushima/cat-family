@@ -41,7 +41,7 @@ export const fetchCatAge = () => {
     axios
     .get(catAgeUrl)
     .then((result) => {
-      dispatch(fetchCatAgeAction(result.data.map((x: any) => x.attributes)));
+      dispatch(fetchCatAgeAction(result.data.map((x: any) => x)));
     })
     .catch(() => null);
   };
@@ -54,7 +54,7 @@ export const fetchCatSex = () => {
     axios
     .get(catSexUrl)
     .then((result) => {
-      dispatch(fetchCatSexAction(result.data.map((x: any) => x.attributes)));
+      dispatch(fetchCatSexAction(result.data.map((x: any) => x)));
     })
     .catch(() => null);
   };
@@ -66,7 +66,7 @@ export const fetchCatType = () => {
     axios
     .get(catTypeUrl)
     .then((result) => {
-      dispatch(fetchCatTypeAction(result.data.map((x: any) => x.attributes)));
+      dispatch(fetchCatTypeAction(result.data.map((x: any) => x)));
     })
     .catch(() => null);
   };

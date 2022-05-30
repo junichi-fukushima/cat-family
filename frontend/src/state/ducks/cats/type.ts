@@ -13,8 +13,10 @@ export type Cat = {
   cat_age_id:number,
   created_at:string,
   updated_at:string,
-  main_image_url:string,
-  sub_image_url:Array<string>
+  main_img:string,
+  sub_img11:string,
+  sub_img12:string,
+  sub_img13:string,
   // NOTE : いずれここにユーザーの情報を取得する
 }
 //  Actionの型を定義する
