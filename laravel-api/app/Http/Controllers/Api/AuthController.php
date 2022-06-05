@@ -14,7 +14,7 @@ use \Symfony\Component\HttpFoundation\Response;
 // メール認証
 use App\Mail\EmailVerification;
 
-// 新規登録 / ログイン機能を実装
+
 class AuthController extends Controller
 {
     /**
@@ -72,10 +72,10 @@ class AuthController extends Controller
     /**
      * ログイン
      * @param Request
-     * @return string
+     * @return
      */
 
-    public function login(Request $request): string
+    public function login(Request $request)
     {
         $credentials = $request->validate([
             'email' => ['required', 'email'],
@@ -83,8 +83,9 @@ class AuthController extends Controller
         ]);
 
         if (Auth::attempt($credentials)) {
-            $token = $request->user()->createToken('token');
-            return response()->json(['token' => $token->plainTextToken], 200);
+            $user = User::whereEmail($request->email)->first(); //トークンの作成と取得
+            $user->update(['token' => $this->createToken()]);
+            return response()->json(['user' => $user],200);
         }
 
         return response()->json(['token' => null], 401);
@@ -124,19 +125,6 @@ class AuthController extends Controller
     protected function responseSuccess(string $message, array $additions = [])
     {
         return response()->json(array_merge(['message' => trans($message)], $additions), 200);
-    }
-
-    /**
-     * responseFailed
-     * 失敗のレスポンス
-     *
-     * @param string $message
-     * @param array $additions
-     * @return \Illuminate\Http\JsonResponse
-     */
-    protected function responseFailed(string $message)
-    {
-        return response()->json(['message' => trans($message)], 403);
     }
 
     /**

@@ -1,11 +1,6 @@
-import { signInURL, signOutURL, sessionURL } from "../../state/urls/index";
+import { signOutURL, sessionURL } from "../../state/urls/index";
 import { client } from "./client";
 import Cookies from "js-cookie";
-
-// サインイン（ログイン）
-export const signIn = (user: {}) => {
-  return client.post(signInURL, user);
-};
 
 // サインアウト（ログアウト）
 export const signOut = () => {

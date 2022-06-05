@@ -26,15 +26,13 @@ export const signInAction = (state: User) => {
       nickname: state.nickname,
       phone: state.phone,
       email: state.email,
+      email_verified: state.emailVerified,
       post_code: state.postCode,
       prefecture_id: state.prefectureId,
       city: state.city,
       building: state.building,
       cat_type_id: state.catTypeId,
       // Note : ここから下は余裕があれば削除
-      allow_password_change: state.allowPasswordChange,
-      provider: state.provider,
-      uid: state.uid,
       isSignIn: true,
     },
   };
