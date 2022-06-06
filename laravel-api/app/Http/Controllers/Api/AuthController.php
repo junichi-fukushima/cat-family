@@ -92,6 +92,27 @@ class AuthController extends Controller
     }
 
     /**
+     * token情報から
+     * @param Request
+     * @return
+     */
+
+    public function session(Request $request)
+    {
+        $credentials = $request->validate([
+            'token' => ['required'],
+        ]);
+
+        if (Auth::attempt($credentials)) {
+            $user = User::whereEmail($request->token)->first();
+            $user->update(['token' => $this->createToken()]);
+            return response()->json(['user' => $user],200);
+        }
+
+        return response()->json(['user' => null], 401);
+    }
+
+    /**
      * sendVerificationMail
      *
      * @param User $registerUser

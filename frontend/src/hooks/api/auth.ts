@@ -16,16 +16,8 @@ export const signOut = () => {
 // 認証済みのユーザー情報を取得
 export const getCurrentUser = () => {
   if (
-    !Cookies.get("_access_token") ||
-    !Cookies.get("_client") ||
-    !Cookies.get("_uid")
+    !window.localStorage.getItem('token')
   )
     return;
-  return client.get(sessionURL, {
-    headers: {
-      "access-token": Cookies.get("_access_token") || "",
-      client: Cookies.get("_client") || "",
-      uid: Cookies.get("_uid") || "",
-    },
-  });
+  return client.get(sessionURL, window.localStorage.getItem('token'));
 };

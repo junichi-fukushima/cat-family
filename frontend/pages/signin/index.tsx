@@ -55,9 +55,10 @@ const SignIn: NextPage = () => {
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     try {
       const res = await signIn(data);
-      // クッキー情報のセット
       // ログイン画面のエラー表示をOFFに
       setAlertMessageOpen(false);
+      // localstorageに保存
+      window.localStorage.setItem('token',res.data.user.token);
       // storeにデータを格納する
       dispatch(useSignIn(res.data.user));
       router.push("/");
