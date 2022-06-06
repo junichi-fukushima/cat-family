@@ -1,4 +1,4 @@
-import { signInURL } from './../../urls/index';
+import { signInURL } from '../../urls/index';
 // library
 import { Dispatch, useCallback } from "react";
 import { useRouter } from "next/router";
