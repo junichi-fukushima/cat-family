@@ -104,8 +104,7 @@ class AuthController extends Controller
         ]);
 
         if (Auth::attempt($credentials)) {
-            $user = User::whereEmail($request->token)->first();
-            $user->update(['token' => $this->createToken()]);
+            $user = User::where($request->token)->first();
             return response()->json(['user' => $user],200);
         }
 

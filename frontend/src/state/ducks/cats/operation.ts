@@ -4,7 +4,7 @@ import axios from "axios";
 import { LoadingAction } from "../loading/actions";
 import { Dispatch } from "react";
 import { Action } from "redux";
-
+import { CatSearch } from "../cat_search/type";
 
 export const fetchCats = () => {
   return async (dispatch: Dispatch<Action>) => {
@@ -20,7 +20,6 @@ export const fetchCats = () => {
   };
 };
 
-// 猫情報を更新する
-// store内のcatsを検索条件に応じて更新する
-// useEffectでオンマウントしてデータを更新する
-// catSearchConditionが更新されるタイミングで、サーバー側に通信する処理
+export const updateCats = (searchcondition : CatSearch | null) => {
+  console.log(searchcondition)
+};

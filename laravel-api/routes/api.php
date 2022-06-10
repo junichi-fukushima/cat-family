@@ -9,11 +9,6 @@ use App\Http\Controllers\Api\CatController;
 use App\Http\Controllers\Api\CatMasterListController;
 
 
-// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
-
-
 // ルーティング : /api/***/
 Route::group(['middleware' => ['api']], function(){
     // ユーザー機能
@@ -22,6 +17,7 @@ Route::group(['middleware' => ['api']], function(){
     Route::post('/auth/sessions', [AuthController::class, 'session']);
     // 猫情報
     Route::get('/cats', [CatController::class, 'index']);
+    Route::get('/cats/search', [CatController::class, 'search']);
     // 猫のラベルマスタ情報(enumでデータを取得する)
     Route::get('/cat_age', [CatMasterListController::class, 'cat_age']);
     Route::get('/cat_label', [CatMasterListController::class, 'cat_label']);

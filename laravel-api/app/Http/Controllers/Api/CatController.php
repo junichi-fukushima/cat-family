@@ -10,7 +10,9 @@ use App\Models\Cat;
 use Illuminate\Support\Collection;
 
 // others
-
+use Illuminate\Http\Request;
+use Nette\Utils\Json;
+use \Symfony\Component\HttpFoundation\Response;
 
 // 猫情報に関するCRUD機能
 class CatController extends Controller
@@ -21,7 +23,32 @@ class CatController extends Controller
      */
     public function index (): Collection
     {
-        $items = Cat::get();
-        return $items;
+        $cats = Cat::get();
+        return $cats;
+    }
+
+    /**
+     * 検索機能
+     * @param Request
+     * @return array
+     */
+    public function search (Request $request)
+    {
+        // パラメーターを受け取る
+        $serch_params = $request->validate([
+            'cat_sex_id' => 'int',
+            'cat_type_id' => 'int',
+            'cat_age_id' => 'int',
+            'label_ids' => 'array',
+            'label_ids.*' => 'int',
+        ]);
+        // 指定したパラメーターの値で絞り込みを１つずつしていく
+
+        // 絞り込み
+        $cats = Cat::all();
+        $cats = $cats->where("cat_sex_id", "=" , $serch_params["cat_sex_id"]);
+        $cats = $cats->where("cat_type_id", "=" , $serch_params["cat_type_id"]);
+        $cats = $cats->where("cat_age_id", "=" , $serch_params["cat_age_id"]);
+        return response()->json(['cats' => $cats],200);
     }
 }

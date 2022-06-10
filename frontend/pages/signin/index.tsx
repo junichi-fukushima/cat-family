@@ -52,7 +52,7 @@ const SignIn: NextPage = () => {
 
   const router = useRouter();
   const dispatch = useDispatch();
-  const onSubmit: SubmitHandler<FormValues> = async (data) => {
+  const onSubmit: SubmitHandler<FormValues> = async (data :FormValues) => {
     try {
       const res = await signIn(data);
       // ログイン画面のエラー表示をOFFに

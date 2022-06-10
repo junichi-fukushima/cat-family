@@ -28,6 +28,7 @@ class UsersSeeder extends Seeder
             'city' => '横浜市栄区',
             'building' => '桂町670-5',
             'password' => bcrypt('testMAN0901'),
+            'token' => hash_hmac('sha256', \Str::random(40), config('app.key'))
         ]);
       }
     }

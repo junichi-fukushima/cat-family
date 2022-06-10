@@ -18,6 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('cat_id');
             $table->unsignedBigInteger('label_id');
             $table->foreign('cat_id')->references('id')->on('cats');
+            $table->timestamps();
         });
     }
 
