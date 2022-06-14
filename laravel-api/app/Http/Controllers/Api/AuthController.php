@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Auth;
 use \Symfony\Component\HttpFoundation\Response;
 // メール認証
 use App\Mail\EmailVerification;
-
+use Illuminate\Auth\Events\Registered;
 
 class AuthController extends Controller
 {
@@ -44,8 +44,6 @@ class AuthController extends Controller
             return response()->json($validator->messages(), Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
-        $token = $this->createToken();
-
         // 保存
         $user = User::create([
             'user_name' =>  $request->user_name,
@@ -59,11 +57,11 @@ class AuthController extends Controller
             'email' => $request->email,
             'profile_img' => $request->profile_img,
             'password' => \Hash::make($request->password),
-            'token' => $token
         ]);
 
         // send email
-        $this->sendVerificationMail($user);
+        // $this->sendVerificationMail($user);
+        event(new Registered($user));
 
         // success response
         return $this->responseSuccess('Emailが送信されました。');
@@ -117,22 +115,6 @@ class AuthController extends Controller
      * @param User $registerUser
      * @return void
      */
-    private function sendVerificationMail(User $user)
-    {
-        Mail::to($user->email)
-            ->queue(new EmailVerification($user->token));
-    }
-
-
-    /**
-     * create activation token
-     * トークンを作成する
-     * @return string
-     */
-    protected function createToken()
-    {
-        return hash_hmac('sha256', \Str::random(40), config('app.key'));
-    }
 
     /**
      * responseSuccess
@@ -163,10 +145,9 @@ class AuthController extends Controller
         }
         // ユーザーステータス更新
         $user->email_verified = 1;
-
         // 本来は失敗した時用のページを用意すべきだが今回は割愛する
         if ($user->save()) {
-            return redirect('/register/verify/');
+            return redirect('http://localhost:8000/complete');
         }
     }
 }
