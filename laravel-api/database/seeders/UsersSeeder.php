@@ -23,7 +23,7 @@ class UsersSeeder extends Seeder
             'email' => 'fukushima146749' .sprintf("%02d", $i) . "@gmail.com",
             'phone' => '08021494335',
             'post_code' => '7612401',
-            'prefecture_id' => $i + 1,
+            'prefecture_id' => rand(2,48),
             'cat_type_id' => 2,
             'city' => '横浜市栄区',
             'building' => '桂町670-5',

@@ -26,9 +26,8 @@ class CatLabelFactory extends Factory
      */
     public function definition()
     {
-        $catIds  = Cat::all();
         return [
-            'cat_id' => rand(1,21),
+            'cat_id' => rand(Cat::min("id"),Cat::max("id")),
             'label_id' => rand(1,6)
         ];
     }
