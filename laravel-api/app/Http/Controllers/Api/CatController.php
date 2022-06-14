@@ -46,9 +46,11 @@ class CatController extends Controller
 
         // 絞り込み
         $cats = Cat::all();
-        $cats = $cats->where("cat_sex_id", "=" , $serch_params["cat_sex_id"]);
-        $cats = $cats->where("cat_type_id", "=" , $serch_params["cat_type_id"]);
-        $cats = $cats->where("cat_age_id", "=" , $serch_params["cat_age_id"]);
+        // cat_sex_id / cat_type_id / cat_age_idは「idが1の場合」は絞り込まない
+        //  - 理由 : idが1の選択肢は「〇〇を選んでください」となっているため。
+        $cats = request("cat_sex_id") && request("cat_sex_id") > 1 ? $cats->where("cat_sex_id", "=" , $serch_params["cat_sex_id"]) : $cats;
+        $cats = request("cat_type_id") && request("cat_type_id") > 1 ? $cats->where("cat_type_id", "=" , $serch_params["cat_type_id"]) : $cats;
+        $cats = request("cat_age_id") && request("cat_age_id") > 1 ? $cats->where("cat_age_id", "=" , $serch_params["cat_age_id"]) : $cats;
         return response()->json(['cats' => $cats],200);
     }
 }
