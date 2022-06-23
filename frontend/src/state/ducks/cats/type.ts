@@ -22,4 +22,5 @@ export type Cat = {
 //  Actionの型を定義する
 export const CatsActionTypes = {
   FETCH_CAT_LIST : "FETCH_CAT_LIST",
+  SEARCH_CAT_LIST : "SEARCH_CAT_LIST",
 }

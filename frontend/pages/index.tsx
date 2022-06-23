@@ -8,7 +8,7 @@ import {
   fetchCatSex,
   fetchCatType,
 } from "../src/state/ducks/labels/operation";
-import { fetchCats, updateCats } from "../src/state/ducks/cats/operation";
+import { fetchCats, searchCats } from "../src/state/ducks/cats/operation";
 import { getCats, getSexName } from "../src/state/ducks/cats/selectors";
 import { State } from "../src/state/store/type";
 
@@ -139,7 +139,7 @@ const Home: NextPage = memo(() => {
   }, []);
   // searchcondition(検索項目の選択)が更新されたら表示する猫情報を更新する
   useEffect(() => {
-    updateCats(searchcondition)
+    dispatch(searchCats(searchcondition));
   }, [searchcondition]);
   return (
     <>

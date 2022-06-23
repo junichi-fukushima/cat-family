@@ -10,8 +10,11 @@ class Cat extends Model
     use HasFactory;
 
     // リレーション
-
-    // リレーション
+    // user
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
     // cat_labels
     public function cat_labels()
     {
