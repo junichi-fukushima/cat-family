@@ -6,6 +6,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 use App\Models\Cat;
+use App\Models\User;
 
 class CatsSeeder extends Seeder
 {
@@ -22,12 +23,12 @@ class CatsSeeder extends Seeder
                 'title' => '元気が有り余っているわんぱくboy' ,
                 'terms' => 'ダミーダミーだみダミーダミーダミーダミーダミーだみダミーダミーダミーダミーダミーだみダミーダミーダミーダミーダミーだみダミーダミーダミー',
                 'summary' => 'ダミーダミーだみダミーダミーダミーダミーダミーだみダミーダミーダミーダミーダミーだみダミーダミーダミー',
-                'price' => 1000,
-                'status' => false,
-                'cat_sex_id' => 2,
-                'cat_type_id' => 2,
-                'cat_age_id' => 2,
-                'user_id' => $i,
+                'price' => 1000 * $i,
+                'status' => $i % 2 === 0 ? true : false,
+                'cat_sex_id' => rand(2,3),
+                'cat_type_id' => rand(2,5),
+                'cat_age_id' => rand(2,5),
+                'user_id' => User::min("id") + $i,
                 // ローカル環境でstorage配下の画像にアクセスするには、php artisan storage:linkで設定
                 "main_img" => "http://localhost:3000/storage/images/cat.jpg",
                 "sub_img1" => "http://localhost:3000/storage/images/cat.jpg",

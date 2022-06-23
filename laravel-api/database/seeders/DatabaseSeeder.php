@@ -14,6 +14,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
+        // 下記の順番でseedを実行する
+        $this->call([
+            UsersSeeder::class,
+            CatsSeeder::class,
+            CatsLabelSeeder::class,
+        ]);
     }
 }

@@ -8,7 +8,7 @@ import {
   fetchCatSex,
   fetchCatType,
 } from "../src/state/ducks/labels/operation";
-import { fetchCats } from "../src/state/ducks/cats/operation";
+import { fetchCats, searchCats } from "../src/state/ducks/cats/operation";
 import { getCats, getSexName } from "../src/state/ducks/cats/selectors";
 import { State } from "../src/state/store/type";
 
@@ -108,25 +108,26 @@ const Home: NextPage = memo(() => {
   // selectorの呼び出し
   const selector = useSelector((state: State) => state);
   const cats = getCats(selector);
-  const catSearchCondition = getCatSearchCondition(selector);
+  // user情報のチェック
+  // const user = getUser(selector);
+  const searchcondition = getCatSearchCondition(selector);
   const loading = getLoadingStatus(selector);
 
   const dispatch = useDispatch();
 
   // アクセス時にユーザー情報を取得
-  const handleGetCurrentUser = async () => {
-    try {
-      const res = await getCurrentUser();
-      if(res?.data.is_login === true){
-        dispatch(useSignIn(res?.data.data))
-      } else {
-        console.log("ログインしているユーザーはいないです")
-      }
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
+  // const handleGetCurrentUser = async () => {
+  //   try{
+  //     const res = await getCurrentUser();
+  //     if(res?.data.is_login === true){
+  //       dispatch(useSignIn(res?.data.data))
+  //     } else {
+  //       console.log("ログインしているユーザーはいないです")
+  //     }
+  //   }catch(err){
+  //     console.log(err);
+  //   }
+  // };
 
   useEffect(() => {
     dispatch(fetchCats());
@@ -134,8 +135,12 @@ const Home: NextPage = memo(() => {
     dispatch(fetchCatAge());
     dispatch(fetchCatSex());
     dispatch(fetchCatType());
-    handleGetCurrentUser();
+    // handleGetCurrentUser();
   }, []);
+  // searchcondition(検索項目の選択)が更新されたら表示する猫情報を更新する
+  useEffect(() => {
+    dispatch(searchCats(searchcondition));
+  }, [searchcondition]);
   return (
     <>
       <Head>

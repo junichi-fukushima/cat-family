@@ -21,11 +21,11 @@ import { InputText } from "../../src/components/atoms/input/InputText";
 import { SubmitButton } from "../../src/components/atoms/input/SubmitButton";
 import { AuthTemplate } from "../../src/components/template/pages/Auth";
 import { FormWrapper } from "../../src/components/organisms/Form/FormWrapper";
-import { useSignIn } from "../../src/state/ducks/user/operation";
+import { signIn, useSignIn } from "../../src/state/ducks/user/operation";
 
 
 import { color } from "../../src/utility/colors";
-import { signIn } from "../../src/hooks/api/auth";
+
 
 // ログインの際に使用する値
 export interface FormValues {
@@ -38,29 +38,29 @@ const SignIn: NextPage = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormValues>();
+  } = useForm<FormValues>(
+    {
+      defaultValues: {
+        email: "fukushima146749@gmail.com",
+        password: "TESTMAN55",
+      },
+    }
+  );
 
   // ログインに失敗した時はエラー文を表示
   const [alertMessageOpen, setAlertMessageOpen] = useState<boolean>(false);
 
   const router = useRouter();
   const dispatch = useDispatch();
-  const onSubmit: SubmitHandler<FormValues> = async (data) => {
+  const onSubmit: SubmitHandler<FormValues> = async (data :FormValues) => {
     try {
       const res = await signIn(data);
-      // クッキー情報のセット
-      Cookies.set("_access_token", res.headers["access-token"]);
-      Cookies.set("_client", res.headers["client"]);
-      Cookies.set("_uid", res.headers["uid"]);
-      // グローバルヘッダーのセット
-      axios.defaults.headers.post["_access_token"] =
-        res.headers["access-token"];
-      axios.defaults.headers.post["_client"] = res.headers["client"];
-      axios.defaults.headers.post["_uid"] = res.headers["uid"];
       // ログイン画面のエラー表示をOFFに
       setAlertMessageOpen(false);
+      // localstorageに保存
+      window.localStorage.setItem('token',res.data.user.token);
       // storeにデータを格納する
-      dispatch(useSignIn(res?.data.data));
+      dispatch(useSignIn(res.data.user));
       router.push("/");
     } catch (err) {
       setAlertMessageOpen(true);

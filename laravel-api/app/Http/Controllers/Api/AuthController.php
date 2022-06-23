@@ -13,8 +13,8 @@ use Illuminate\Support\Facades\Auth;
 use \Symfony\Component\HttpFoundation\Response;
 // メール認証
 use App\Mail\EmailVerification;
+use Illuminate\Auth\Events\Registered;
 
-// 新規登録 / ログイン機能を実装
 class AuthController extends Controller
 {
     /**
@@ -44,8 +44,6 @@ class AuthController extends Controller
             return response()->json($validator->messages(), Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
-        $token = $this->createToken();
-
         // 保存
         $user = User::create([
             'user_name' =>  $request->user_name,
@@ -59,11 +57,11 @@ class AuthController extends Controller
             'email' => $request->email,
             'profile_img' => $request->profile_img,
             'password' => \Hash::make($request->password),
-            'token' => $token
         ]);
 
         // send email
-        $this->sendVerificationMail($user);
+        // $this->sendVerificationMail($user);
+        event(new Registered($user));
 
         // success response
         return $this->responseSuccess('Emailが送信されました。');
@@ -72,10 +70,10 @@ class AuthController extends Controller
     /**
      * ログイン
      * @param Request
-     * @return string
+     * @return
      */
 
-    public function login(Request $request): string
+    public function login(Request $request)
     {
         $credentials = $request->validate([
             'email' => ['required', 'email'],
@@ -83,11 +81,32 @@ class AuthController extends Controller
         ]);
 
         if (Auth::attempt($credentials)) {
-            $token = $request->user()->createToken('token');
-            return response()->json(['token' => $token->plainTextToken], 200);
+            $user = User::whereEmail($request->email)->first(); //トークンの作成と取得
+            $user->update(['token' => $this->createToken()]);
+            return response()->json(['user' => $user],200);
         }
 
         return response()->json(['token' => null], 401);
+    }
+
+    /**
+     * token情報から
+     * @param Request
+     * @return
+     */
+
+    public function session(Request $request)
+    {
+        $credentials = $request->validate([
+            'token' => ['required'],
+        ]);
+
+        if (Auth::attempt($credentials)) {
+            $user = User::where($request->token)->first();
+            return response()->json(['user' => $user],200);
+        }
+
+        return response()->json(['user' => null], 401);
     }
 
     /**
@@ -96,22 +115,6 @@ class AuthController extends Controller
      * @param User $registerUser
      * @return void
      */
-    private function sendVerificationMail(User $user)
-    {
-        Mail::to($user->email)
-            ->queue(new EmailVerification($user->token));
-    }
-
-
-    /**
-     * create activation token
-     * トークンを作成する
-     * @return string
-     */
-    protected function createToken()
-    {
-        return hash_hmac('sha256', \Str::random(40), config('app.key'));
-    }
 
     /**
      * responseSuccess
@@ -124,19 +127,6 @@ class AuthController extends Controller
     protected function responseSuccess(string $message, array $additions = [])
     {
         return response()->json(array_merge(['message' => trans($message)], $additions), 200);
-    }
-
-    /**
-     * responseFailed
-     * 失敗のレスポンス
-     *
-     * @param string $message
-     * @param array $additions
-     * @return \Illuminate\Http\JsonResponse
-     */
-    protected function responseFailed(string $message)
-    {
-        return response()->json(['message' => trans($message)], 403);
     }
 
     /**
@@ -155,10 +145,9 @@ class AuthController extends Controller
         }
         // ユーザーステータス更新
         $user->email_verified = 1;
-
         // 本来は失敗した時用のページを用意すべきだが今回は割愛する
         if ($user->save()) {
-            return redirect('/register/verify/');
+            return redirect('http://localhost:8000/complete');
         }
     }
 }

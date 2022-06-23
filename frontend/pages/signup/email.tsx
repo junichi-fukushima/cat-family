@@ -58,9 +58,9 @@ const EmailSignUp: NextPage = () => {
     defaultValues: {
       user_name: "福嶋 淳一",
       nickname: "ふくちゃん",
-      // phone: 08021494335,
+      phone: "08021494335",
       email: "fukushima146749@gmail.com",
-      // post_code: 7612401,
+      post_code: "7612401",
       prefecture_id: "3",
       city: "あああああ",
       building:  "あああああ",

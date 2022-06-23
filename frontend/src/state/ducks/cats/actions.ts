@@ -6,3 +6,9 @@ export const fetchAllCatsAction = (state: Cat[]) => {
     payload: state,
   };
 };
+export const searchCatsAction = (state: Cat[]) => {
+  return {
+    type: CatsActionTypes.SEARCH_CAT_LIST,
+    payload: state,
+  };
+};

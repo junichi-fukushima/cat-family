@@ -1,5 +1,5 @@
 // import React && Redux
-import { memo, VFC } from "react";
+import { memo, useEffect, VFC } from "react";
 import {
   getCatAge,
   getCatLabel,
@@ -24,7 +24,6 @@ import {
   setSearchLabelCondition
 } from "../../../state/ducks/cat_search/operation";
 import { prefecture } from "../../../data/prefecture";
-import { getCatSearchCondition } from "../../../state/ducks/cat_search/selectors";
 
 export const CatSearchArea: VFC = memo(() => {
   // selectorの呼び出し(ラベルAPIの呼び出し)
@@ -33,8 +32,8 @@ export const CatSearchArea: VFC = memo(() => {
   const ages = getCatAge(selector);
   const types = getCatType(selector);
   const sexs = getCatSex(selector);
-  const searchcondition = getCatSearchCondition(selector)
-  // 検索情報
+  // 検索項目が更新されたら、選択した項目を保存する項目
+  // 猫情報の更新はpages/index.tsxで行っている
   const dispatch = useDispatch();
   const handleChecked = (id: number) => {
     dispatch(updateCatLabel(id));
@@ -56,7 +55,6 @@ export const CatSearchArea: VFC = memo(() => {
   return (
     <>
       <Form>
-
         <SelectWrap>
           <SelectCatSearch options={prefecture} onChange={handleSelectPrefecture}/>
           <SelectCatSearch options={ages} onChange={handleSelectAge} />
