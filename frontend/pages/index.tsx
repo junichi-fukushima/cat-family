@@ -139,7 +139,7 @@ const Home: NextPage = memo(() => {
   }, []);
   // searchcondition(検索項目の選択)が更新されたら表示する猫情報を更新する
   useEffect(() => {
-    dispatch(searchCats(searchcondition));
+    // dispatch(searchCats(searchcondition));
   }, [searchcondition]);
   return (
     <>

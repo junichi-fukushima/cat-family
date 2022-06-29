@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use App\Http\Controllers\Api\AuthController;
 
 /*
@@ -27,11 +26,4 @@ use App\Http\Controllers\Api\AuthController;
 
 Route::get('/email/verify', function () {
     return view('auth.verify-email');
-})->name('verification.notice');
-
-Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
-    $request->fulfill();
-
-    return redirect('http://localhost:8000/signin');
-
-})->name('verification.verify');
+})->middleware('auth')->name('verification.notice');

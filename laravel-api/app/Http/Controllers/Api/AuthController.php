@@ -11,9 +11,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Auth;
 use \Symfony\Component\HttpFoundation\Response;
+use Illuminate\Http\JsonResponse;
+use Exception;
 // メール認証
 use App\Mail\EmailVerification;
 use Illuminate\Auth\Events\Registered;
+
 
 class AuthController extends Controller
 {
@@ -60,10 +63,15 @@ class AuthController extends Controller
         ]);
 
         // send email
-        // $this->sendVerificationMail($user);
         event(new Registered($user));
 
+        // メール認証をするにはログイン情報を取得しなければならないので自動でログイン状態にする
+        Auth::guard('api')->login($user);
+
         // success response
+        // jsonでユーザー情報とtoken
+        // メール認証とユーザー認証は違う
+        // ユーザー認証用のtokenカラムを作る
         return $this->responseSuccess('Emailが送信されました。');
     }
 
@@ -73,20 +81,21 @@ class AuthController extends Controller
      * @return
      */
 
-    public function login(Request $request)
+    public function login(Request $request): JsonResponse
     {
         $credentials = $request->validate([
             'email' => ['required', 'email'],
             'password' => ['required'],
         ]);
 
-        if (Auth::attempt($credentials)) {
-            $user = User::whereEmail($request->email)->first(); //トークンの作成と取得
-            $user->update(['token' => $this->createToken()]);
-            return response()->json(['user' => $user],200);
-        }
+        // メール認証していない人はログインをさせない
+        if (Auth::guard('api')->attempt($credentials) && Auth::guard('api')->user()->hasVerifiedEmail()) {
+            // emailからユーザー情報を取得する
+            $user = User::where('email',$request->email)->first();
+            return response()->json(['user' => $user], 200);
 
-        return response()->json(['token' => null], 401);
+        }
+        return new JsonResponse(['message' => 'ログインに失敗しました。再度お試しください']);
     }
 
     /**
@@ -103,7 +112,7 @@ class AuthController extends Controller
 
         if (Auth::attempt($credentials)) {
             $user = User::where($request->token)->first();
-            return response()->json(['user' => $user],200);
+            return response()->json(['user' => $user], 200);
         }
 
         return response()->json(['user' => null], 401);
