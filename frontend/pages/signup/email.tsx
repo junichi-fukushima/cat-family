@@ -1,10 +1,10 @@
 // import React && Redux && react-hook-form
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { State } from "../../src/state/store/type";
 import { getCatType } from "../../src/state/ducks/labels/selectors";
 import { fetchCatType } from "../../src/state/ducks/labels/operation";
-import { useSignUp } from "../../src/state/ducks/user/operation";
+import { signUp } from "../../src/state/ducks/user/operation";
 import { useForm } from "react-hook-form";
 
 // import Next
@@ -22,6 +22,8 @@ import { AuthTemplate } from "../../src/components/template/pages/Auth";
 import { FormWrapper } from "../../src/components/organisms/Form/FormWrapper";
 import { InputSelect } from "../../src/components/atoms/input/InputSelect";
 import { prefecture } from "../../src/data/prefecture";
+import { useRouter } from "next/router";
+import { color } from "../../src/utility/colors";
 
 // 新規登録でpostするデータ
 export interface FormValues {
@@ -63,17 +65,27 @@ const EmailSignUp: NextPage = () => {
       post_code: "7612401",
       prefecture_id: "3",
       city: "あああああ",
-      building:  "あああああ",
+      building: "あああああ",
       cat_type_id: "3",
       password: "TESTMAN55",
       password_confirmation: "TESTMAN55",
-
     },
   });
   // ユーザー情報をuser/operationsに渡す
 
-  const { signUp } = useSignUp();
-  const onSubmit = handleSubmit((data) => signUp(data));
+  const router = useRouter();
+  const [alertMessageOpen, setAlertMessageOpen] = useState<boolean>(false);
+  const onSubmit = handleSubmit(async (data: FormValues) => {
+    try {
+      await signUp(data);
+      // 新規登録のエラー表示をOFFに
+      setAlertMessageOpen(false);
+      router.push("/signup/temporary/");
+    } catch (err) {
+      // 新規登録のエラー表示をonに
+      setAlertMessageOpen(true);
+    }
+  });
 
   return (
     <>
@@ -88,6 +100,11 @@ const EmailSignUp: NextPage = () => {
       <AuthTemplate>
         <H2Text>新規登録</H2Text>
         <RegistrationForm onSubmit={onSubmit}>
+        {alertMessageOpen ? (
+            <ErrorMessage>
+              登録した情報をご確認ください。
+            </ErrorMessage>
+          ) : null}
           <FormWrapper>
             <InputText
               type="text"
@@ -274,3 +291,7 @@ const EmailSignUp: NextPage = () => {
 export default EmailSignUp;
 
 const RegistrationForm = styled.form``;
+const ErrorMessage = styled.p`
+  color: ${color.red};
+  margin-top: 10px;
+`;

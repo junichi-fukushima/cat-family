@@ -26,9 +26,9 @@ const SignUp: NextPage = () => {
       <AuthTemplate>
         <H2Text>登録が完了しました！</H2Text>
         <SubText>ご登録ありがとうございます！</SubText>
-        <Link href="/">
+        <Link href="/signin">
           <a>
-            <PrimaryButton>トップページへ戻る</PrimaryButton>
+            <PrimaryButton>ログインページへ</PrimaryButton>
           </a>
         </Link>
       </AuthTemplate>

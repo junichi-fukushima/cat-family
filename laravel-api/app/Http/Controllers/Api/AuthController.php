@@ -11,10 +11,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Auth;
 use \Symfony\Component\HttpFoundation\Response;
-use Illuminate\Http\JsonResponse;
 use Exception;
 // メール認証
-use App\Mail\EmailVerification;
 use Illuminate\Auth\Events\Registered;
 
 
@@ -26,7 +24,7 @@ class AuthController extends Controller
      * @return void
      */
 
-    public function register(Request $request): string
+    public function register(Request $request)
     {
 
         // バリデーション
@@ -47,6 +45,8 @@ class AuthController extends Controller
             return response()->json($validator->messages(), Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
+        $token = $this->createToken();
+
         // 保存
         $user = User::create([
             'user_name' =>  $request->user_name,
@@ -60,6 +60,7 @@ class AuthController extends Controller
             'email' => $request->email,
             'profile_img' => $request->profile_img,
             'password' => \Hash::make($request->password),
+            'token' => $token
         ]);
 
         // send email
@@ -81,22 +82,33 @@ class AuthController extends Controller
      * @return
      */
 
-    public function login(Request $request): JsonResponse
+    public function login(Request $request)
     {
         $credentials = $request->validate([
             'email' => ['required', 'email'],
             'password' => ['required'],
         ]);
 
-        // メール認証していない人はログインをさせない
-        if (Auth::guard('api')->attempt($credentials) && Auth::guard('api')->user()->hasVerifiedEmail()) {
+        // TODO1 : ログイン機能をsanctumの公式通りに実装をする。
+        // https://readouble.com/laravel/8.x/ja/authentication.html#authenticating-users
+        if (Auth::attempt($credentials)) {
             // emailからユーザー情報を取得する
-            $user = User::where('email',$request->email)->first();
-            return response()->json(['user' => $user], 200);
-
+            $user = User::where('email', $request->email)->first();
+            // ユーザー登録しているかつ、メール認証をしている人のみ
+            // ここリファクタしたい・・・
+            if ($user->hasVerifiedEmail()) {
+                // Note : ログインしたらJWTtokenの書き換えをした方が良い？
+                $user->createToken('token');
+                return response()->json(['user' => $user], 200);
+            } else {
+                return response()->json(['message' => 'メール認証をしてください'], 200);
+            }
+            return response()->json(['message' => 'ログインに失敗しました認証情報をご確認ください。']);
         }
-        return new JsonResponse(['message' => 'ログインに失敗しました。再度お試しください']);
     }
+    // ユーザー情報があって、メール認証されている
+    // ユーザー情報があって、メール認証されていない
+    // 異なるユーザー情報
 
     /**
      * token情報から
@@ -107,15 +119,14 @@ class AuthController extends Controller
     public function session(Request $request)
     {
         $credentials = $request->validate([
-            'token' => ['required'],
+            'email' => ['required', 'email'],
+            'password' => ['required'],
         ]);
 
-        if (Auth::attempt($credentials)) {
-            $user = User::where($request->token)->first();
-            return response()->json(['user' => $user], 200);
-        }
 
-        return response()->json(['user' => null], 401);
+        // Auth::user();
+        $user = User::where($request->token)->first();
+        return response()->json(['user' => $user], 200);
     }
 
     /**
@@ -158,5 +169,15 @@ class AuthController extends Controller
         if ($user->save()) {
             return redirect('http://localhost:8000/complete');
         }
+    }
+
+    /**
+     * create activation token
+     * JWTトークンを作成する
+     * @return string
+     */
+    protected function createToken()
+    {
+        return hash_hmac('sha256', \Str::random(40), config('app.key'));
     }
 }

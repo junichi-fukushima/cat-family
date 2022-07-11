@@ -26,6 +26,7 @@ export type User = {
   building: string;
   catTypeId: number | null;
   emailVerified: number;
+  emailVerifiedAt: string;
   isSignIn: boolean;
 };
 //  Actionの型を定義する
