@@ -45,8 +45,6 @@ class AuthController extends Controller
             return response()->json($validator->messages(), Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
-        $token = $this->createToken();
-
         // 保存
         $user = User::create([
             'user_name' =>  $request->user_name,
@@ -60,20 +58,22 @@ class AuthController extends Controller
             'email' => $request->email,
             'profile_img' => $request->profile_img,
             'password' => \Hash::make($request->password),
-            'token' => $token
         ]);
+
+        $token = $user->createToken('token-name');
 
         // send email
         event(new Registered($user));
 
         // メール認証をするにはログイン情報を取得しなければならないので自動でログイン状態にする
+        // フロント上ではログイン状態は別途維持する必要あり
         Auth::guard('api')->login($user);
 
         // success response
         // jsonでユーザー情報とtoken
         // メール認証とユーザー認証は違う
         // ユーザー認証用のtokenカラムを作る
-        return $this->responseSuccess('Emailが送信されました。');
+        return response()->json(['message' => 'メールが送信されました', 'token' => $token->plainTextToken]);
     }
 
     /**
@@ -95,11 +95,10 @@ class AuthController extends Controller
             // emailからユーザー情報を取得する
             $user = User::where('email', $request->email)->first();
             // ユーザー登録しているかつ、メール認証をしている人のみ
-            // ここリファクタしたい・・・
             if ($user->hasVerifiedEmail()) {
-                // Note : ログインしたらJWTtokenの書き換えをした方が良い？
-                $user->createToken('token');
-                return response()->json(['user' => $user], 200);
+                $user->tokens()->where('name', 'token-name')->delete();
+                $token = $user->createToken('token-name');
+                return response()->json(['user' => $user, 'token' => $token->plainTextToken], 200);
             } else {
                 return response()->json(['message' => 'メール認証をしてください'], 200);
             }
@@ -118,15 +117,7 @@ class AuthController extends Controller
 
     public function session(Request $request)
     {
-        $credentials = $request->validate([
-            'email' => ['required', 'email'],
-            'password' => ['required'],
-        ]);
-
-
-        // Auth::user();
-        $user = User::where($request->token)->first();
-        return response()->json(['user' => $user], 200);
+        return $request->user();
     }
 
     /**
@@ -172,12 +163,26 @@ class AuthController extends Controller
     }
 
     /**
-     * create activation token
-     * JWTトークンを作成する
-     * @return string
+     * create
      */
-    protected function createToken()
+    // public function createToken()
+    // {
+    //     $user = Auth::user();
+    //     // 古いトークン削除
+    //     $request->user()->currentAccessToken()->delete();
+
+    //     // 新しいトークン生成
+    //     $token = $user->createToken('token-name')->plainTextToken;
+    //     return $token;
+    // }
+
+    /**
+     * destroy
+     */
+    public function destroyToken()
     {
-        return hash_hmac('sha256', \Str::random(40), config('app.key'));
+        $user = \Auth::user();
+        // トークン削除
+        $user->tokens()->where('name', 'token-name')->delete();
     }
 }
