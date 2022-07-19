@@ -3,9 +3,9 @@ import { memo, VFC } from "react";
 
 // import styled-components
 import styled from "styled-components";
-import { device } from "../../../utility/responsive";
-import { PrimaryButton } from "../../atoms/button/PrimaryButton";
-import { MyCatItem } from "../../molecules/My/MyCatItem";
+import { device } from "../../utility/responsive";
+import { PrimaryButton } from "../atoms/button/PrimaryButton";
+import { MyCatItem } from "../molecules/MyCatItem";
 
 // import components
 

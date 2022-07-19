@@ -10,7 +10,7 @@ import type { NextPage } from "next";
 // import components && styled-components
 import styled from "styled-components";
 import { color } from "../../src/utility/colors";
-import { MyPageTemplate } from "../../src/components/template/pages/My";
+import { MyPageTemplate } from "../../src/components/template/My";
 import Image from "next/image";
 import { device } from "../../src/utility/responsive";
 

@@ -20,7 +20,7 @@ import { InputCheckBox } from "../../src/components/atoms/input/InputCheckBox";
 import { SubmitButton } from "../../src/components/atoms/input/SubmitButton";
 import { InputFileField } from "../../src/components/atoms/input/InputFileField";
 import { device } from "../../src/utility/responsive";
-import { CatPageTemplate } from "../../src/components/template/pages/Cat/Post";
+import { CatPageTemplate } from "../../src/components/template/Post";
 import { State } from "../../src/state/store/type";
 import {
   getCatAge,

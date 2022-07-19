@@ -1,7 +1,7 @@
 // import React && Redux
 import React, { memo, useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { CatSearchArea } from "../src/components/organisms/Index/CatSearchArea";
+import { CatSearchArea } from "../src/components/organisms/CatSearchArea";
 import {
   fetchCatAge,
   fetchCatLabel,
@@ -18,9 +18,9 @@ import type { NextPage } from "next";
 
 // import components
 import { H2Text } from "../src/components/atoms/text/H2Text";
-import { HeaderLayout } from "../src/components/template/layout/HeaderLayout";
+import { HeaderLayout } from "../src/components/template/HeaderLayout";
 import { device } from "../src/utility/responsive";
-import { Container } from "../src/components/template/layout/Container";
+import { Container } from "../src/components/template/Container";
 
 // import styled-components &&  Material UI
 import styled from "styled-components";
@@ -35,11 +35,10 @@ import Link from "next/link";
 import { useWindowResize } from "../src/hooks/useWindowResize";
 import { getLoadingStatus } from "../src/state/ducks/loading/selectors";
 import { LoadingIcon } from "../src/components/atoms/Icon/Loading";
-import { CatItems } from "../src/components/molecules/index/CatItems";
+import { CatItems } from "../src/components/molecules/CatItems";
 import { getCurrentUser } from "../src/hooks/api/auth";
 import { getUser } from "../src/state/ducks/user/selectors";
 import { useSignIn } from "../src/state/ducks/user/operation";
-import { getCatSearchCondition } from "../src/state/ducks/cat_search/selectors";
 
 const useStyles = makeStyles({
   list: {
@@ -110,7 +109,6 @@ const Home: NextPage = memo(() => {
   const cats = getCats(selector);
   // user情報のチェック
   // const user = getUser(selector);
-  const searchcondition = getCatSearchCondition(selector);
   const loading = getLoadingStatus(selector);
 
   const dispatch = useDispatch();
@@ -138,10 +136,7 @@ const Home: NextPage = memo(() => {
     dispatch(fetchCatType());
     handleGetCurrentUser();
   }, []);
-  // searchcondition(検索項目の選択)が更新されたら表示する猫情報を更新する
-  useEffect(() => {
-    // dispatch(searchCats(searchcondition));
-  }, [searchcondition]);
+
   return (
     <>
       <Head>

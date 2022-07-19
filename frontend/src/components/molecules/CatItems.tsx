@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { memo, VFC } from "react";
-import { device } from "../../../utility/responsive";
+import { device } from "../../utility/responsive";
 import Image from "next/image";
 
 type Props = {

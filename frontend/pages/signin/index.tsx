@@ -19,8 +19,8 @@ import { H2Text } from "../../src/components/atoms/text/H2Text";
 import { H3Text } from "../../src/components/atoms/text/H3Text";
 import { InputText } from "../../src/components/atoms/input/InputText";
 import { SubmitButton } from "../../src/components/atoms/input/SubmitButton";
-import { AuthTemplate } from "../../src/components/template/pages/Auth";
-import { FormWrapper } from "../../src/components/organisms/Form/FormWrapper";
+import { AuthTemplate } from "../../src/components/template/Auth";
+import { FormWrapper } from "../../src/components/organisms/FormWrapper";
 import { signIn, useSignIn } from "../../src/state/ducks/user/operation";
 
 import { color } from "../../src/utility/colors";
