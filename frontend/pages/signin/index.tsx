@@ -19,13 +19,11 @@ import { H2Text } from "../../src/components/atoms/text/H2Text";
 import { H3Text } from "../../src/components/atoms/text/H3Text";
 import { InputText } from "../../src/components/atoms/input/InputText";
 import { SubmitButton } from "../../src/components/atoms/input/SubmitButton";
-import { AuthTemplate } from "../../src/components/template/pages/Auth";
-import { FormWrapper } from "../../src/components/organisms/Form/FormWrapper";
+import { AuthTemplate } from "../../src/components/template/Auth";
+import { FormWrapper } from "../../src/components/organisms/FormWrapper";
 import { signIn, useSignIn } from "../../src/state/ducks/user/operation";
 
-
 import { color } from "../../src/utility/colors";
-
 
 // ログインの際に使用する値
 export interface FormValues {
@@ -38,31 +36,33 @@ const SignIn: NextPage = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormValues>(
-    {
-      defaultValues: {
-        email: "fukushima146749@gmail.com",
-        password: "TESTMAN55",
-      },
-    }
-  );
+  } = useForm<FormValues>({
+    defaultValues: {
+      email: "fukushima146749@gmail.com",
+      password: "TESTMAN55",
+    },
+  });
 
   // ログインに失敗した時はエラー文を表示
   const [alertMessageOpen, setAlertMessageOpen] = useState<boolean>(false);
 
   const router = useRouter();
   const dispatch = useDispatch();
-  const onSubmit: SubmitHandler<FormValues> = async (data :FormValues) => {
+  const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
+    const res = await signIn(data);
     try {
-      const res = await signIn(data);
       // ログイン画面のエラー表示をOFFに
       setAlertMessageOpen(false);
       // localstorageに保存
-      window.localStorage.setItem('token',res.data.user.token);
+      window.localStorage.setItem("token", res.data.user.token);
       // storeにデータを格納する
       dispatch(useSignIn(res.data.user));
       router.push("/");
     } catch (err) {
+      if(res.data.message === "メール認証をしてください"){
+        // リダイレクトさせる際は、アラート表示する前にリダイレクトしたいのでawaitさせる
+        await router.push("/signup/temporary");
+      }
       setAlertMessageOpen(true);
     }
   };

@@ -8,7 +8,7 @@ import Head from "next/head";
 import type { NextPage } from "next";
 
 // import components && styled-components
-import { MyPageTemplate } from "../../src/components/template/pages/My";
+import { MyPageTemplate } from "../../src/components/template/My";
 
 const MyPageMessage: NextPage = () => {
   return (

@@ -3,10 +3,10 @@ import { memo, ReactNode, VFC } from "react";
 
 // import styled-components
 import styled from "styled-components";
-import { HeaderLayout } from "../layout/HeaderLayout";
-import { Container } from "../layout/Container";
-import { device } from "../../../utility/responsive";
-import { color } from "../../../utility/colors";
+import { HeaderLayout } from "./HeaderLayout";
+import { Container } from "./Container";
+import { device } from "../../utility/responsive";
+import { color } from "../../utility/colors";
 
 type Props = {
   children: ReactNode;

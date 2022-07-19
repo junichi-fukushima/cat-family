@@ -9,7 +9,7 @@ import styled from "styled-components";
 
 // import components
 import { AuthButton } from "../../src/components/atoms/button/AuthButton";
-import { AuthTemplate } from "../../src/components/template/pages/Auth";
+import { AuthTemplate } from "../../src/components/template/Auth";
 import { H2Text } from "../../src/components/atoms/text/H2Text";
 import { H3Text } from "../../src/components/atoms/text/H3Text";
 

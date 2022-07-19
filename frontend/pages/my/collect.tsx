@@ -8,8 +8,8 @@ import Head from "next/head";
 import type { NextPage } from "next";
 
 // import components && styled-components
-import { MyPageTemplate } from "../../src/components/template/pages/My";
-import { CatCollectList } from "../../src/components/organisms/My/CatCollectList";
+import { MyPageTemplate } from "../../src/components/template/My";
+import { CatCollectList } from "../../src/components/organisms/CatCollectList";
 
 const MyPageCollect: NextPage = () => {
   return (

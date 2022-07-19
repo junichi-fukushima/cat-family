@@ -11,9 +11,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Auth;
 use \Symfony\Component\HttpFoundation\Response;
+use Exception;
 // メール認証
-use App\Mail\EmailVerification;
 use Illuminate\Auth\Events\Registered;
+
 
 class AuthController extends Controller
 {
@@ -23,7 +24,7 @@ class AuthController extends Controller
      * @return void
      */
 
-    public function register(Request $request): string
+    public function register(Request $request)
     {
 
         // バリデーション
@@ -59,12 +60,20 @@ class AuthController extends Controller
             'password' => \Hash::make($request->password),
         ]);
 
+        $token = $user->createToken('token-name');
+
         // send email
-        // $this->sendVerificationMail($user);
         event(new Registered($user));
 
+        // メール認証をするにはログイン情報を取得しなければならないので自動でログイン状態にする
+        // フロント上ではログイン状態は別途維持する必要あり
+        Auth::guard('api')->login($user);
+
         // success response
-        return $this->responseSuccess('Emailが送信されました。');
+        // jsonでユーザー情報とtoken
+        // メール認証とユーザー認証は違う
+        // ユーザー認証用のtokenカラムを作る
+        return response()->json(['message' => 'メールが送信されました', 'token' => $token->plainTextToken]);
     }
 
     /**
@@ -80,14 +89,25 @@ class AuthController extends Controller
             'password' => ['required'],
         ]);
 
+        // TODO1 : ログイン機能をsanctumの公式通りに実装をする。
+        // https://readouble.com/laravel/8.x/ja/authentication.html#authenticating-users
         if (Auth::attempt($credentials)) {
-            $user = User::whereEmail($request->email)->first(); //トークンの作成と取得
-            $user->update(['token' => $this->createToken()]);
-            return response()->json(['user' => $user],200);
+            // emailからユーザー情報を取得する
+            $user = User::where('email', $request->email)->first();
+            // ユーザー登録しているかつ、メール認証をしている人のみ
+            if ($user->hasVerifiedEmail()) {
+                $user->tokens()->where('name', 'token-name')->delete();
+                $token = $user->createToken('token-name');
+                return response()->json(['user' => $user, 'token' => $token->plainTextToken], 200);
+            } else {
+                return response()->json(['message' => 'メール認証をしてください'], 200);
+            }
+            return response()->json(['message' => 'ログインに失敗しました認証情報をご確認ください。']);
         }
-
-        return response()->json(['token' => null], 401);
     }
+    // ユーザー情報があって、メール認証されている
+    // ユーザー情報があって、メール認証されていない
+    // 異なるユーザー情報
 
     /**
      * token情報から
@@ -97,16 +117,7 @@ class AuthController extends Controller
 
     public function session(Request $request)
     {
-        $credentials = $request->validate([
-            'token' => ['required'],
-        ]);
-
-        if (Auth::attempt($credentials)) {
-            $user = User::where($request->token)->first();
-            return response()->json(['user' => $user],200);
-        }
-
-        return response()->json(['user' => null], 401);
+        return $request->user();
     }
 
     /**
@@ -149,5 +160,29 @@ class AuthController extends Controller
         if ($user->save()) {
             return redirect('http://localhost:8000/complete');
         }
+    }
+
+    /**
+     * create
+     */
+    // public function createToken()
+    // {
+    //     $user = Auth::user();
+    //     // 古いトークン削除
+    //     $request->user()->currentAccessToken()->delete();
+
+    //     // 新しいトークン生成
+    //     $token = $user->createToken('token-name')->plainTextToken;
+    //     return $token;
+    // }
+
+    /**
+     * destroy
+     */
+    public function destroyToken()
+    {
+        $user = \Auth::user();
+        // トークン削除
+        $user->tokens()->where('name', 'token-name')->delete();
     }
 }

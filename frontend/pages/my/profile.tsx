@@ -18,7 +18,7 @@ import { InputSelect } from "../../src/components/atoms/input/InputSelect";
 import { InputTextField } from "../../src/components/atoms/input/inputTextField";
 import { SubmitButton } from "../../src/components/atoms/input/SubmitButton";
 import { InputFileField } from "../../src/components/atoms/input/InputFileField";
-import { MyPageTemplate } from "../../src/components/template/pages/My";
+import { MyPageTemplate } from "../../src/components/template/My";
 import { device } from "../../src/utility/responsive";
 
 // プロフィール更新の際に使用

@@ -5,6 +5,8 @@ namespace App\Models;
 
 enum Type: Int
 {
+    // DBありきで考えるべき
+    // - Note: 不要な状態はここで設定すべきではないので削除
     case INITIALVALUE = 1;
     case WHITE = 2;
     case BLACK = 3;

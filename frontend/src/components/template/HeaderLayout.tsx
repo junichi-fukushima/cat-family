@@ -5,22 +5,22 @@ import { memo, useCallback, useState, VFC } from "react";
 import Link from "next/link";
 
 // import components
-import { PrimaryButton } from "../../atoms/button/PrimaryButton";
-import { HeaderNavigation } from "../../molecules/HeaderNavigation";
-import { Avatar } from "../../atoms/Icon/Avatar";
+import { PrimaryButton } from "../atoms/button/PrimaryButton";
+import { HeaderNavigation } from "../molecules/HeaderNavigation";
+import { Avatar } from "../atoms/Icon/Avatar";
 
 // import hooks
-import { useWindowResize } from "../../../hooks/useWindowResize";
+import { useWindowResize } from "../../hooks/useWindowResize";
 
 // import styled-components
-import { device } from "../../../utility/responsive";
+import { device } from "../../utility/responsive";
 import styled from "styled-components";
-import { color } from "../../../utility/colors";
+import { color } from "../../utility/colors";
 import { useSelector } from "react-redux";
-import { getUser } from "../../../state/ducks/user/selectors";
-import { State } from "../../../state/store/type";
+import { getUser } from "../../state/ducks/user/selectors";
+import { State } from "../../state/store/type";
 import { useRouter } from "next/router";
-import { signOut } from "../../../hooks/api/auth";
+import { signOut } from "../../hooks/api/auth";
 
 export const HeaderLayout: VFC = memo(() => {
   // SP用のnav表示切り替え

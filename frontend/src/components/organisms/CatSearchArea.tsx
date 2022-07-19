@@ -5,25 +5,27 @@ import {
   getCatLabel,
   getCatSex,
   getCatType,
-} from "../../../state/ducks/labels/selectors";
+} from "../../state/ducks/labels/selectors";
 import { useDispatch, useSelector } from "react-redux";
-import { State } from "../../../state/store/type";
-import { updateCatLabel } from "../../../state/ducks/labels/operation";
+import { State } from "../../state/store/type";
+import { updateCatLabel } from "../../state/ducks/labels/operation";
 
 // import styled-components
 import styled from "styled-components";
 
 // import components
-import { SelectCatSearch } from "../../atoms/input/SelectSearch";
-import { CheckBoxCatSearch } from "../../atoms/input/CheckBoxSearch";
+import { SelectCatSearch } from "../atoms/input/SelectSearch";
+import { CheckBoxCatSearch } from "../atoms/input/CheckBoxSearch";
 import {
   setSearchAgeCondition,
   setSearchSexCondition,
   setSearchTypeCondition,
   setSearchPrefectureCondition,
-  setSearchLabelCondition
-} from "../../../state/ducks/cat_search/operation";
-import { prefecture } from "../../../data/prefecture";
+  setSearchLabelCondition,
+} from "../../state/ducks/cat_search/operation";
+import { prefecture } from "../../data/prefecture";
+import { searchCats } from "../../state/ducks/cats/operation";
+import { getCatSearchCondition } from "../../state/ducks/cat_search/selectors";
 
 export const CatSearchArea: VFC = memo(() => {
   // selectorの呼び出し(ラベルAPIの呼び出し)
@@ -37,7 +39,7 @@ export const CatSearchArea: VFC = memo(() => {
   const dispatch = useDispatch();
   const handleChecked = (id: number) => {
     dispatch(updateCatLabel(id));
-    dispatch(setSearchLabelCondition(catLabels))
+    dispatch(setSearchLabelCondition(catLabels));
   };
   const handleSelectAge = (value: number) => {
     dispatch(setSearchAgeCondition(value));
@@ -51,12 +53,21 @@ export const CatSearchArea: VFC = memo(() => {
   const handleSelectPrefecture = (value: number) => {
     dispatch(setSearchPrefectureCondition(value));
   };
+  // searchcondition(検索項目の選択)が更新されたら表示する猫情報を更新する
+  const searchcondition = getCatSearchCondition(selector);
 
+  // useEffect(() => {
+  //   console.log("aaa")
+  //   // dispatch(searchCats(searchcondition));
+  // }, [searchcondition]);
   return (
     <>
       <Form>
         <SelectWrap>
-          <SelectCatSearch options={prefecture} onChange={handleSelectPrefecture}/>
+          <SelectCatSearch
+            options={prefecture}
+            onChange={handleSelectPrefecture}
+          />
           <SelectCatSearch options={ages} onChange={handleSelectAge} />
           <SelectCatSearch options={types} onChange={handleSelectType} />
           <SelectCatSearch options={sexs} onChange={handleSelectSex} />

@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { memo, VFC } from "react";
 import styled from "styled-components";
-import { device } from "../../../utility/responsive";
+import { device } from "../../utility/responsive";
 
 export const MyCatItem: VFC = memo(() => {
   return (

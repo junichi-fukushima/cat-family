@@ -8,8 +8,8 @@ import Head from "next/head";
 import type { NextPage } from "next";
 
 // import components && styled-components
-import { MyPageTemplate } from "../../src/components/template/pages/My";
-import { MyCatList } from "../../src/components/organisms/My/MyCatList";
+import { MyPageTemplate } from "../../src/components/template/My";
+import { MyCatList } from "../../src/components/organisms/MyCatList";
 
 const MyPageBookMark: NextPage = () => {
   return (

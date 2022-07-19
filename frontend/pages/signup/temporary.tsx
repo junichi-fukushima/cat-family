@@ -8,7 +8,7 @@ import styled from "styled-components";
 
 // import components
 import { H2Text } from "../../src/components/atoms/text/H2Text";
-import { AuthTemplate } from "../../src/components/template/pages/Auth";
+import { AuthTemplate } from "../../src/components/template/Auth";
 
 const Temporary: NextPage = () => {
   return (

@@ -19,5 +19,5 @@ export const getCurrentUser = () => {
     !window.localStorage.getItem('token')
   )
     return;
-  return client.get(sessionURL, window.localStorage.getItem('token'));
+  return client.post(sessionURL, window.localStorage.getItem('token'));
 };

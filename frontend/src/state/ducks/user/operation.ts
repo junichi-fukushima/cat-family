@@ -12,21 +12,8 @@ import { Action } from "redux";
 import { client } from "../../../hooks/api/client";
 
 // 新規登録
-export const useSignUp = () => {
-  const router = useRouter();
-
-  const signUp = useCallback(
-    (user) => {
-      axios
-        .post(signUpUrl, user)
-        .then(() => {
-          router.push("/signup/temporary");
-        })
-        .catch(() => null);
-    },
-    [router]
-  );
-  return { signUp };
+export const signUp = (user: {}) => {
+  return client.post(signUpUrl, user);
 };
 
 // ログイン
