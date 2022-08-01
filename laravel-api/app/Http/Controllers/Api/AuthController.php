@@ -65,10 +65,6 @@ class AuthController extends Controller
         // send email
         event(new Registered($user));
 
-        // メール認証をするにはログイン情報を取得しなければならないので自動でログイン状態にする
-        // フロント上ではログイン状態は別途維持する必要あり
-        Auth::guard('api')->login($user);
-
         // success response
         // jsonでユーザー情報とtoken
         // メール認証とユーザー認証は違う
@@ -95,6 +91,7 @@ class AuthController extends Controller
             // emailからユーザー情報を取得する
             $user = User::where('email', $request->email)->first();
             // ユーザー登録しているかつ、メール認証をしている人のみ
+            // memo : token認証の場合はログイン状態を確立する必要ない。ステートレスな状態
             if ($user->hasVerifiedEmail()) {
                 $user->tokens()->where('name', 'token-name')->delete();
                 $token = $user->createToken('token-name');
