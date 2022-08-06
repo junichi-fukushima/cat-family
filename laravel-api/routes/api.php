@@ -17,9 +17,6 @@ Route::group(['middleware' => ['api']], function () {
         // ユーザー情報を取得する必要があるのでラップする
         Route::post('/auth/sessions', [AuthController::class, 'session']);
     });
-    // Route::middleware('auth:sanctum')->get('/auth/sessions', function (Request $request) {
-    //     return $request->user();
-    // });
     Route::post('/auth', [AuthController::class, 'register']);
     Route::post('/auth/sign_in', [AuthController::class, 'login']);
     // 猫情報

@@ -36,7 +36,7 @@ import { useWindowResize } from "../src/hooks/useWindowResize";
 import { getLoadingStatus } from "../src/state/ducks/loading/selectors";
 import { LoadingIcon } from "../src/components/atoms/Icon/Loading";
 import { CatItems } from "../src/components/molecules/CatItems";
-import { getCurrentUser } from "../src/hooks/api/auth";
+import { getCurrentUser } from "../src/hooks/auth";
 import { getUser } from "../src/state/ducks/user/selectors";
 import { useSignIn } from "../src/state/ducks/user/operation";
 
@@ -117,12 +117,17 @@ const Home: NextPage = memo(() => {
   const handleGetCurrentUser = async () => {
 
     try{
+      console.log(window.localStorage.getItem('token'));
+
       const res = await getCurrentUser();
-      if(res?.data.is_login === true){
-        dispatch(useSignIn(res?.data.data))
-      } else {
-        console.log("ログインしているユーザーはいないです")
-      }
+      console.log(res.data);
+
+      // dispatch(useSignIn(res?.data.data))
+      // if(res?.data.is_login === true){
+      //   dispatch(useSignIn(res?.data.data))
+      // } else {
+      //   console.log("ログインしているユーザーはいないです")
+      // }
     }catch(err){
       console.log(err);
     }

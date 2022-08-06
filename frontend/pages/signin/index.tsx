@@ -21,9 +21,10 @@ import { InputText } from "../../src/components/atoms/input/InputText";
 import { SubmitButton } from "../../src/components/atoms/input/SubmitButton";
 import { AuthTemplate } from "../../src/components/template/Auth";
 import { FormWrapper } from "../../src/components/organisms/FormWrapper";
-import { signIn, useSignIn } from "../../src/state/ducks/user/operation";
+import { useSignIn } from "../../src/state/ducks/user/operation";
 
 import { color } from "../../src/utility/colors";
+import { signIn } from "../../src/hooks/auth";
 
 // ログインの際に使用する値
 export interface FormValues {
@@ -39,7 +40,7 @@ const SignIn: NextPage = () => {
   } = useForm<FormValues>({
     defaultValues: {
       email: "fukushima146749@gmail.com",
-      password: "TESTMAN55",
+      password: "AAA55555",
     },
   });
 
@@ -50,11 +51,12 @@ const SignIn: NextPage = () => {
   const dispatch = useDispatch();
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
     const res = await signIn(data);
+    console.log(res);
     try {
       // ログイン画面のエラー表示をOFFに
       setAlertMessageOpen(false);
       // localstorageに保存
-      window.localStorage.setItem("token", res.data.user.token);
+      window.localStorage.setItem("token", `Bearer ${res.data.token}`);
       // storeにデータを格納する
       dispatch(useSignIn(res.data.user));
       router.push("/");
