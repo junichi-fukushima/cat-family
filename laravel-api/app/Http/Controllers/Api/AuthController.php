@@ -27,6 +27,7 @@ class AuthController extends Controller
     public function register(Request $request)
     {
 
+        // ドメインモデル
         // バリデーション
         $validator = \Validator::make($request->all(), [
             'user_name' => 'required',
@@ -65,10 +66,6 @@ class AuthController extends Controller
         // send email
         event(new Registered($user));
 
-        // メール認証をするにはログイン情報を取得しなければならないので自動でログイン状態にする
-        // フロント上ではログイン状態は別途維持する必要あり
-        Auth::guard('api')->login($user);
-
         // success response
         // jsonでユーザー情報とtoken
         // メール認証とユーザー認証は違う
@@ -84,30 +81,31 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
+        // Login/Request
         $credentials = $request->validate([
             'email' => ['required', 'email'],
             'password' => ['required'],
         ]);
 
-        // TODO1 : ログイン機能をsanctumの公式通りに実装をする。
-        // https://readouble.com/laravel/8.x/ja/authentication.html#authenticating-users
+        // TODOエラー処理をどうするか考える
+        // ログインユーザーの取得
         if (Auth::attempt($credentials)) {
             // emailからユーザー情報を取得する
-            $user = User::where('email', $request->email)->first();
-            // ユーザー登録しているかつ、メール認証をしている人のみ
-            if ($user->hasVerifiedEmail()) {
-                $user->tokens()->where('name', 'token-name')->delete();
-                $token = $user->createToken('token-name');
-                return response()->json(['user' => $user, 'token' => $token->plainTextToken], 200);
-            } else {
-                return response()->json(['message' => 'メール認証をしてください'], 200);
-            }
-            return response()->json(['message' => 'ログインに失敗しました認証情報をご確認ください。']);
+            $user = $request->user();
+        } else {
+            return response()->json(['message' => 'ログインに失敗しました。認証情報をご確認ください。']);
         }
+
+        // ユーザー登録しているかつ、メール認証をしている人のみ(token認証の場合はログイン状態を確立する必要ない。ステートレスな状態)
+        if ($user->hasVerifiedEmail()) {
+            $user->tokens()->where('name', 'token-name')->delete();
+            $token = $user->createToken('token-name');
+            return response()->json(['user' => $user, 'token' => $token->plainTextToken], 200);
+        } else {
+            return response()->json(['message' => 'メール認証をしてください'], 200);
+        }
+
     }
-    // ユーザー情報があって、メール認証されている
-    // ユーザー情報があって、メール認証されていない
-    // 異なるユーザー情報
 
     /**
      * token情報から

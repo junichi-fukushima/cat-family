@@ -17,7 +17,7 @@ class UsersSeeder extends Seeder
     public function run()
     {
       for ($i = 1; $i < 21; $i++) {
-        $user = User::create([
+        User::create([
             'user_name' => '福嶋淳一' .sprintf("%02d", $i),
             'nickname' => 'ふくちゃん' .sprintf("%02d", $i) ,
             'email' => 'fukushima146749' .sprintf("%02d", $i) . "@gmail.com",
@@ -28,6 +28,7 @@ class UsersSeeder extends Seeder
             'city' => '横浜市栄区',
             'building' => '桂町670-5',
             'password' => bcrypt('testMAN0901'),
+            'email_verified_at' => now()->format('Y-m-d')
         ]);
       }
     }

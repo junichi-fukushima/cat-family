@@ -20,7 +20,7 @@ import { useSelector } from "react-redux";
 import { getUser } from "../../state/ducks/user/selectors";
 import { State } from "../../state/store/type";
 import { useRouter } from "next/router";
-import { signOut } from "../../hooks/api/auth";
+import { signOut } from "../../hooks/auth";
 
 export const HeaderLayout: VFC = memo(() => {
   // SP用のnav表示切り替え
